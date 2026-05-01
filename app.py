@@ -1,13 +1,13 @@
 import streamlit as st
 
 # 1. INITIAL CONFIGURATION
-st.set_page_config(page_title="Avionix Systems", layout="wide")
+st.set_page_config(page_title="Avionix Systems Pro", layout="wide")
 
-# Initialize session state to track which page we are on
+# Initialize session state for page navigation
 if 'page' not in st.session_state:
     st.session_state.page = 'opening'
 
-# 2. STEP 1: OPENING PAGE (Full Wallpaper + Tap Button)
+# 2. STEP 1: OPENING PAGE (Full Wallpaper)
 if st.session_state.page == 'opening':
     st.markdown(
         """
@@ -15,32 +15,26 @@ if st.session_state.page == 'opening':
         .stApp {
             background-image: url("https://images.unsplash.com/photo-1517976487492-5750f3195933");
             background-size: cover;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .enter-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
+            font-family: 'Courier New', monospace;
         }
         </style>
         """, unsafe_allow_html=True
     )
     st.title("🚀 AVIONIX SYSTEMS")
-    st.write("ORBITAL COMMAND & ENGINEERING SUITE")
+    st.subheader("ORBITAL COMMAND & ENGINEERING")
     if st.button("TAP TO ENTER DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# 3. STEP 2: DASHBOARD (Dark Aviation Wallpaper + Module List)
+# 3. STEP 2: DASHBOARD (Dark Aviation + Math Motion)
 elif st.session_state.page == 'dashboard':
     st.markdown(
         """
         <style>
         .stApp {
-            background-image: url("https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?q=80&w=2070");
+            background-image: url("https://images.unsplash.com/photo-1436491865332-7a61a109c0f3");
             background-size: cover;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', monospace;
             color: #FFFFFF;
         }
         .main { background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 15px; }
@@ -49,57 +43,48 @@ elif st.session_state.page == 'dashboard':
     )
     
     st.title("🛡️ ENGINEERING DASHBOARD")
-    
     col1, col2 = st.columns([1, 2])
     
     with col1:
-        st.markdown("### EASA PART-66 MODULES")
-        # List of the first 7 modules as requested
-        modules = ["M1: Mathematics", "M2: Physics", "M3: Electrical", "M4: Electronic", "M5: Digital", "M6: Materials", "M7: Maintenance"]
-        selected_mod = st.radio("SELECT MISSION:", modules)
+        st.markdown("### EASA PART-66 MISSIONS")
+        st.write("Modules 1 - 14 Initialized")
+        st.radio("CURRENT STATUS:", ["All Systems Go", "Awaiting Input"])
         
     with col2:
         st.markdown("### HIGH MATHEMATICAL MOTION")
         st.image("https://images.unsplash.com/photo-1635070041078-e363dbe005cb", caption="Quantum Dynamics Analysis")
-        st.write("System Status: All 14 modules initialized. Currently viewing selected module data.")
-        if st.button("OPEN MODULE PAGE"):
+        if st.button("OPEN ALL 14 MODULES"):
             st.session_state.page = 'module_page'
             st.rerun()
 
-# elif st.session_state.page == 'module_page':
-    st.markdown("<style>.stApp { background: #000000; font-family: 'Courier New', monospace; }</style>", unsafe_allow_html=True)
-    st.title("🛰️ SYSTEM MODULES: 1 - 14")
+# 4. STEP 3: FULL 14 MODULE LIBRARY (Continuous Page)
+elif st.session_state.page == 'module_page':
+    st.markdown("<style>.stApp { background: #000000; font-family: 'Courier New', monospace; color: white; }</style>", unsafe_allow_html=True)
+    st.title("🛰️ EASA PART-66: COMPLETE MODULE LIBRARY")
     
-    # First 7 Modules (Previously added)
-    st.header("1. Mathematics")
-    st.write("Algebra, Geometry, and A/L prep formulas.")
+    # Continuous scrolling list of 14 modules
+    module_list = [
+        ("M1: Mathematics", "Arithmetic, Algebra, Geometry, and A/L prep."),
+        ("M2: Physics", "Matter, Statics, Dynamics, and Thermodynamics."),
+        ("M3: Electrical Fundamentals", "Electron theory, DC, and AC circuits."),
+        ("M4: Electronic Fundamentals", "Semiconductors and Printed Circuit Boards."),
+        ("M5: Digital Techniques", "Data buses, Fiber optics, and Logic gates."),
+        ("M6: Materials & Hardware", "Aircraft metals, composites, and fasteners."),
+        ("M7: Maintenance Practices", "Tools, safety, and engineering drawings."),
+        ("M8: Basic Aerodynamics", "Airflow, atmosphere, and flight theory."),
+        ("M9: Human Factors", "Social psychology, health, and error management."),
+        ("M10: Aviation Legislation", "EASA regulatory framework and safety rules."),
+        ("M11: Turbine Aeroplane Aerodynamics", "Structures and systems for turbine aircraft."),
+        ("M12: Helicopter Aerodynamics", "Rotary wing theory and flight controls."),
+        ("M13: Aircraft Aerodynamics & Systems", "Advanced avionics and airframes."),
+        ("M14: Propulsion", "Turbine and rocket engine theory.")
+    ]
     
-    # ... (Keep 2 through 7 here) ...
-
-    # Adding the final 7 Modules
-    st.header("8. Basic Aerodynamics")
-    st.write("Atmospheric physics and airflow principles.")
+    for title, desc in module_list:
+        st.header(title)
+        st.write(desc)
+        st.markdown("---")
     
-    st.header("9. Human Factors")
-    st.write("Human performance, social psychology, and safety.")
-    
-    st.header("10. Aviation Legislation")
-    st.write("Regulatory frameworks and EASA rules.")
-    
-    st.header("11. Turbine Aeroplane Aerodynamics")
-    st.write("Structures and systems for high-speed flight.")
-    
-    st.header("12. Helicopter Aerodynamics")
-    st.write("Rotary wing theory and flight controls.")
-    
-    st.header("13. Aircraft Aerodynamics & Systems")
-    st.write("Detailed avionics and airframe structures.")
-    
-    st.header("14. Propulsion")
-    st.write("Turbine and Rocket engine theory (Propulsion).")
-    
-    if st.button("BACK TO DASHBOARD"):
+    if st.button("BACK TO COMMAND CENTER"):
         st.session_state.page = 'dashboard'
-        st.rerun(). 
-
-    
+        st.rerun()
