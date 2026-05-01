@@ -53,15 +53,20 @@ elif st.session_state.page == 'step2':
     st.markdown(
         """
         <style>
+        /* High-quality dark aviation background for the whole page */
         .stApp {
-            background-image: url("https://images.unsplash.com/photo-1534067783941-51c9c23ecefd");
+            background-image: url("https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2070");
             background-size: cover;
-            color: #FFFFFF;
+            background-position: center;
         }
-        .main-box {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 30px;
-            border-radius: 15px;
+        /* Changing Dashboard font to Dark and removing the black box */
+        h1, h2, h3, p, label, .stMarkdown {
+            color: #1A1A1A !important;  /* Dark Charcoal font for clarity */
+            font-weight: 700;
+        }
+        /* Ensuring the radio button text is also dark */
+        .stWidget label {
+            color: #1A1A1A !important;
         }
         </style>
         """, unsafe_allow_html=True
@@ -73,42 +78,22 @@ elif st.session_state.page == 'step2':
     
     with col1:
         st.markdown("### EASA PART-66 MODULES")
-        # List of modules as requested in document
+        # List of the first 7 modules for the dashboard view
         st.write("1. Mathematics")
         st.write("2. Physics")
-        st.write("3. Electrical")
-        st.write("4. Electronics")
-        st.write("5. Digital Tech")
-        st.write("6. Materials")
-        st.write("7. Maintenance")
-        st.write("... and 7 more.")
+        st.write("3. Electrical Fundamentals")
+        st.write("4. Electronic Fundamentals")
+        st.write("5. Digital Techniques")
+        st.write("6. Materials & Hardware")
+        st.write("7. Maintenance Practices")
+        st.write("---")
+        st.write("Modules 8-14 Initialized in Backend")
         
     with col2:
         st.markdown("### HIGH MATHEMATICAL MOTION")
-        # High math/physics image as requested
-        st.image("https://images.unsplash.com/photo-1635070041078-e363dbe005cb", caption="Quantum Motion Analysis")
-        if st.button("PROCEED TO MODULES"):
+        # A suitable aviation/engineering image to replace the old black one
+        st.image("https://images.unsplash.com/photo-1559297434-2d8a134e0428?q=80&w=2070", caption="Aerospace Structural Analysis")
+        
+        if st.button("PROCEED TO ALL 14 MODULES"):
             st.session_state.page = 'step3'
             st.rerun()
-
-# --- STEP 3: ONE PAGE CONTINUOUS MODULES ---
-elif st.session_state.page == 'step3':
-    st.title("🛰️ SYSTEM MODULES: 1 - 14")
-    st.info("Continuous scrolling engineering data enabled.")
-    
-    modules = [
-        "Mathematics (A/L Prep)", "Physics (EASA)", "Electrical Fundamentals", 
-        "Electronic Fundamentals", "Digital Techniques", "Materials & Hardware", 
-        "Maintenance Practices", "Basic Aerodynamics", "Human Factors", 
-        "Aviation Legislation", "Turbine Aeroplane Aerodynamics", 
-        "Helicopter Aerodynamics", "Aircraft Aerodynamics & Systems", "Propulsion"
-    ]
-
-    for index, name in enumerate(modules, start=1):
-        st.header(f"Module {index}: {name}")
-        st.write(f"System facts and engineering logic for {name} initialized.")
-        st.markdown("---")
-    
-    if st.button("BACK TO DASHBOARD"):
-        st.session_state.page = 'step2'
-        st.rerun()
