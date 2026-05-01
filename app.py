@@ -55,7 +55,7 @@ elif st.session_state.page == 'step2':
         <style>
         /* High-quality dark aviation background for the whole page */
         .stApp {
-            background-image: url("https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2070");
+            background-image: url("https://images.unsplash.com/photo-1559103816-9524679930f3?q=80&w=2070");
             background-size: cover;
             background-position: center;
         }
