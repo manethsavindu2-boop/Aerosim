@@ -3,15 +3,12 @@ import streamlit as st
 # INITIAL SETTINGS
 st.set_page_config(page_title="Avionix Systems Pro", layout="wide")
 
-# GLOBAL FONT: Applying "Coding Type" font (Monospace) to everything
+# GLOBAL FONT: Monospace "Coding Type" font
 st.markdown(
     """
     <style>
     * {
         font-family: 'Courier New', Courier, monospace !important;
-    }
-    .stApp {
-        background-color: #000000;
     }
     </style>
     """, unsafe_allow_html=True
@@ -31,12 +28,6 @@ if st.session_state.page == 'step1':
             background-size: cover;
             background-position: center;
         }
-        .center-btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
-        }
         </style>
         """, unsafe_allow_html=True
     )
@@ -48,7 +39,7 @@ if st.session_state.page == 'step1':
         st.session_state.page = 'step2'
         st.rerun()
 
-# --- STEP 2: DASHBOARD ---
+# --- STEP 2: DASHBOARD (Font Changed to Dark) ---
 elif st.session_state.page == 'step2':
     st.markdown(
         """
@@ -56,12 +47,16 @@ elif st.session_state.page == 'step2':
         .stApp {
             background-image: url("https://images.unsplash.com/photo-1534067783941-51c9c23ecefd");
             background-size: cover;
-            color: #FFFFFF;
         }
-        .main-box {
-            background: rgba(0, 0, 0, 0.85);
-            padding: 30px;
-            border-radius: 15px;
+        /* Target the main text to be dark as requested */
+        .main-container, p, h1, h2, h3, .stMarkdown, .stText {
+            color: #1A1A1A !important; 
+            font-weight: bold;
+        }
+        /* Adjusting button visibility on dark-font dashboard */
+        .stButton>button {
+            color: #FFFFFF !important;
+            background-color: #1A1A1A !important;
         }
         </style>
         """, unsafe_allow_html=True
@@ -73,7 +68,7 @@ elif st.session_state.page == 'step2':
     
     with col1:
         st.markdown("### EASA PART-66 MODULES")
-        # List of modules as requested in document
+        # List of modules from document
         st.write("1. Mathematics")
         st.write("2. Physics")
         st.write("3. Electrical")
@@ -93,6 +88,7 @@ elif st.session_state.page == 'step2':
 
 # --- STEP 3: ONE PAGE CONTINUOUS MODULES ---
 elif st.session_state.page == 'step3':
+    st.markdown("<style>.stApp { background: #000000; color: #FFFFFF; }</style>", unsafe_allow_html=True)
     st.title("🛰️ SYSTEM MODULES: 1 - 14")
     st.info("Continuous scrolling engineering data enabled.")
     
