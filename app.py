@@ -1,66 +1,116 @@
 import streamlit as st
-import math
 
-# 1. SETUP & SECURITY (The Foundation)
+# --- SECURITY SETUP ---
 ACCESS_KEY = "AVIONIX-2026-PRO"
 
-st.set_page_config(page_title="Avionix SR-71 Pro", layout="wide")
+# Setup page layout
+st.set_page_config(page_title="Avionix Orbital", page_icon="🚀", layout="wide")
 
-st.sidebar.title("🔐 Secure Access")
-user_input = st.sidebar.text_input("Enter Access Key", type="password")
+# Custom CSS for the SpaceX "Hatch" Login (White Background)
+if 'verified' not in st.session_state:
+    st.session_state['verified'] = False
 
-# 2. CHECK THE KEY
-if user_input == ACCESS_KEY:
-    st.sidebar.success("Engineer Verified")
+if not st.session_state['verified']:
+    st.markdown(
+        """
+        <style>
+        .stApp {{
+            background-color: #FFFFFF;
+        }}
+        .main-container {{
+            text-align: center;
+            padding: 50px;
+        }}
+        input {{
+            border: 2px solid #000000 !important;
+            border-radius: 5px !important;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     
-    # 3. NAVIGATION MENU
-    st.sidebar.title("🛠️ Navigation")
-    app_mode = st.sidebar.selectbox("Choose Module:", ["Dashboard", "Module 14: Propulsion"])
+    st.image("https://www.spacex.com/static/images/share.jpg", width=300) # SpaceX Logo
+    st.title("🚀 AVIONIX SYSTEMS | ORBITAL COMMAND")
+    st.subheader("EASA PART-66 | GRADE 11 ENGINEERING SUITE")
+    st.write("SECURE ACCESS REQUIRED. PLEASE ENTER YOUR DIGITAL HATCH KEY.")
+    
+    user_input = st.text_input("Enter Access Key", type="password", key="login_key")
+    
+    if st.button("OPEN HATCH"):
+        if user_input == ACCESS_KEY:
+            st.session_state['verified'] = True
+            st.rerun()
+        else:
+            st.error("ACCESS DENIED: INCORECT KEY.")
+            
+else:
+    # --- LOGGED IN AREA (SpaceX Dark Theme) ---
+    st.markdown(
+        """
+        <style>
+        .stApp {{
+            background-color: #000000;
+            color: #FFFFFF;
+            font-family: 'Avenir', sans-serif;
+        }}
+        .metric-container {{
+            background-color: #1A1A1A;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333333;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    # NAVIGATION MENU
+    st.sidebar.title("👨‍🚀 Orbital Menu")
+    app_mode = st.sidebar.radio("Mission Control:", ["Dashboard", "Module 1: Mathematics", "Module 14: Propulsion"])
+    
+    if st.sidebar.button("Logout"):
+        st.session_state['verified'] = False
+        st.rerun()
 
-    # --- THE MASTER PAGE (SR-71 DESIGN) ---
     if app_mode == "Dashboard":
-        st.markdown(
-            f"""
-            <style>
-            .stApp {{
-                background-image: url("https://r.jina.ai/i/6ef2482283084334a179374026600989");
-                background-attachment: fixed;
-                background-size: cover;
-            }}
-            .main {{
-                background: rgba(0, 0, 0, 0.7); 
-                color: white;
-                padding: 30px;
-                border-radius: 20px;
-            }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.title("🦅 AVIONIX | SR-71 STRATEGIC COMMAND")
-        st.subheader("Advanced Aerospace Engineering Suite")
+        # --- HEADER SECTION ---
+        st.title("🛡️ MISSION CONTROL DASHBOARD")
         st.markdown("---")
         
+        # --- TOP STATS (Rocket Readiness) ---
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.metric("System Speed", "Mach 3.2+")
+            st.metric(label="Payload Status", value="DEPLOYED", delta="Falcon 9")
         with col2:
-            st.metric("Status", "Operational")
+            st.metric(label="EASA Modules Loaded", value="14 Active")
         with col3:
-            st.metric("Altitude", "85,000 ft")
+            st.metric(label="Network Status", value="STARLINK UP")
 
-        st.info("Welcome, Engineer. Select a module from the sidebar to begin.")
+        st.markdown("### 🛠️ Quick Access Modules")
+        
+        # --- NAVIGATION CARDS ---
+        row1_col1, row1_col2 = st.columns(2)
+        
+        with row1_col1:
+            st.info("#### 🔢 Module 1: Mathematics")
+            st.write("A/L Prep and Arithmetic tools.")
+            if st.button("Open Mathematics"):
+                st.write("Select 'Module 1' from the sidebar.")
 
-    # --- MODULE 14: PROPULSION ---
+        with row1_col2:
+            st.success("#### 🚀 Module 14: Propulsion")
+            st.write("Jet Engine Theory & Thrust Dynamics.")
+            if st.button("Open Propulsion"):
+                st.write("Select 'Module 14' from the sidebar.")
+
+        st.markdown("---")
+        st.write("© 2026 Avionix Systems Engineering. Designed for Grade 11 & EASA Part-66 Students.")
+
+    elif app_mode == "Module 1: Mathematics":
+        st.title("🔢 Module 1: Mathematics")
+        st.write("Mathematical tools will be loaded here.")
+        
     elif app_mode == "Module 14: Propulsion":
-        st.title("🚀 Module 14: Propulsion Systems")
-        st.write("Current Focus: Jet Engine Theory & Thrust")
-        st.image("https://images.unsplash.com/photo-1544725176-7c40e5a71c5e", caption="Turbine Engine Analysis", width=500)
-        # We can add thrust calculators here next!
-
-else:
-    # THIS SHOWS IF THE KEY IS WRONG OR EMPTY
-    st.title("🚀 Avionix Systems")
-    st.error("Access Denied. Enter your security key in the sidebar.")
-    st.write("Contact: manethsavindu2@gmail.com")
+        st.title("🚀 Module 14: Propulsion")
+        st.write("Jet and Rocket engine details will be loaded here.")
