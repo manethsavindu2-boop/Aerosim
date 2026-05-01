@@ -66,33 +66,40 @@ elif st.session_state.page == 'dashboard':
             st.session_state.page = 'module_page'
             st.rerun()
 
-# 4. STEP 3: ONE PAGE MODULE (Continuous for 7 Modules)
-elif st.session_state.page == 'module_page':
+# elif st.session_state.page == 'module_page':
     st.markdown("<style>.stApp { background: #000000; font-family: 'Courier New', monospace; }</style>", unsafe_allow_html=True)
-    st.title("🛰️ SYSTEM MODULES: 1 - 7")
+    st.title("🛰️ SYSTEM MODULES: 1 - 14")
     
-    # Continuous list for the first 7 modules
+    # First 7 Modules (Previously added)
     st.header("1. Mathematics")
     st.write("Algebra, Geometry, and A/L prep formulas.")
     
-    st.header("2. Physics")
-    st.write("Mechanics, Thermodynamics, and Matter.")
+    # ... (Keep 2 through 7 here) ...
+
+    # Adding the final 7 Modules
+    st.header("8. Basic Aerodynamics")
+    st.write("Atmospheric physics and airflow principles.")
     
-    st.header("3. Electrical Fundamentals")
-    st.write("Electron theory and DC circuits.")
+    st.header("9. Human Factors")
+    st.write("Human performance, social psychology, and safety.")
     
-    st.header("4. Electronic Fundamentals")
-    st.write("Semiconductors and logic gates.")
+    st.header("10. Aviation Legislation")
+    st.write("Regulatory frameworks and EASA rules.")
     
-    st.header("5. Digital Techniques")
-    st.write("Data buses and fiber optics.")
+    st.header("11. Turbine Aeroplane Aerodynamics")
+    st.write("Structures and systems for high-speed flight.")
     
-    st.header("6. Materials & Hardware")
-    st.write("Aircraft metals and composite structures.")
+    st.header("12. Helicopter Aerodynamics")
+    st.write("Rotary wing theory and flight controls.")
     
-    st.header("7. Maintenance Practices")
-    st.write("Safety, tools, and calibration.")
+    st.header("13. Aircraft Aerodynamics & Systems")
+    st.write("Detailed avionics and airframe structures.")
+    
+    st.header("14. Propulsion")
+    st.write("Turbine and Rocket engine theory (Propulsion).")
     
     if st.button("BACK TO DASHBOARD"):
         st.session_state.page = 'dashboard'
-        st.rerun()
+        st.rerun(). 
+
+    
