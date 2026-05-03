@@ -69,66 +69,88 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'modules'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE (MODULE 1 & 2 THEORY) ---
+# --- STEP 3: MODULES PAGE ---
 elif st.session_state.page == 'modules':
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    # --- MODULE 1: MATHEMATICS (දැනට පවතින කොටස) ---
+    # --- MODULE 1 (STAYING THE SAME) ---
     if mod == "Module 1":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("📘 MODULE 01: MATHEMATICS")
         t_col1, t_col2 = st.columns(2)
         with t_col1:
-            st.markdown("#### ⚙️ Arithmetic & Algebra")
-            st.write("* **BODMAS:** Brackets, Orders, Division, Multiplication, Addition, Subtraction.\n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$")
+            st.subheader("📚 Theory Facts")
+            st.write("* **BODMAS:** Rules for solving expressions.  \n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$.")
         with t_col2:
-            st.markdown("#### 📐 Geometry")
-            st.write("* **Radius Based Area:** $\\pi r^2$\n* **Pythagoras:** $a^2 + b^2 = c^2$")
+            st.subheader("📐 Geometry")
+            st.write("* **Pythagoras:** $a^2 + b^2 = c^2$.  \n* **Radius:** Area = $\\pi r^2$.")
+        st.write("---")
+        c1, c2 = st.columns(2)
+        with c1:
+            rad = st.number_input("Input Radius ($r$ in cm):", value=5.0)
+            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**")
+        with c2:
+            vs = st.number_input("Swept Volume ($V_s$):", value=500.0)
+            vc = st.number_input("Clearance Volume ($V_c$):", value=50.0)
+            st.success(f"CR: **{(vs + vc)/vc if vc > 0 else 0:.1f}:1**")
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # --- MODULE 2: PHYSICS (නව සිද්ධාන්ත ඇතුළත් කොටස) ---
+    # --- MODULE 2 (ALL NEW PHYSICS THEORY & CALCS) ---
     elif mod == "Module 2":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("📕 MODULE 02: PHYSICS (EASA PART 66)")
+        st.header("📕 MODULE 02: PHYSICS")
         
-        theory_col1, theory_col2 = st.columns(2)
-        
-        with theory_col1:
-            st.subheader("🚀 Statics & Kinetics")
+        # Theory Section
+        st.subheader("📚 Core Physics Theory")
+        pt_col1, pt_col2 = st.columns(2)
+        with pt_col1:
+            st.markdown("#### ⚡ Statics & Dynamics")
             st.write("""
-            * **Newton's 1st Law:** Inertia - A body remains at rest or uniform motion unless acted upon by a force.
-            * **Newton's 2nd Law:** Force equals mass times acceleration ($F = m \\times a$).
+            * **Newton's 1st Law:** Objects stay at rest or in motion unless acted upon by a force.
+            * **Newton's 2nd Law:** Force equals mass times acceleration ($F = ma$).
             * **Newton's 3rd Law:** For every action, there is an equal and opposite reaction.
-            * **Moment (Torque):** Force $\\times$ Perpendicular distance ($M = F \\times d$).
+            * **Stress & Strain:** Stress = Force/Area. Strain = Extension/Length.
             """)
-            
-            st.subheader("🌡️ Thermodynamics")
+        with pt_col2:
+            st.markdown("#### 🌬️ Fluid Dynamics & Thermo")
             st.write("""
-            * **Boyle's Law:** $P_1V_1 = P_2V_2$ (Constant Temperature).
-            * **Charles's Law:** $V_1/T_1 = V_2/T_2$ (Constant Pressure).
-            * **Heat Transfer:** Conduction, Convection, and Radiation.
-            """)
-
-        with theory_col2:
-            st.subheader("💧 Fluid Dynamics & Aero")
-            st.write("""
-            * **Bernoulli's Principle:** As the speed of a moving fluid increases, the pressure within the fluid decreases. (Crucial for **LIFT**).
-            * **Venturi Effect:** Reduction in fluid pressure that results when a fluid flows through a constricted section of a pipe.
-            * **Atmospheric Pressure:** Standard Day = 1013.25 hPa (29.92 "Hg) at 15°C.
-            """)
-            
-            st.subheader("⚙️ Matter & Energy")
-            st.write("""
-            * **Potential Energy:** $m \\times g \\times h$.
-            * **Kinetic Energy:** $\\frac{1}{2} m \\times v^2$.
-            * **Power:** Work done per unit time ($P = W / t$).
+            * **Bernoulli's Principle:** As the velocity of a fluid increases, its pressure decreases (The basis of Lift).
+            * **Boyle's Law:** Volume is inversely proportional to Pressure ($P_1V_1 = P_2V_2$).
+            * **Charles's Law:** Volume is directly proportional to Temperature ($V/T = k$).
+            * **Specific Gravity:** Density of substance / Density of water.
             """)
 
         st.write("---")
-        st.subheader("🛠️ Quick Physics Reference")
-        st.info("Module 2 provides the foundation for Module 8 (Aerodynamics) and Module 11/13 (Systems). Understanding Bernoulli and Newton is key to mastering flight physics.")
+        
+        # Calculations Section
+        st.subheader("⚙️ Physics Simulation Tools")
+        pc_col1, pc_col2 = st.columns(2)
+        
+        with pc_col1:
+            st.markdown("#### 🏗️ Force & Pressure")
+            mass_kg = st.number_input("Mass (kg):", value=10.0)
+            accel_ms = st.number_input("Acceleration (m/s²):", value=9.81)
+            st.success(f"Force (F): **{mass_kg * accel_ms:.2f} Newtons**")
+            
+            p_force = st.number_input("Applied Force (N):", value=100.0)
+            p_area = st.number_input("Surface Area (m²):", value=1.0)
+            st.info(f"Pressure (P): **{p_force / p_area if p_area > 0 else 0:.2f} Pa (N/m²)**")
+
+        with pc_col2:
+            st.markdown("#### 🧪 Gas Law Calculator")
+            p1 = st.number_input("Initial Pressure (P1):", value=1.0)
+            v1 = st.number_input("Initial Volume (V1):", value=10.0)
+            v2 = st.number_input("Final Volume (V2):", value=5.0)
+            p2 = (p1 * v1) / v2 if v2 > 0 else 0
+            st.warning(f"Final Pressure (P2): **{p2:.2f} units**")
+            
+            st.markdown("#### 🌀 Density & Specific Gravity")
+            d_mass = st.number_input("Object Mass (g):", value=100.0)
+            d_vol = st.number_input("Object Volume (cm³):", value=50.0)
+            st.info(f"Density: **{d_mass / d_vol if d_vol > 0 else 0:.2f} g/cm³**")
+
         st.markdown('</div>', unsafe_allow_html=True)
         
     else:
