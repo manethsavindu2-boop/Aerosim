@@ -8,7 +8,7 @@ st.set_page_config(page_title="Avionix Systems v1.0", layout="wide")
 if 'page' not in st.session_state:
     st.session_state.page = 'master'
 
-# පසුබිම් සහ වර්ණ සැකසීමේ ශ්‍රිතය
+# පසුබිම් සහ සුදු වර්ණ අකුරු සැකසීමේ ශ්‍රිතය
 def apply_avionix_design(bg_url, overlay_opacity=0.5):
     st.markdown(f"""
         <style>
@@ -69,156 +69,75 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'modules'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE ---
+# --- STEP 3: MODULES PAGE (ALL CALCULATIONS & THEORY) ---
 elif st.session_state.page == 'modules':
+    # Module 2 wallpaper used as fixed background for modules
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    # --- MODULE 1 (MATHEMATICS) ---
     if mod == "Module 1":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("📘 MODULE 01: MATHEMATICS")
+        
+        # --- THEORY SECTION ---
+        st.subheader("📚 Important Theory Facts")
         t_col1, t_col2 = st.columns(2)
         with t_col1:
-            st.subheader("📚 Theory Facts")
-            st.write("* **BODMAS:** Order of ops.\n* **Indices:** Powers of numbers.\n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$.")
+            st.markdown("#### ⚙️ Arithmetic & Algebra")
+            st.write("""
+            * **BODMAS:** The sequence for solving expressions (Brackets, Orders, Division, Multiplication, Addition, Subtraction).
+            * **Indices & Powers:** Rules for $a^m \\times a^n = a^{m+n}$ and $(a^m)^n = a^{mn}$.
+            * **Compression Ratio:** Fundamental for thermal efficiency; higher ratios require better fuels to prevent 'knocking'.
+            """)
+        
         with t_col2:
-            st.subheader("📐 Geometry")
-            st.write("* **Pythagoras:** $a^2 + b^2 = c^2$.\n* **Radius:** Area = $\pi r^2$.")
+            st.markdown("#### 📐 Geometry & Trigonometry")
+            st.write("""
+            * **Pythagoras Theorem:** $a^2 + b^2 = c^2$. Essential for finding lengths in airframe structures.
+            * **Radius Properties:** The radius is used to calculate Piston Area, Cylinder Volume, and Hydraulic force.
+            * **Trigonometry:** SOH-CAH-TOA rules apply to lift and drag vector analysis.
+            """)
+
         st.write("---")
+        
+        # --- CALCULATIONS SECTION ---
+        st.subheader("⚙️ Essential Aerospace Calculations")
+        
+        # Row 1: Compression Ratio and Unit Conversion
         c1, c2 = st.columns(2)
         with c1:
-            vs = st.number_input("Swept Volume:", value=500.0)
-            vc = st.number_input("Clearance Volume:", value=50.0)
-            st.info(f"CR: **{(vs + vc) / vc if vc > 0 else 0:.1f}:1**")
+            st.markdown("#### 🏎️ Engine Compression Ratio")
+            vs = st.number_input("Swept Volume ($V_s$ in cc):", value=500.0)
+            vc = st.number_input("Clearance Volume ($V_c$ in cc):", value=50.0)
+            st.info(f"Compression Ratio: **{(vs + vc) / vc if vc > 0 else 0:.1f} : 1**")
         with c2:
-            rad = st.number_input("Radius (cm):", value=5.0)
-            st.info(f"Area: **{3.14 * rad**2:.2f} cm²**")
-        st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("#### 📏 Imperial to Metric Converter")
+            val = st.number_input("Value:", value=1.0)
+            unit = st.selectbox("Convert:", ["Inches to mm", "Gallons to Liters", "Feet to Meters"])
+            if "Inches" in unit: res = val * 25.4
+            elif "Gallons" in unit: res = val * 3.785
+            else: res = val * 0.3048
+            st.success(f"Converted Value: **{res:.2f}**")
 
-    # --- MODULE 2 (PHYSICS) ---
-    elif mod == "Module 2":
-        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("📕 MODULE 02: PHYSICS")
-        pt_col1, pt_col2 = st.columns(2)
-        with pt_col1:
-            st.subheader("🏃 Dynamics")
-            st.write("* **Newton's Laws:** 1st, 2nd ($F=ma$), and 3rd.\n* **Work:** Force $\\times$ Distance.")
-        with pt_col2:
-            st.subheader("💨 Fluid & Heat")
-            st.write("* **Bernoulli:** Lift Principle.\n* **Gas Laws:** Boyle's ($P_1V_1=P_2V_2$).")
+        # Row 2: Radius-based Geometry and Pythagoras
         st.write("---")
-        pc1, pc2 = st.columns(2)
-        with pc1:
-            mass = st.number_input("Mass (kg):", value=10.0)
-            acc = st.number_input("Acc (m/s²):", value=9.8)
-            st.success(f"Force: **{mass*acc:.2f} N**")
-        with pc2:
-            f_p = st.number_input("Force (N):", value=100.0)
-            a_p = st.number_input("Area (m²):", value=2.0)
-            st.warning(f"Pressure: **{f_p/a_p if a_p > 0 else 0:.2f} Pa**")
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) ---
-    elif mod == "Module 3":
-        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("⚡ MODULE 03: ELECTRICAL FUNDAMENTALS")
-        
-        # Electrical Theory
-        st.subheader("📚 Key Electrical Theory")
-        et_col1, et_col2 = st.columns(2)
-        with et_col1:
-            st.markdown("#### ⚡ DC Circuits & Ohm's Law")
-            st.write("""
-            * **Ohm's Law:** Voltage ($V$) equals Current ($I$) times Resistance ($R$). ($V = I \\times R$)
-            * **Kirchhoff’s Laws:** Current entering a junction equals current leaving (KCL).
-            * **Series Circuit:** Total Resistance $R_t = R_1 + R_2 + R_3$.
-            * **Parallel Circuit:** $1/R_t = 1/R_1 + 1/R_2 + 1/R_3$.
-            """)
-        with et_col2:
-            st.markdown("#### 🔋 Power & Capacitance")
-            st.write("""
-            * **Electrical Power:** Measured in Watts ($W$). $P = V \\times I$ or $P = I^2 \\times R$.
-            * **Capacitance:** Ability to store charge ($Q = C \\times V$).
-            * **Magnetism:** Relationship between electricity and magnetic fields (Inductance).
-            """)
-
-        st.write("---")
-        st.subheader("⚙️ Essential Electrical Calculations")
-        ec1, ec2 = st.columns(2)
-        
-        with ec1:
-            st.markdown("#### 🛠️ Ohm's Law & Power")
-            v_in = st.number_input("Voltage (V):", value=28.0) # Aircraft standard DC
-            r_in = st.number_input("Resistance (Ω):", value=4.0)
-            current = v_in / r_in if r_in > 0 else 0
-            power = v_in * current
-            st.success(f"Current (I): **{current:.2f} A** | Power (P): **{power:.2f} W**")
-
-        with ec2:
-            st.markdown("#### 🔌 Resistors in Parallel")
-            r1 = st.number_input("R1 (Ω):", value=10.0)
-            r2 = st.number_input("R2 (Ω):", value=10.0)
-            r_total = (r1 * r2) / (r1 + r2) if (r1 + r2) > 0 else 0
-            st.info(f"Total Parallel Resistance: **{r_total:.2f} Ω**")
+        c3, c4 = st.columns(2)
+        with c3:
+            st.markdown("#### ⭕ Circle Properties (Radius Based)")
+            rad = st.number_input("Input Radius ($r$ in cm):", value=5.0)
+            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**  \nCircumference: **{2 * 3.14159 * rad:.2f} cm**")
+        with c4:
+            st.markdown("#### 📐 Pythagoras (Triangle Analysis)")
+            side_a = st.number_input("Base length (a):", value=3.0)
+            side_b = st.number_input("Height length (b):", value=4.0)
+            st.warning(f"Hypotenuse (c): **{np.sqrt(side_a**2 + side_b**2):.2f}**")
 
         st.markdown('</div>', unsafe_allow_html=True)
-    
+        
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3></div>', unsafe_allow_html=True)
     
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
-# --- MODULE 4 (ELECTRONIC FUNDAMENTALS) ---
-    elif mod == "Module 4":
-        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("🔌 MODULE 04: ELECTRONIC FUNDAMENTALS")
-        
-        # Electronic Theory
-        st.subheader("📚 Key Electronic Theory")
-        elt_col1, elt_col2 = st.columns(2)
-        with elt_col1:
-            st.markdown("#### 🧪 Semiconductors & Diodes")
-            st.write("""
-            * **Semiconductors:** P-type and N-type materials created by doping.
-            * **PN Junction:** The boundary between P and N materials forming a Diode.
-            * **Diodes:** Allows current flow in one direction (Forward Bias).
-            * **Rectification:** Converting AC to DC using Half-wave or Full-wave rectifiers.
-            """)
-        with elt_col2:
-            st.markdown("#### 📟 Transistors & Logic Gates")
-            st.write("""
-            * **Transistors:** NPN and PNP types used as switches or amplifiers.
-            * **Gain (β):** The ratio of collector current to base current ($I_c / I_b$).
-            * **Logic Gates:** AND, OR, NOT, NAND, NOR gates used in aircraft digital systems.
-            * **Integrated Circuits (IC):** Complex circuits on a single silicon chip.
-            """)
-
-        st.write("---")
-        st.subheader("⚙️ Essential Electronic Calculations")
-        elc1, elc2 = st.columns(2)
-        
-        with elc1:
-            st.markdown("#### 📈 Transistor Gain (Beta)")
-            i_base = st.number_input("Base Current ($I_b$ in μA):", value=100.0)
-            i_coll = st.number_input("Collector Current ($I_c$ in mA):", value=10.0)
-            # Convert microamps to milliamps for calculation
-            beta = (i_coll) / (i_base / 1000) if i_base > 0 else 0
-            st.success(f"Current Gain (β): **{beta:.2f}**")
-
-        with elc2:
-            st.markdown("#### 🔢 Logic Gate Simulator")
-            gate_type = st.selectbox("Select Logic Gate:", ["AND", "OR", "NAND", "NOR"])
-            in_a = st.toggle("Input A")
-            in_b = st.toggle("Input B")
-            
-            if gate_type == "AND": out = in_a and in_b
-            elif gate_type == "OR": out = in_a or in_b
-            elif gate_type == "NAND": out = not (in_a and in_b)
-            else: out = not (in_a or in_b)
-            
-            st.info(f"Gate Output: **{'HIGH (1)' if out else 'LOW (0)'}**")
-
-        st.markdown('</div>', unsafe_allow_html=True)
