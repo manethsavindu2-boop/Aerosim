@@ -9,7 +9,7 @@ if 'page' not in st.session_state:
     st.session_state.page = 'master'
 
 # පසුබිම් සහ සුදු වර්ණ අකුරු සැකසීමේ ශ්‍රිතය
-def apply_avionix_design(bg_url, overlay_opacity=0.4):
+def apply_avionix_design(bg_url, overlay_opacity=0.5):
     st.markdown(f"""
         <style>
         .stApp {{
@@ -18,7 +18,6 @@ def apply_avionix_design(bg_url, overlay_opacity=0.4):
             background-position: center;
             background-attachment: fixed;
         }}
-        /* සියලුම අකුරු සුදු පැහැයෙන් */
         * {{ 
             font-family: 'Segoe UI', Arial, sans-serif !important; 
             color: white !important; 
@@ -40,30 +39,24 @@ def apply_avionix_design(bg_url, overlay_opacity=0.4):
             text-align: center;
         }}
         .info-panel {{
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 25px;
-            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 20px;
-        }}
-        [data-testid="stSidebar"] * {{
-            color: white !important;
+            margin-bottom: 25px;
         }}
         </style>
     """, unsafe_allow_html=True)
 
-# --- STEP 1: MASTER PAGE (LIGHT VERSION) ---
+# --- STEP 1: MASTER PAGE ---
 if st.session_state.page == 'master':
-    # ISS Wallpaper - High Brightness
     apply_avionix_design("https://images.unsplash.com/photo-1451187580459-43490279c0fa", overlay_opacity=0.2)
     st.title("🛰️ AVIONIX MASTER CORE")
     
     st.markdown("""
     <div class="info-panel">
-        <h1 style="font-size: 45px; color: white;">WELCOME TO AVIONIX SYSTEMS</h1>
-        <p style="font-size: 20px; color: white;">The next generation of aerospace maintenance and technical simulation.</p>
-        <hr style="border: 1px solid white;">
-        <p style="color: white;">Current Status: <b>SYSTEMS ONLINE / LIGHT MODE ACTIVE</b></p>
+        <h1 style="font-size: 45px;">WELCOME TO AVIONIX SYSTEMS</h1>
+        <p style="font-size: 20px;">The next generation of aerospace maintenance and technical simulation.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -71,10 +64,10 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD (SR-71 BLACKBIRD & CORRECTED ICONS) ---
+# --- STEP 2: DASHBOARD (ISS WALLPAPER & MULTILINGUAL DESCRIPTION) ---
 elif st.session_state.page == 'dashboard':
-    # Dashboard Wallpaper: image_5d947e.png (SR-71)
-    apply_avionix_design("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6f9Y98nOn9R1M9K_u9O2H8Y8O-Y6Fm9M2Gg&s", overlay_opacity=0.5)
+    # ISS Wallpaper for Dashboard
+    apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
     with col_t1:
@@ -84,31 +77,29 @@ elif st.session_state.page == 'dashboard':
 
     st.write("---")
 
-    # නිවැරදි කරන ලද 3D Icons
-    st.subheader("🚀 CORE AIRCRAFT COMPONENTS")
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        st.image("https://cdn-icons-png.flaticon.com/512/3211/3211501.png", caption="TURBOFAN ENGINE UNIT", width=200)
-    with c2:
-        st.image("https://cdn-icons-png.flaticon.com/512/723/723961.png", caption="FUSELAGE & AIRFRAME", width=200)
-    with c3:
-        st.image("https://cdn-icons-png.flaticon.com/512/2014/2014521.png", caption="AVIONICS FLIGHT DECK", width=200)
-
-    st.write("---")
-
-    # Part 66 සහ Objectives පිළිබඳ දීර්ඝ විස්තරය
+    # Multilingual Descriptions
     st.markdown("""
     <div class="info-panel">
-        <h3 style="color: #00E5FF;">📘 EASA PART 66 ENGINEERING STANDARDS</h3>
-        <p style="text-align: justify; color: white;">
-            EASA Part 66 යනු ගුවන් යානා නඩත්තු ඉංජිනේරුවෙකු (AME) වීමට අවශ්‍ය ජාත්‍යන්තර ප්‍රමිතියයි. 
-            මෙහිදී ගුවන් යානයක යාන්ත්‍රික පද්ධති, විදුලි පද්ධති සහ නීතිමය රෙගුලාසි පිළිබඳව මොඩියුල 17ක් ඔස්සේ අධ්‍යයනය කෙරේ.
-        </p>
-        <h3 style="color: #00E5FF;">🎯 OUR STRATEGIC OBJECTIVES</h3>
-        <ul style="color: white;">
-            <li><b>Educational Digitization:</b> තාක්ෂණික පාඩම් ඩිජිටල්කරණය කිරීම.</li>
-            <li><b>Safety First:</b> ගුවන් පද්ධතිවල ආරක්ෂාව සහ ක්‍රියාකාරීත්වය විශ්ලේෂණය.</li>
-            <li><b>Future Engineering:</b> ශ්‍රී ලාංකික තරුණ පරපුර ගුවන් යානා ඉංජිනේරු ක්ෂේත්‍රයට යොමු කිරීම.</li>
+        <h2 style="color: #00E5FF;">📘 EASA PART 66 & OBJECTIVES</h2>
+        
+        <p><b>[ENGLISH]</b><br>
+        EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.</p>
+        
+        <p><b>[DEUTSCH - GERMAN]</b><br>
+        EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.</p>
+        
+        <p><b>[ITALIANO - ITALIAN]</b><br>
+        EASA Part 66 è lo standard europeo comune per il personale addetto alla manutenzione degli aeromobili. Il nostro obiettivo è fornire simulazioni tecniche di alto livello per colmare il divario tra teoria ed eccellenza ingegneristica pratica.</p>
+        
+        <p><b>[FRANÇAIS - FRENCH]</b><br>
+        L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.</p>
+        
+        <hr style="border: 1px solid rgba(255,255,255,0.3);">
+        <h3 style="color: #00E5FF;">🎯 CORE MISSIONS</h3>
+        <ul>
+            <li><b>Innovation:</b> Pioneering new ways to learn aerospace modules.</li>
+            <li><b>Precision:</b> Accurate data visualization for flight safety.</li>
+            <li><b>Global Standards:</b> Aligning with international aviation regulations.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
