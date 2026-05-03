@@ -649,6 +649,7 @@ elif st.session_state.page == 'modules':
     elif mod == "Module 14":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("🔥 MODULE 14: PROPULSION (HELICOPTER GAS TURBINE)")
+    
         
         m14_col1, m14_col2 = st.columns(2)
         with m14_col1:
@@ -697,10 +698,8 @@ elif st.session_state.page == 'modules':
             st.info(f"Temperature in Fahrenheit: **{f_temp:.1f} °F**")
             
         st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-        
-        # මෙම බොත්තම මගින් අවසාන පිටුවට රැගෙන යයි
-if st.button("🚀 FINISH MISSION & VIEW DIAGNOSTICS"):
+    st.write("---")
+if st.button("🚀 FINISH MISSION & VIEW DIAGNOSTICS", use_container_width=True):
             st.session_state.page = 'ending'
             st.rerun()
 
@@ -712,66 +711,4 @@ else:
 if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
-    # --- STEP 4: ENDING PAGE ---
-elif st.session_state.page == 'ending':
-    # Dashboard හි භාවිතා කළ wallpaper එකම භාවිතා කිරීම
-    apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.7)
-    
-    st.title("🏁 MISSION COMPLETE: SYSTEM SUMMARY")
-    
-    # 1. Engine Wallpaper සහ සාරාංශය
-    st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-    col_img, col_txt = st.columns([1, 1])
-    with col_img:
-        st.image("https://images.unsplash.com/photo-1544724569-5f546fa662b5", caption="Turbofan Engine Diagnostics", use_container_width=True)
-    with col_txt:
-        st.subheader("🛠️ Engine Health Monitoring")
-        st.write("Current analysis based on real-time sensor data and simulation modules.")
-        st.write("**Overall Status:** <span style='color: #00FF00;'>OPTIMAL</span>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    # 2. Bar Graphs සහ Symptoms/Actions Table
-    st.write("---")
-    st.subheader("📊 Engine Symptom Analysis")
-    
-    chart_data = pd.DataFrame({
-        'Symptoms': ['Vibration', 'Overheat', 'Fuel Leak', 'Pressure Drop', 'Noise'],
-        'Severity Level': [20, 85, 10, 45, 30]
-    })
-    st.bar_chart(chart_data.set_index('Symptoms'))
-
-    # Symptoms Table
-    st.markdown("""
-    | Symptom (ලක්ෂණය) | Probability | Recommended Action (කළ යුතු දේ) |
-    | :--- | :--- | :--- |
-    | **High EGT** | 85% | Reduce Throttle & Check Cooling Flow |
-    | **Low Oil Pressure** | 45% | Check Pump & Filter Integrity |
-    | **Increased Vibration**| 20% | Inspect Compressor Blades (FOD Check) |
-    | **Fluctuating RPM** | 15% | Recalibrate FADEC Sensors |
-    """)
-
-    # 3. භාෂා 6 කින් යුත් විශාල ස්තූති පණිවිඩය
-    st.write("---")
-    st.markdown('<div class="info-panel" style="text-align: center;">', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="large-desc" style="font-size: 24px !important; color: #00FF00 !important; font-weight: bold;">
-        🙏 THANK YOU FOR USING AVIONIX MASTER CORE<br><br>
-        <span style="font-size: 18px; color: white;">
-        <b>[ENGLISH]</b> Thank you for choosing our system for your aerospace excellence.<br>
-        <b>[DEUTSCH]</b> Vielen Dank, dass Sie sich für unser System entschieden haben.<br>
-        <b>[FRANÇAIS]</b> Merci d'avoir choisi notre système pour votre excellence aérospatiale.<br>
-        <b>[РУССКИЙ]</b> Благодарим вас за выбор нашей системы.<br>
-        <b>[日本語]</b> 当システムをご利用いただき、誠にありがとうございました。<br>
-        <b>[中文]</b> 感谢您选择我们的系统。
-        </span>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Creator Credit
-    st.markdown("<h3 style='text-align: center; color: #AAAAAA !important;'>Creator: SAVINDU MANETH</h3>", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    # 4. Back Button
-    if st.button("⬅️ BACK TO DASHBOARD"):
-        st.session_state.page = 'dashboard'
-        st.rerun()
+        
