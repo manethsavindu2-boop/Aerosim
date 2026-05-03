@@ -645,6 +645,58 @@ elif st.session_state.page == 'modules':
             curr_a = st.number_input("Total Current Load (A):", value=15.0)
             st.info(f"System Load: **{volt_a * curr_a:.2f} Watts**")
         st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 14 (PROPULSION) START ---
+    elif mod == "Module 14":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("🔥 MODULE 14: PROPULSION (HELICOPTER GAS TURBINE)")
+        
+        m14_col1, m14_col2 = st.columns(2)
+        with m14_col1:
+            st.markdown("#### ⚙️ Turbine Engine Theory")
+            st.write("""
+            * **Brayton Cycle:** The thermodynamic cycle of a gas turbine (Intake, Compression, Combustion, Exhaust).
+            * **Free Turbine:** Many helicopters use a free power turbine to drive the rotor system.
+            * **Engine Controls:** FADEC (Full Authority Digital Engine Control) systems.
+            """)
+        with m14_col2:
+            st.markdown("#### 🚀 Performance Factors")
+            st.write("""
+            * **SFC:** Specific Fuel Consumption - measure of engine efficiency.
+            * **Thermal Efficiency:** Ratio of work produced to fuel energy input.
+            * **Surge & Stall:** Airflow instability within the compressor stages.
+            """)
+
+        st.write("---")
+        st.subheader("📊 Engine Performance Graph (Brayton Cycle)")
+        
+        # Brayton Cycle Graph Data
+        # Pressure-Volume (P-V) relationship simulation
+        v = np.linspace(1, 10, 100)
+        p = 10 / v  # Simple isothermal representation for visualization
+        
+        chart_data = pd.DataFrame({
+            'Volume (V)': v,
+            'Pressure (P)': p
+        })
+        st.area_chart(chart_data.set_index('Volume (V)'))
+        st.caption("Simplified Pressure-Volume relationship in a Turbine Cycle.")
+
+        st.write("---")
+        st.subheader("⚙️ Propulsion Calculations")
+        m14c1, m14c2 = st.columns(2)
+        with m14c1:
+            st.markdown("#### ⛽ Specific Fuel Consumption (SFC)")
+            fuel_flow = st.number_input("Fuel Flow (kg/hr):", value=150.0)
+            power_out = st.number_input("Shaft Horsepower (SHP):", value=500.0)
+            sfc = fuel_flow / power_out if power_out > 0 else 0
+            st.success(f"SFC: **{sfc:.3f} kg/hr/SHP**")
+        with m14c2:
+            st.markdown("#### 🌡️ Temperature Conversion (EGT/TGT)")
+            c_temp = st.number_input("Exhaust Gas Temp (°C):", value=600.0)
+            f_temp = (c_temp * 9/5) + 32
+            st.info(f"Temperature in Fahrenheit: **{f_temp:.1f} °F**")
+            
+        st.markdown('</div>', unsafe_allow_html=True)
 
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
