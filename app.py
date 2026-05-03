@@ -18,6 +18,7 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
             background-position: center;
             background-attachment: fixed;
         }}
+        /* සියලුම අකුරු සුදු පැහැයෙන් */
         * {{ 
             font-family: 'Segoe UI', Arial, sans-serif !important; 
             color: white !important; 
@@ -64,9 +65,9 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD (ISS WALLPAPER & MULTILINGUAL DESCRIPTION) ---
+# --- STEP 2: DASHBOARD (ISS WALLPAPER & CLEAN TEXT) ---
 elif st.session_state.page == 'dashboard':
-    # ISS Wallpaper for Dashboard
+    # ISS Wallpaper
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
@@ -77,32 +78,30 @@ elif st.session_state.page == 'dashboard':
 
     st.write("---")
 
-    # Multilingual Descriptions
-    st.markdown("""
-    <div class="info-panel">
-        <h2 style="color: #00E5FF;">📘 EASA PART 66 & OBJECTIVES</h2>
-        
-        <p><b>[ENGLISH]</b><br>
-        EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.</p>
-        
-        <p><b>[DEUTSCH - GERMAN]</b><br>
-        EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.</p>
-        
-        <p><b>[ITALIANO - ITALIAN]</b><br>
-        EASA Part 66 è lo standard europeo comune per il personale addetto alla manutenzione degli aeromobili. Il nostro obiettivo è fornire simulazioni tecniche di alto livello per colmare il divario tra teoria ed eccellenza ingegneristica pratica.</p>
-        
-        <p><b>[FRANÇAIS - FRENCH]</b><br>
-        L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.</p>
-        
-        <hr style="border: 1px solid rgba(255,255,255,0.3);">
-        <h3 style="color: #00E5FF;">🎯 CORE MISSIONS</h3>
-        <ul>
-            <li><b>Innovation:</b> Pioneering new ways to learn aerospace modules.</li>
-            <li><b>Precision:</b> Accurate data visualization for flight safety.</li>
-            <li><b>Global Standards:</b> Aligning with international aviation regulations.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    # පිරිසිදු අකුරු දර්ශනය (HTML Tags පෙන්වීම නතර කර ඇත)
+    st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+    
+    st.header("📘 EASA PART 66 & OBJECTIVES")
+    
+    st.subheader("[ENGLISH]")
+    st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.")
+    
+    st.subheader("[DEUTSCH - GERMAN]")
+    st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.")
+    
+    st.subheader("[ITALIANO - ITALIAN]")
+    st.write("EASA Part 66 è lo standard europeo comune per il personale addetto alla manutenzione degli aeromobili. Il nostro obiettivo è fornire simulazioni tecniche di alto livello per colmare il divario tra teoria ed eccellenza ingegneristica pratica.")
+    
+    st.subheader("[FRANÇAIS - FRENCH]")
+    st.write("L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.")
+    
+    st.write("---")
+    st.subheader("🎯 CORE MISSIONS")
+    st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
+    st.write("* **Precision:** Accurate data visualization for flight safety.")
+    st.write("* **Global Standards:** Aligning with international aviation regulations.")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("PROCEED TO MODULES"):
         st.session_state.page = 'modules'
