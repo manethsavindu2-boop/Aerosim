@@ -341,6 +341,78 @@ elif st.session_state.page == 'modules':
             else: out = not (a or b)
             st.info(f"Output: **{'1 (High)' if out else '0 (Low)'}**")
         st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 5 (DIGITAL TECHNIQUES) START ---
+    elif mod == "Module 5":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("🖥️ MODULE 05: DIGITAL TECHNIQUES")
+        
+        dt_col1, dt_col2 = st.columns(2)
+        with dt_col1:
+            st.markdown("#### 🔢 Number Systems")
+            st.write("""
+            * **Binary (Base 2):** Used by computers (0s and 1s).
+            * **Hexadecimal (Base 16):** Used for memory addressing.
+            * **Octal (Base 8):** Occasionally used in older systems.
+            """)
+        with dt_col2:
+            st.markdown("#### ✈️ Aircraft Systems")
+            st.write("""
+            * **EFIS:** Electronic Flight Instrument System (Glass Cockpits).
+            * **BITE:** Built-In Test Equipment for fault detection.
+            * **EMI/HIRF:** Protection against Electromagnetic Interference.
+            """)
+
+        st.write("---")
+        st.subheader("⚙️ Digital Data Tools")
+        dc1, dc2 = st.columns(2)
+        with dc1:
+            st.markdown("#### 🔢 Decimal to Binary Converter")
+            dec_num = st.number_input("Enter Decimal Number:", value=10, step=1)
+            st.success(f"Binary Representation: **{bin(dec_num)[2:]}**")
+        with dc2:
+            st.markdown("#### 📊 Fiber Optics")
+            st.write("Fiber optics use light pulses for data transmission, offering high speed and total immunity to EMI.")
+            st.info("Calculation: Data Rate = Frequency $\\times$ Bit Depth")
+        st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 6 (MATERIALS & HARDWARE) START ---
+    elif mod == "Module 6":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("🛠️ MODULE 06: MATERIALS & HARDWARE")
+        
+        mt_col1, mt_col2 = st.columns(2)
+        with mt_col1:
+            st.markdown("#### 🏗️ Aircraft Materials")
+            st.write("""
+            * **Ferrous:** Steels and iron alloys.
+            * **Non-Ferrous:** Aluminum, Magnesium, Titanium (High strength-to-weight).
+            * **Composites:** Carbon fiber, Glass fiber, Kevlar.
+            """)
+        with mt_col2:
+            st.markdown("#### 🔩 Hardware & Fasteners")
+            st.write("""
+            * **Bolts:** AN, MS, and NAS standards.
+            * **Rivets:** Solid rivets and blind rivets (Pop rivets).
+            * **Corrosion:** Stress corrosion, Galvanic corrosion, and Fretting.
+            """)
+
+        st.write("---")
+        st.subheader("⚙️ Hardware Engineering Tools")
+        mc1, mc2 = st.columns(2)
+        with mc1:
+            st.markdown("#### 🏋️ Stress Analysis")
+            force_m = st.number_input("Applied Load (N):", value=5000.0, key="m6_f")
+            area_m = st.number_input("Cross Section Area (m²):", value=0.02, key="m6_a")
+            stress = force_m / area_m if area_m > 0 else 0
+            st.warning(f"Calculated Stress: **{stress/1e6:.2f} MPa**")
+        with mc2:
+            st.markdown("#### 🌡️ Thermal Expansion")
+            orig_len = st.number_input("Original Length (m):", value=1.0)
+            temp_diff = st.number_input("Temp Change (°C):", value=50.0)
+            # Aluminum coefficient approx 23e-6
+            exp = orig_len * 23e-6 * temp_diff
+            st.info(f"Expansion (Aluminum): **{exp*1000:.3f} mm**")
+        st.markdown('</div>', unsafe_allow_html=True)
+
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
         st.line_chart(np.random.randn(20, 1))
