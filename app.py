@@ -112,6 +112,63 @@ elif st.session_state.page == 'dashboard':
 # --- STEP 3: MODULES PAGE ---
 elif st.session_state.page == 'modules':
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
+    # --- MODULE 1 (MATHEMATICS) START ---
+    if mod == "Module 1":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("📘 MODULE 01: MATHEMATICS")
+        
+        # Theory Section
+        st.subheader("📚 Key Mathematical Theory")
+        t_col1, t_col2 = st.columns(2)
+        
+        with t_col1:
+            st.markdown("#### 🔢 Arithmetic & Algebra")
+            st.write("""
+            * **BODMAS/PEMDAS:** The order of operations: Brackets, Orders, Division/Multiplication, Addition/Subtraction.
+            * **Indices:** Rules for powers. E.g., $a^m \\times a^n = a^{m+n}$ and $(a^m)^n = a^{mn}$.
+            * **Logarithms:** Inverse of exponentiation. $\\log_b(x) = y$ is equivalent to $b^y = x$.
+            """)
+            
+        with t_col2:
+            st.markdown("#### 📐 Geometry & Trigonometry")
+            st.write("""
+            * **Pythagoras Theorem:** In a right-angled triangle, $a^2 + b^2 = c^2$.
+            * **Trigonometric Ratios:** SOH (Sine), CAH (Cosine), TOA (Tangent).
+            * **Circle Geometry:** Circumference = $2\\pi r$, Area = $\\pi r^2$.
+            """)
+
+        st.write("---")
+        
+        # Calculation Section
+        st.subheader("⚙️ Technical Calculations")
+        c_col1, c_col2 = st.columns(2)
+        
+        with c_col1:
+            st.markdown("#### 🏎️ Engine Compression Ratio")
+            vs = st.number_input("Swept Volume ($V_s$):", value=500.0, step=10.0)
+            vc = st.number_input("Clearance Volume ($V_c$):", value=50.0, step=5.0)
+            if vc > 0:
+                cr = (vs + vc) / vc
+                st.success(f"Compression Ratio: **{cr:.2f} : 1**")
+            else:
+                st.error("Clearance Volume must be greater than 0")
+
+        with c_col2:
+            st.markdown("#### 📏 Area & Circumference")
+            radius = st.number_input("Enter Radius (cm):", value=10.0, step=1.0)
+            area = np.pi * (radius ** 2)
+            circum = 2 * np.pi * radius
+            st.info(f"Area: **{area:.2f} cm²**")
+            st.info(f"Circumference: **{circum:.2f} cm**")
+            
+        st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 1 (MATHEMATICS) END ---
+
+    # අතවශ්‍යයි: අනෙකුත් Module සඳහා Default පණිවිඩය මෙසේ වෙනස් කරන්න
+    elif mod != "Module 1":
+        st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
+        st.line_chart(np.random.randn(20, 1))
+        st.markdown('</div>', unsafe_allow_html=True)
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
