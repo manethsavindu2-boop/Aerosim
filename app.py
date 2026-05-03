@@ -697,13 +697,19 @@ elif st.session_state.page == 'modules':
             st.info(f"Temperature in Fahrenheit: **{f_temp:.1f} °F**")
             
         st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+        
+        # මෙම බොත්තම මගින් අවසාන පිටුවට රැගෙන යයි
+if st.button("🚀 FINISH MISSION & VIEW DIAGNOSTICS"):
+            st.session_state.page = 'ending'
+            st.rerun()
 
-    else:
+else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
         st.line_chart(np.random.randn(20, 1))
         st.markdown('</div>', unsafe_allow_html=True)
 
-    if st.button("RETURN TO DASHBOARD"):
+if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
     # --- STEP 4: ENDING PAGE ---
