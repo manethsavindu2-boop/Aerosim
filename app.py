@@ -51,7 +51,6 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
 
 # --- STEP 1: MASTER PAGE ---
 if st.session_state.page == 'master':
-    # Master Page Wallpaper (වෙනස් කර නැත)
     apply_avionix_design("https://images.unsplash.com/photo-1451187580459-43490279c0fa", overlay_opacity=0.2)
     st.title("🛰️ AVIONIX MASTER CORE")
     
@@ -66,9 +65,8 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD ---
+# --- STEP 2: DASHBOARD (WITH MULTI-LANGUAGE DESCRIPTIONS) ---
 elif st.session_state.page == 'dashboard':
-    # Dashboard Wallpaper (වෙනස් කර නැත)
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
@@ -78,14 +76,32 @@ elif st.session_state.page == 'dashboard':
         st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
 
     st.write("---")
+
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+    
     st.header("📘 EASA PART 66 & OBJECTIVES")
     
+    # English
     st.subheader("[ENGLISH]")
     st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.")
     
+    # German
     st.subheader("[DEUTSCH - GERMAN]")
-    st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung...")
+    st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.")
+    
+    # French
+    st.subheader("[FRANÇAIS - FRENCH]")
+    st.write("L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.")
+    
+    # Japanese
+    st.subheader("[日本語 - JAPANESE]")
+    st.write("EASA Part 66は、航空機整備士のための共通ની欧州規格です。私たちの目的は、理論と実技の卓越した技術の架け橋となる、高度な技術シミュレーションを提供することです。")
+    
+    st.write("---")
+    st.subheader("🎯 CORE MISSIONS")
+    st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
+    st.write("* **Precision:** Accurate data visualization for flight safety.")
+    st.write("* **Global Standards:** Aligning with international aviation regulations.")
     
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -97,17 +113,16 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'master'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE (FIXED MODULE 2 WALLPAPER) ---
+# --- STEP 3: MODULES PAGE ---
 elif st.session_state.page == 'modules':
-    # Module 2 හි තිබූ එම Wallpaper එකම මෙහිදී ස්ථාවරව (Fixed) භාවිතා කර ඇත
+    # Module 2 wallpaper as requested
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    st.markdown(f'<div class="info-panel">', unsafe_allow_html=True)
+    st.markdown('<div class="info-panel">', unsafe_allow_html=True)
     st.write(f"### Loading {mod} Data...")
-    st.write("Analysis of aerospace technical data and EASA compliance parameters.")
     st.line_chart(np.random.randn(20, 1))
     st.markdown('</div>', unsafe_allow_html=True)
     
