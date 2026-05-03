@@ -45,11 +45,6 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 25px;
         }}
-        .large-desc {{
-            font-size: 20px !important;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }}
         </style>
     """, unsafe_allow_html=True)
 
@@ -66,82 +61,70 @@ if st.session_state.page == 'master':
 elif st.session_state.page == 'dashboard':
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     col_t1, col_t2 = st.columns([3, 1])
-    with col_t1:
-        st.title("🎛️ MISSION CONTROL DASHBOARD")
-    with col_t2:
-        st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
+    with col_t1: st.title("🎛️ MISSION CONTROL DASHBOARD")
+    with col_t2: st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
     st.write("---")
-    st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-    st.header("📘 EASA PART 66 & GLOBAL OBJECTIVES")
-    st.markdown("""<div class="large-desc"><b>[ENGLISH]</b><br>EASA Part 66 is the common European standard for aircraft maintenance personnel...</div>""", unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-panel"><h2>📘 EASA PART 66 GLOBAL STANDARDS</h2><p>Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.</p></div>', unsafe_allow_html=True)
     if st.button("PROCEED TO MODULES"):
         st.session_state.page = 'modules'
         st.rerun()
-    if st.button("BACK TO MASTER"):
-        st.session_state.page = 'master'
-        st.rerun()
 
-# --- STEP 3: MODULES PAGE (ALL MODULE 1 CALCULATIONS ADDED) ---
+# --- STEP 3: MODULES PAGE (MODULE 1 COMPLETE THEORY & CALCULATIONS) ---
 elif st.session_state.page == 'modules':
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
-    
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
     if mod == "Module 1":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("📘 MODULE 01: MATHEMATICS (EASA PART 66)")
+        st.header("📘 MODULE 01: MATHEMATICS")
         
-        # --- Section 1: Theory ---
-        st.subheader("💡 Core Theory Recap")
-        st.write("Fundamental mathematical principles used in aviation engineering including Binary/Hexadecimal systems, Powers, and Logarithms.")
+        # --- THEORY SECTION ---
+        t_col1, t_col2 = st.columns(2)
+        with t_col1:
+            st.subheader("📝 Arithmetic & Algebra Theory")
+            st.write("""
+            * **Order of Ops (BODMAS):** Bracket, Of, Division, Multiplication, Addition, Subtraction.
+            * **Powers of 10:** Used for Scientific Notation ($3.2 \\times 10^5$).
+            * **Logarithms:** Inverse of indices. If $10^2 = 100$, then $\\log_{10}(100) = 2$.
+            * **Binary System:** Base-2 system (0 and 1) used in digital aircraft computers.
+            """)
         
-        # --- Section 2: Calculations Tools ---
+        with t_col2:
+            st.subheader("📐 Geometry & Trigonometry")
+            st.write("""
+            * **Pythagoras Theorem:** $a^2 + b^2 = c^2$ (Used for structural stress analysis).
+            * **Circle Geometry:** Circumference = $2\\pi r$, Area = $\\pi r^2$.
+            * **Trig Ratios:** $\\sin \\theta = O/H$, $\\cos \\theta = A/H$, $\\tan \\theta = O/A$.
+            * **Volumes:** Cylinder = $\\pi r^2 h$, Sphere = $\\frac{4}{3} \\pi r^3$.
+            """)
+
         st.write("---")
-        st.subheader("⚙️ Essential Aerospace Calculations")
         
+        # --- CALCULATIONS SECTION ---
+        st.subheader("⚙️ Interactive Engineering Tools")
         calc_col1, calc_col2 = st.columns(2)
         
         with calc_col1:
-            # 1. Unit Converter (Imperial to Metric)
-            st.markdown("#### 📏 Unit Conversion")
-            option = st.selectbox("Type", ["Inches to mm", "Feet to Meters", "US Gallons to Liters", "Pounds (lb) to Kilograms (kg)"])
-            val = st.number_input("Value to convert:", value=1.0, key="unit_val")
-            if option == "Inches to mm": res = val * 25.4
-            elif option == "Feet to Meters": res = val * 0.3048
-            elif option == "US Gallons to Liters": res = val * 3.78541
-            else: res = val * 0.453592
-            st.success(f"Result: **{res:.4f}**")
-
-            # 2. Aspect Ratio (Wing Design)
-            st.markdown("#### ✈️ Wing Aspect Ratio")
-            span = st.number_input("Wing Span (m):", value=10.0)
-            area_w = st.number_input("Wing Area (m²):", value=15.0)
-            ar = (span**2) / area_w if area_w > 0 else 0
-            st.info(f"Aspect Ratio: **{ar:.2f}**")
+            st.markdown("#### 📏 Unit Converter")
+            val = st.number_input("Input Value:", value=1.0)
+            unit_op = st.selectbox("Convert From:", ["Inches to mm", "Gallons to Liters", "PSI to Bar"])
+            if unit_op == "Inches to mm": res = val * 25.4
+            elif unit_op == "Gallons to Liters": res = val * 3.785
+            else: res = val * 0.0689
+            st.success(f"Output: **{res:.2f}**")
 
         with calc_col2:
-            # 3. Geometry: Volume of Cylinder (Fuel/Hydraulic Tanks)
-            st.markdown("#### 🛢️ Cylinder Volume")
-            radius = st.number_input("Radius (cm):", value=5.0)
-            height = st.number_input("Height/Length (cm):", value=20.0)
-            vol = 3.14159 * (radius**2) * height
-            st.info(f"Total Volume: **{vol:.2f} cm³**")
-
-            # 4. Compression Ratio (Engine Mathematics)
-            st.markdown("#### 🏎️ Engine Compression Ratio")
-            swept_vol = st.number_input("Swept Volume (V_s):", value=500.0)
-            clear_vol = st.number_input("Clearance Volume (V_c):", value=50.0)
-            cr = (swept_vol + clear_vol) / clear_vol if clear_vol > 0 else 0
-            st.warning(f"Compression Ratio: **{cr:.1f} : 1**")
+            st.markdown("#### 📐 Pythagoras Calculator")
+            side_a = st.number_input("Side A length:", value=3.0)
+            side_b = st.number_input("Side B length:", value=4.0)
+            hypo = np.sqrt(side_a**2 + side_b**2)
+            st.info(f"Hypotenuse (C): **{hypo:.2f}**")
 
         st.markdown('</div>', unsafe_allow_html=True)
         
     else:
-        st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
-        st.line_chart(np.random.randn(20, 1))
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3></div>', unsafe_allow_html=True)
     
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
