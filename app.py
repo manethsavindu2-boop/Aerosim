@@ -300,7 +300,47 @@ elif st.session_state.page == 'modules':
             st.info(f"Stored Charge (Q): **{charge_q:.4f} Coulombs**")
             
         st.markdown('</div>', unsafe_allow_html=True)
-    # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) END ---
+    # --- MODULE 4 (ELECTRONIC FUNDAMENTALS) START ---
+    elif mod == "Module 4":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("🔌 MODULE 04: ELECTRONIC FUNDAMENTALS")
+        
+        et_col1, et_col2 = st.columns(2)
+        with et_col1:
+            st.markdown("#### 🧪 Semiconductors & Diodes")
+            st.write("""
+            * **P-N Junction:** The interface between P-type and N-type materials.
+            * **Diodes:** Allows current flow in one direction; used for rectification (AC to DC).
+            * **Zener Diode:** Used for voltage regulation in aircraft power units.
+            """)
+        with et_col2:
+            st.markdown("#### 📟 Transistors")
+            st.write("""
+            * **NPN & PNP:** The two main types of Bipolar Junction Transistors (BJT).
+            * **Functions:** Used as a switch or as an amplifier.
+            * **Gain (β):** The relationship between base and collector current ($I_c / I_b$).
+            """)
+
+        st.write("---")
+        st.subheader("⚙️ Electronic Calculations")
+        elc1, elc2 = st.columns(2)
+        with elc1:
+            st.markdown("#### 📈 Transistor Current Gain")
+            ib = st.number_input("Base Current ($I_b$ in μA):", value=100.0, step=10.0)
+            ic = st.number_input("Collector Current ($I_c$ in mA):", value=10.0, step=1.0)
+            beta = ic / (ib / 1000) if ib > 0 else 0
+            st.success(f"Current Gain (β): **{beta:.2f}**")
+        with elc2:
+            st.markdown("#### 🔢 Logic Gate Simulator")
+            gate = st.selectbox("Gate Type:", ["AND", "OR", "NAND", "NOR"], key="m4_gate")
+            a = st.checkbox("Input A", key="m4_a")
+            b = st.checkbox("Input B", key="m4_b")
+            if gate == "AND": out = a and b
+            elif gate == "OR": out = a or b
+            elif gate == "NAND": out = not (a and b)
+            else: out = not (a or b)
+            st.info(f"Output: **{'1 (High)' if out else '0 (Low)'}**")
+        st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
         st.line_chart(np.random.randn(20, 1))
