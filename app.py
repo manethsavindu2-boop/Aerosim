@@ -75,84 +75,75 @@ elif st.session_state.page == 'modules':
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    # --- MODULE 1 (STAYING THE SAME) ---
+    # --- MODULE 1 (MATHEMATICS) ---
     if mod == "Module 1":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("📘 MODULE 01: MATHEMATICS")
         t_col1, t_col2 = st.columns(2)
         with t_col1:
-            st.subheader("📚 Theory Facts")
-            st.write("* **BODMAS:** Rules for solving expressions.  \n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$.")
+            st.subheader("📚 Important Theory Facts")
+            st.write("* **BODMAS:** Sequence for solving expressions.\n* **Indices:** $a^m \\times a^n = a^{m+n}$.\n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$.")
         with t_col2:
-            st.subheader("📐 Geometry")
-            st.write("* **Pythagoras:** $a^2 + b^2 = c^2$.  \n* **Radius:** Area = $\\pi r^2$.")
+            st.subheader("📐 Geometry & Trig")
+            st.write("* **Pythagoras:** $a^2 + b^2 = c^2$.\n* **Circle Area:** $\pi r^2$.\n* **Trig:** SOH-CAH-TOA rules.")
+        
         st.write("---")
+        st.subheader("⚙️ Essential Calculations")
         c1, c2 = st.columns(2)
         with c1:
-            rad = st.number_input("Input Radius ($r$ in cm):", value=5.0)
-            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**")
+            vs = st.number_input("Swept Volume (Vs):", value=500.0)
+            vc = st.number_input("Clearance Volume (Vc):", value=50.0)
+            st.info(f"Compression Ratio: **{(vs + vc) / vc if vc > 0 else 0:.1f} : 1**")
         with c2:
-            vs = st.number_input("Swept Volume ($V_s$):", value=500.0)
-            vc = st.number_input("Clearance Volume ($V_c$):", value=50.0)
-            st.success(f"CR: **{(vs + vc)/vc if vc > 0 else 0:.1f}:1**")
+            rad = st.number_input("Input Radius (r in cm):", value=5.0)
+            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**")
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # --- MODULE 2 (ALL NEW PHYSICS THEORY & CALCS) ---
+    # --- MODULE 2 (PHYSICS) ---
     elif mod == "Module 2":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("📕 MODULE 02: PHYSICS")
         
-        # Theory Section
-        st.subheader("📚 Core Physics Theory")
+        # Physics Theory
+        st.subheader("📚 Key Physics Theory")
         pt_col1, pt_col2 = st.columns(2)
         with pt_col1:
-            st.markdown("#### ⚡ Statics & Dynamics")
+            st.markdown("#### 🏃 Kinetics & Statics")
             st.write("""
-            * **Newton's 1st Law:** Objects stay at rest or in motion unless acted upon by a force.
+            * **Newton's 1st Law:** Objects remain at rest or uniform motion unless acted upon by a force.
             * **Newton's 2nd Law:** Force equals mass times acceleration ($F = ma$).
             * **Newton's 3rd Law:** For every action, there is an equal and opposite reaction.
-            * **Stress & Strain:** Stress = Force/Area. Strain = Extension/Length.
             """)
         with pt_col2:
-            st.markdown("#### 🌬️ Fluid Dynamics & Thermo")
+            st.markdown("#### 💨 Fluid Dynamics & Heat")
             st.write("""
-            * **Bernoulli's Principle:** As the velocity of a fluid increases, its pressure decreases (The basis of Lift).
-            * **Boyle's Law:** Volume is inversely proportional to Pressure ($P_1V_1 = P_2V_2$).
-            * **Charles's Law:** Volume is directly proportional to Temperature ($V/T = k$).
-            * **Specific Gravity:** Density of substance / Density of water.
+            * **Bernoulli’s Principle:** Increase in fluid speed occurs simultaneously with a decrease in pressure (Lift generation).
+            * **Boyle’s Law:** $P_1V_1 = P_2V_2$ (Pressure/Volume relationship).
+            * **Charles’s Law:** $V/T = Constant$ (Volume/Temperature relationship).
             """)
 
         st.write("---")
-        
-        # Calculations Section
-        st.subheader("⚙️ Physics Simulation Tools")
-        pc_col1, pc_col2 = st.columns(2)
-        
-        with pc_col1:
-            st.markdown("#### 🏗️ Force & Pressure")
-            mass_kg = st.number_input("Mass (kg):", value=10.0)
-            accel_ms = st.number_input("Acceleration (m/s²):", value=9.81)
-            st.success(f"Force (F): **{mass_kg * accel_ms:.2f} Newtons**")
-            
-            p_force = st.number_input("Applied Force (N):", value=100.0)
-            p_area = st.number_input("Surface Area (m²):", value=1.0)
-            st.info(f"Pressure (P): **{p_force / p_area if p_area > 0 else 0:.2f} Pa (N/m²)**")
+        st.subheader("⚙️ Essential Physics Calculations")
+        pc1, pc2 = st.columns(2)
+        with pc1:
+            st.markdown("#### ⚖️ Force & Work")
+            mass = st.number_input("Mass (kg):", value=10.0)
+            accel = st.number_input("Acceleration (m/s²):", value=9.81)
+            dist = st.number_input("Distance for Work (m):", value=5.0)
+            f_res = mass * accel
+            w_res = f_res * dist
+            st.success(f"Force: **{f_res:.2f} N** | Work: **{w_res:.2f} J**")
 
-        with pc_col2:
-            st.markdown("#### 🧪 Gas Law Calculator")
-            p1 = st.number_input("Initial Pressure (P1):", value=1.0)
-            v1 = st.number_input("Initial Volume (V1):", value=10.0)
-            v2 = st.number_input("Final Volume (V2):", value=5.0)
-            p2 = (p1 * v1) / v2 if v2 > 0 else 0
-            st.warning(f"Final Pressure (P2): **{p2:.2f} units**")
-            
-            st.markdown("#### 🌀 Density & Specific Gravity")
-            d_mass = st.number_input("Object Mass (g):", value=100.0)
-            d_vol = st.number_input("Object Volume (cm³):", value=50.0)
-            st.info(f"Density: **{d_mass / d_vol if d_vol > 0 else 0:.2f} g/cm³**")
+        with pc2:
+            st.markdown("#### 🌊 Pressure & Density")
+            force_p = st.number_input("Applied Force (N):", value=100.0)
+            area_p = st.number_input("Area (m²):", value=2.0)
+            dens_m = st.number_input("Mass for Density (kg):", value=50.0)
+            dens_v = st.number_input("Volume for Density (m³):", value=5.0)
+            st.warning(f"Pressure: **{force_p/area_p if area_p > 0 else 0:.2f} Pa** | Density: **{dens_m/dens_v if dens_v > 0 else 0:.2f} kg/m³**")
 
         st.markdown('</div>', unsafe_allow_html=True)
-        
+    
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3></div>', unsafe_allow_html=True)
     
