@@ -51,6 +51,7 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
 
 # --- STEP 1: MASTER PAGE ---
 if st.session_state.page == 'master':
+    # Original Master Page Wallpaper
     apply_avionix_design("https://images.unsplash.com/photo-1451187580459-43490279c0fa", overlay_opacity=0.2)
     st.title("🛰️ AVIONIX MASTER CORE")
     
@@ -65,8 +66,9 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD (ISS WALLPAPER & CLEAN TEXT) ---
+# --- STEP 2: DASHBOARD ---
 elif st.session_state.page == 'dashboard':
+    # Original Dashboard Wallpaper
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
@@ -76,29 +78,9 @@ elif st.session_state.page == 'dashboard':
         st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
 
     st.write("---")
-
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-    
     st.header("📘 EASA PART 66 & OBJECTIVES")
-    
-    st.subheader("[ENGLISH]")
-    st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.")
-    
-    st.subheader("[DEUTSCH - GERMAN]")
-    st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.")
-    
-    st.subheader("[ITALIANO - ITALIAN]")
-    st.write("EASA Part 66 è lo standard europeo comune per il personale addetto alla manutenzione degli aeromobili. Il nostro obiettivo è fornire simulazioni tecniche di alto livello per colmare il divario tra teoria ed eccellenza ingegneristica pratica.")
-    
-    st.subheader("[FRANÇAIS - FRENCH]")
-    st.write("L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.")
-    
-    st.write("---")
-    st.subheader("🎯 CORE MISSIONS")
-    st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
-    st.write("* **Precision:** Accurate data visualization for flight safety.")
-    st.write("* **Global Standards:** Aligning with international aviation regulations.")
-    
+    st.write("EASA Part 66 standard for aircraft maintenance personnel.")
     st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("PROCEED TO MODULES"):
@@ -109,25 +91,23 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'master'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE (DYNAMIC WALLPAPERS ADDED) ---
+# --- STEP 3: MODULES PAGE (ALL MODULES USE THE SAME ISS WALLPAPER) ---
 elif st.session_state.page == 'modules':
-    # Default aerospace wallpaper for selection page
-    module_wallpapers = {
-        "Module 1": "https://images-assets.nasa.gov/image/iss067e357555/iss067e357555~orig.jpg",
-        "Module 2": "https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg",
-        "Module 3": "https://images-assets.nasa.gov/image/iss065e092171/iss065e092171~orig.jpg",
-        "Module 4": "https://images-assets.nasa.gov/image/iss066e082103/iss066e082103~orig.jpg"
-    }
+    # Module 2 හි තිබූ එම ISS Wallpaper එක මෙහිදී භාවිතා කර ඇත
+    apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     
-    # සිලෙක්ට් කරන මොඩියුලය අනුව Wallpaper එක මාරු කිරීම
     st.title("📂 ENGINEERING MODULES")
+    
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    # මොඩියුලයට ගැලපෙන පින්තූරය තෝරා ගැනීම (නැතිනම් Default පින්තූරයක් භාවිතය)
-    current_bg = module_wallpapers.get(mod, "https://images.unsplash.com/photo-1517976384346-3136801d605d")
-    apply_avionix_design(current_bg, overlay_opacity=0.7)
+    st.markdown(f"""
+    <div class="info-panel">
+        <h2>{mod} - TECHNICAL SIMULATION</h2>
+        <p>Accessing technical documentation and interactive tools for {mod}.</p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    st.write(f"### Loading {mod} Data...")
+    st.write(f"### {mod} Performance Analysis")
     st.line_chart(np.random.randn(20, 1))
     
     if st.button("RETURN TO DASHBOARD"):
