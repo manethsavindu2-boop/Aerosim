@@ -166,7 +166,68 @@ elif st.session_state.page == 'modules':
             
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # වෙනත් Module එකක් තෝරාගෙන ඇති විට
+    # --- MODULE 2 (PHYSICS) START ---
+    elif mod == "Module 2":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("📕 MODULE 02: PHYSICS")
+        
+        # Physics Theory Section
+        st.subheader("📚 Key Physics Theory")
+        p_col1, p_col2 = st.columns(2)
+        
+        with p_col1:
+            st.markdown("#### 🏃 Statics & Kinetics")
+            st.write("""
+            * **Newton's 1st Law:** An object remains at rest or in uniform motion unless acted upon by a force.
+            * **Newton's 2nd Law:** Force equals mass times acceleration ($F = m \\times a$).
+            * **Newton's 3rd Law:** For every action, there is an equal and opposite reaction.
+            * **Work:** Work is done when a force moves an object ($W = F \\times d$).
+            """)
+            
+        with p_col2:
+            st.markdown("#### 💨 Fluid Dynamics & Heat")
+            st.write("""
+            * **Bernoulli's Principle:** An increase in the speed of a fluid occurs simultaneously with a decrease in static pressure (Key to Aircraft Lift).
+            * **Boyle's Law:** $P_1V_1 = P_2V_2$ (At constant temperature).
+            * **Charles's Law:** $V_1/T_1 = V_2/T_2$ (At constant pressure).
+            * **Density:** Mass per unit volume ($\\rho = m / V$).
+            """)
+
+        st.write("---")
+        
+        # Physics Calculation Section
+        st.subheader("⚙️ Essential Physics Calculations")
+        pc_col1, pc_col2 = st.columns(2)
+        
+        with pc_col1:
+            st.markdown("#### ⚖️ Force & Acceleration")
+            p_mass = st.number_input("Object Mass (kg):", value=10.0, step=1.0)
+            p_acc = st.number_input("Acceleration (m/s²):", value=9.81, step=0.1)
+            force_res = p_mass * p_acc
+            st.success(f"Force (F): **{force_res:.2f} Newtons (N)**")
+            
+            st.markdown("#### 📏 Work Done")
+            p_dist = st.number_input("Distance Moved (meters):", value=5.0, step=0.5)
+            work_res = force_res * p_dist
+            st.info(f"Work (W): **{work_res:.2f} Joules (J)**")
+
+        with pc_col2:
+            st.markdown("#### 🌊 Pressure & Density")
+            p_force = st.number_input("Applied Force (N):", value=100.0, step=10.0, key="p_force")
+            p_area = st.number_input("Surface Area (m²):", value=2.0, step=0.1)
+            if p_area > 0:
+                pressure = p_force / p_area
+                st.warning(f"Pressure (P): **{pressure:.2f} Pascals (Pa)**")
+            
+            st.markdown("#### ⛽ Density Calculation")
+            d_mass = st.number_input("Fluid Mass (kg):", value=50.0, step=1.0)
+            d_vol = st.number_input("Fluid Volume (m³):", value=5.0, step=0.5)
+            if d_vol > 0:
+                density = d_mass / d_vol
+                st.info(f"Density (ρ): **{density:.2f} kg/m³**")
+            
+        st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 2 (PHYSICS) END ---
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
         st.line_chart(np.random.randn(20, 1))
