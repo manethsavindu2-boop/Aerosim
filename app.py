@@ -67,7 +67,6 @@ if st.session_state.page == 'master':
 
 # --- STEP 2: DASHBOARD (ISS WALLPAPER & CLEAN TEXT) ---
 elif st.session_state.page == 'dashboard':
-    # ISS Wallpaper
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
@@ -78,7 +77,6 @@ elif st.session_state.page == 'dashboard':
 
     st.write("---")
 
-    # පිරිසිදු අකුරු දර්ශනය (HTML Tags පෙන්වීම නතර කර ඇත)
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
     
     st.header("📘 EASA PART 66 & OBJECTIVES")
@@ -111,12 +109,24 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'master'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE ---
+# --- STEP 3: MODULES PAGE (DYNAMIC WALLPAPERS ADDED) ---
 elif st.session_state.page == 'modules':
-    apply_avionix_design("https://images.unsplash.com/photo-1517976384346-3136801d605d")
-    st.title("📂 ENGINEERING MODULES")
+    # Default aerospace wallpaper for selection page
+    module_wallpapers = {
+        "Module 1": "https://images-assets.nasa.gov/image/iss067e357555/iss067e357555~orig.jpg",
+        "Module 2": "https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg",
+        "Module 3": "https://images-assets.nasa.gov/image/iss065e092171/iss065e092171~orig.jpg",
+        "Module 4": "https://images-assets.nasa.gov/image/iss066e082103/iss066e082103~orig.jpg"
+    }
     
+    # සිලෙක්ට් කරන මොඩියුලය අනුව Wallpaper එක මාරු කිරීම
+    st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
+    
+    # මොඩියුලයට ගැලපෙන පින්තූරය තෝරා ගැනීම (නැතිනම් Default පින්තූරයක් භාවිතය)
+    current_bg = module_wallpapers.get(mod, "https://images.unsplash.com/photo-1517976384346-3136801d605d")
+    apply_avionix_design(current_bg, overlay_opacity=0.7)
+    
     st.write(f"### Loading {mod} Data...")
     st.line_chart(np.random.randn(20, 1))
     
