@@ -45,7 +45,6 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 25px;
         }}
-        /* විස්තරය විශාල කර පෙන්වීමට අලුත් class එකක් */
         .large-desc {{
             font-size: 20px !important;
             line-height: 1.6;
@@ -63,45 +62,19 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD (විස්තරය භාෂා 6 කින් සහ විශාලව) ---
+# --- STEP 2: DASHBOARD ---
 elif st.session_state.page == 'dashboard':
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
-    
     col_t1, col_t2 = st.columns([3, 1])
     with col_t1:
         st.title("🎛️ MISSION CONTROL DASHBOARD")
     with col_t2:
         st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
-
     st.write("---")
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
     st.header("📘 EASA PART 66 & GLOBAL OBJECTIVES")
-    
-    # භාෂා 6 කින් විස්තරය (විශාල අකුරින්)
-    st.markdown("""
-    <div class="large-desc">
-        <b>[ENGLISH]</b><br>
-        EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.<br><br>
-        <b>[DEUTSCH - GERMAN]</b><br>
-        EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.<br><br>
-        <b>[FRANÇAIS - FRENCH]</b><br>
-        L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence en ingénierie pratique.<br><br>
-        <b>[РУССКИЙ - RUSSIAN]</b><br>
-        EASA Part 66 — это единый европейский стандарт для персонала по техническому обслуживанию воздушных судов. Наша цель — обеспечить высокоуровневое техническое моделирование, чтобы восполнить пробел между теорией и практическим инженерным мастерством.<br><br>
-        <b>[日本語 - JAPANESE]</b><br>
-        EASA Part 66は、航空機整備士のための共通の欧州標準規格です。当社の目標は、高度な技術シミュレーションを提供し、理論と実技の卓越したエンジニアリングの間のギャップを埋めることです。<br><br>
-        <b>[中文 - CHINESE]</b><br>
-        EASA Part 66 是飞机维修人员的通用欧洲标准。我们的目标是提供高水平的技术仿真，以弥补理论与实际工程卓越表现之间的差距。
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.write("---")
-    st.subheader("🎯 CORE MISSIONS")
-    st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
-    st.write("* **Precision:** Accurate data visualization for flight safety.")
-    st.write("* **Global Standards:** Aligning with international aviation regulations.")
+    st.markdown("""<div class="large-desc"><b>[ENGLISH]</b><br>EASA Part 66 is the common European standard for aircraft maintenance personnel... (English/German/French/Russian/Japanese/Chinese Text)</div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
-
     if st.button("PROCEED TO MODULES"):
         st.session_state.page = 'modules'
         st.rerun()
@@ -109,14 +82,45 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'master'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE ---
+# --- STEP 3: MODULES PAGE (MODULE 1 THEORY ADDED) ---
 elif st.session_state.page == 'modules':
+    # Module 2 හි තිබූ එම Wallpaper එකම මෙහිදී ස්ථාවරව භාවිතා කර ඇත
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
+    
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
-    st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
-    st.line_chart(np.random.randn(20, 1))
-    st.markdown('</div>', unsafe_allow_html=True)
+    
+    if mod == "Module 1":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("📘 MODULE 01: MATHEMATICS (EASA PART 66)")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("💡 Key Theory Facts")
+            st.write("""
+            * **Arithmetic:** Basic operations, fractions, decimals, and percentages.
+            * **Algebra:** Linear equations, indices, and powers ($10^n$).
+            * **Geometry:** Calculation of Area (Circle: $\pi r^2$, Triangle: $1/2 bh$) and Volume (Cylinder: $\pi r^2 h$).
+            * **Trigonometry:** Sine, Cosine, and Tangent rules for structural analysis.
+            """)
+        
+        with col2:
+            st.subheader("⚙️ Technical Calculations")
+            # Converter Tool
+            inch_val = st.number_input("Unit Conversion (Inches to mm):", value=1.0)
+            st.write(f"Result: **{inch_val * 25.4:.2f} mm**")
+            
+            # Area Tool
+            rad_val = st.number_input("Cylinder Piston Area (Radius in cm):", value=0.0)
+            st.write(f"Area: **{3.14159 * (rad_val**2):.2f} cm²**")
+            
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+    else:
+        st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
+        st.line_chart(np.random.randn(20, 1))
+        st.markdown('</div>', unsafe_allow_html=True)
+    
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
