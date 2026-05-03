@@ -51,7 +51,7 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
 
 # --- STEP 1: MASTER PAGE ---
 if st.session_state.page == 'master':
-    # මුල් පින්තූරය එලෙසම පවතී
+    # Master Page Wallpaper (වෙනස් කර නැත)
     apply_avionix_design("https://images.unsplash.com/photo-1451187580459-43490279c0fa", overlay_opacity=0.2)
     st.title("🛰️ AVIONIX MASTER CORE")
     
@@ -68,7 +68,7 @@ if st.session_state.page == 'master':
 
 # --- STEP 2: DASHBOARD ---
 elif st.session_state.page == 'dashboard':
-    # මුල් ISS පින්තූරය එලෙසම පවතී
+    # Dashboard Wallpaper (වෙනස් කර නැත)
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
@@ -78,15 +78,15 @@ elif st.session_state.page == 'dashboard':
         st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
 
     st.write("---")
-
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
     st.header("📘 EASA PART 66 & OBJECTIVES")
+    
     st.subheader("[ENGLISH]")
     st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.")
-    st.write("---")
-    st.subheader("🎯 CORE MISSIONS")
-    st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
-    st.write("* **Precision:** Accurate data visualization for flight safety.")
+    
+    st.subheader("[DEUTSCH - GERMAN]")
+    st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung...")
+    
     st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("PROCEED TO MODULES"):
@@ -97,23 +97,19 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'master'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE (DARK SPACE WALLPAPER FOR ALL MODULES) ---
+# --- STEP 3: MODULES PAGE (FIXED MODULE 2 WALLPAPER) ---
 elif st.session_state.page == 'modules':
-    # සියලුම Module පිටු සඳහා පොදු Dark Space Wallpaper එක මෙතැනින් වෙනස් වේ
-    apply_avionix_design("https://images-assets.nasa.gov/image/iss069e000456/iss069e000456~orig.jpg", overlay_opacity=0.7)
+    # Module 2 හි තිබූ එම Wallpaper එකම මෙහිදී ස්ථාවරව (Fixed) භාවිතා කර ඇත
+    apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     
     st.title("📂 ENGINEERING MODULES")
-    
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    st.markdown(f"""
-    <div class="info-panel">
-        <h2>{mod} - TECHNICAL SIMULATION</h2>
-        <p>Accessing aerospace technical data and EASA Part 66 objectives for {mod}.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
+    st.markdown(f'<div class="info-panel">', unsafe_allow_html=True)
+    st.write(f"### Loading {mod} Data...")
+    st.write("Analysis of aerospace technical data and EASA compliance parameters.")
     st.line_chart(np.random.randn(20, 1))
+    st.markdown('</div>', unsafe_allow_html=True)
     
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
