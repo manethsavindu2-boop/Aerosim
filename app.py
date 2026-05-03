@@ -8,7 +8,7 @@ st.set_page_config(page_title="Avionix Systems v1.0", layout="wide")
 if 'page' not in st.session_state:
     st.session_state.page = 'master'
 
-# පසුබිම් සහ සුදු වර්ණ අකුරු සැකසීමේ ශ්‍රිතය
+# පසුබිම් සහ වර්ණ සැකසීමේ ශ්‍රිතය
 def apply_avionix_design(bg_url, overlay_opacity=0.5):
     st.markdown(f"""
         <style>
@@ -81,66 +81,87 @@ elif st.session_state.page == 'modules':
         st.header("📘 MODULE 01: MATHEMATICS")
         t_col1, t_col2 = st.columns(2)
         with t_col1:
-            st.subheader("📚 Important Theory Facts")
-            st.write("* **BODMAS:** Sequence for solving expressions.\n* **Indices:** $a^m \\times a^n = a^{m+n}$.\n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$.")
+            st.subheader("📚 Theory Facts")
+            st.write("* **BODMAS:** Order of ops.\n* **Indices:** Powers of numbers.\n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$.")
         with t_col2:
-            st.subheader("📐 Geometry & Trig")
-            st.write("* **Pythagoras:** $a^2 + b^2 = c^2$.\n* **Circle Area:** $\pi r^2$.\n* **Trig:** SOH-CAH-TOA rules.")
-        
+            st.subheader("📐 Geometry")
+            st.write("* **Pythagoras:** $a^2 + b^2 = c^2$.\n* **Radius:** Area = $\pi r^2$.")
         st.write("---")
-        st.subheader("⚙️ Essential Calculations")
         c1, c2 = st.columns(2)
         with c1:
-            vs = st.number_input("Swept Volume (Vs):", value=500.0)
-            vc = st.number_input("Clearance Volume (Vc):", value=50.0)
-            st.info(f"Compression Ratio: **{(vs + vc) / vc if vc > 0 else 0:.1f} : 1**")
+            vs = st.number_input("Swept Volume:", value=500.0)
+            vc = st.number_input("Clearance Volume:", value=50.0)
+            st.info(f"CR: **{(vs + vc) / vc if vc > 0 else 0:.1f}:1**")
         with c2:
-            rad = st.number_input("Input Radius (r in cm):", value=5.0)
-            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**")
+            rad = st.number_input("Radius (cm):", value=5.0)
+            st.info(f"Area: **{3.14 * rad**2:.2f} cm²**")
         st.markdown('</div>', unsafe_allow_html=True)
 
     # --- MODULE 2 (PHYSICS) ---
     elif mod == "Module 2":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("📕 MODULE 02: PHYSICS")
-        
-        # Physics Theory
-        st.subheader("📚 Key Physics Theory")
         pt_col1, pt_col2 = st.columns(2)
         with pt_col1:
-            st.markdown("#### 🏃 Kinetics & Statics")
-            st.write("""
-            * **Newton's 1st Law:** Objects remain at rest or uniform motion unless acted upon by a force.
-            * **Newton's 2nd Law:** Force equals mass times acceleration ($F = ma$).
-            * **Newton's 3rd Law:** For every action, there is an equal and opposite reaction.
-            """)
+            st.subheader("🏃 Dynamics")
+            st.write("* **Newton's Laws:** 1st, 2nd ($F=ma$), and 3rd.\n* **Work:** Force $\\times$ Distance.")
         with pt_col2:
-            st.markdown("#### 💨 Fluid Dynamics & Heat")
+            st.subheader("💨 Fluid & Heat")
+            st.write("* **Bernoulli:** Lift Principle.\n* **Gas Laws:** Boyle's ($P_1V_1=P_2V_2$).")
+        st.write("---")
+        pc1, pc2 = st.columns(2)
+        with pc1:
+            mass = st.number_input("Mass (kg):", value=10.0)
+            acc = st.number_input("Acc (m/s²):", value=9.8)
+            st.success(f"Force: **{mass*acc:.2f} N**")
+        with pc2:
+            f_p = st.number_input("Force (N):", value=100.0)
+            a_p = st.number_input("Area (m²):", value=2.0)
+            st.warning(f"Pressure: **{f_p/a_p if a_p > 0 else 0:.2f} Pa**")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) ---
+    elif mod == "Module 3":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("⚡ MODULE 03: ELECTRICAL FUNDAMENTALS")
+        
+        # Electrical Theory
+        st.subheader("📚 Key Electrical Theory")
+        et_col1, et_col2 = st.columns(2)
+        with et_col1:
+            st.markdown("#### ⚡ DC Circuits & Ohm's Law")
             st.write("""
-            * **Bernoulli’s Principle:** Increase in fluid speed occurs simultaneously with a decrease in pressure (Lift generation).
-            * **Boyle’s Law:** $P_1V_1 = P_2V_2$ (Pressure/Volume relationship).
-            * **Charles’s Law:** $V/T = Constant$ (Volume/Temperature relationship).
+            * **Ohm's Law:** Voltage ($V$) equals Current ($I$) times Resistance ($R$). ($V = I \\times R$)
+            * **Kirchhoff’s Laws:** Current entering a junction equals current leaving (KCL).
+            * **Series Circuit:** Total Resistance $R_t = R_1 + R_2 + R_3$.
+            * **Parallel Circuit:** $1/R_t = 1/R_1 + 1/R_2 + 1/R_3$.
+            """)
+        with et_col2:
+            st.markdown("#### 🔋 Power & Capacitance")
+            st.write("""
+            * **Electrical Power:** Measured in Watts ($W$). $P = V \\times I$ or $P = I^2 \\times R$.
+            * **Capacitance:** Ability to store charge ($Q = C \\times V$).
+            * **Magnetism:** Relationship between electricity and magnetic fields (Inductance).
             """)
 
         st.write("---")
-        st.subheader("⚙️ Essential Physics Calculations")
-        pc1, pc2 = st.columns(2)
-        with pc1:
-            st.markdown("#### ⚖️ Force & Work")
-            mass = st.number_input("Mass (kg):", value=10.0)
-            accel = st.number_input("Acceleration (m/s²):", value=9.81)
-            dist = st.number_input("Distance for Work (m):", value=5.0)
-            f_res = mass * accel
-            w_res = f_res * dist
-            st.success(f"Force: **{f_res:.2f} N** | Work: **{w_res:.2f} J**")
+        st.subheader("⚙️ Essential Electrical Calculations")
+        ec1, ec2 = st.columns(2)
+        
+        with ec1:
+            st.markdown("#### 🛠️ Ohm's Law & Power")
+            v_in = st.number_input("Voltage (V):", value=28.0) # Aircraft standard DC
+            r_in = st.number_input("Resistance (Ω):", value=4.0)
+            current = v_in / r_in if r_in > 0 else 0
+            power = v_in * current
+            st.success(f"Current (I): **{current:.2f} A** | Power (P): **{power:.2f} W**")
 
-        with pc2:
-            st.markdown("#### 🌊 Pressure & Density")
-            force_p = st.number_input("Applied Force (N):", value=100.0)
-            area_p = st.number_input("Area (m²):", value=2.0)
-            dens_m = st.number_input("Mass for Density (kg):", value=50.0)
-            dens_v = st.number_input("Volume for Density (m³):", value=5.0)
-            st.warning(f"Pressure: **{force_p/area_p if area_p > 0 else 0:.2f} Pa** | Density: **{dens_m/dens_v if dens_v > 0 else 0:.2f} kg/m³**")
+        with ec2:
+            st.markdown("#### 🔌 Resistors in Parallel")
+            r1 = st.number_input("R1 (Ω):", value=10.0)
+            r2 = st.number_input("R2 (Ω):", value=10.0)
+            r_total = (r1 * r2) / (r1 + r2) if (r1 + r2) > 0 else 0
+            st.info(f"Total Parallel Resistance: **{r_total:.2f} Ω**")
 
         st.markdown('</div>', unsafe_allow_html=True)
     
