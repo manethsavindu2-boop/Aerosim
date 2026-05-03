@@ -69,70 +69,66 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'modules'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE (ALL CALCULATIONS & THEORY) ---
+# --- STEP 3: MODULES PAGE (MODULE 1 & 2 THEORY) ---
 elif st.session_state.page == 'modules':
-    # Module 2 wallpaper used as fixed background for modules
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
+    # --- MODULE 1: MATHEMATICS (දැනට පවතින කොටස) ---
     if mod == "Module 1":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("📘 MODULE 01: MATHEMATICS")
-        
-        # --- THEORY SECTION ---
-        st.subheader("📚 Important Theory Facts")
         t_col1, t_col2 = st.columns(2)
         with t_col1:
             st.markdown("#### ⚙️ Arithmetic & Algebra")
-            st.write("""
-            * **BODMAS:** The sequence for solving expressions (Brackets, Orders, Division, Multiplication, Addition, Subtraction).
-            * **Indices & Powers:** Rules for $a^m \\times a^n = a^{m+n}$ and $(a^m)^n = a^{mn}$.
-            * **Compression Ratio:** Fundamental for thermal efficiency; higher ratios require better fuels to prevent 'knocking'.
-            """)
-        
+            st.write("* **BODMAS:** Brackets, Orders, Division, Multiplication, Addition, Subtraction.\n* **Compression Ratio:** $CR = (V_s + V_c) / V_c$")
         with t_col2:
-            st.markdown("#### 📐 Geometry & Trigonometry")
+            st.markdown("#### 📐 Geometry")
+            st.write("* **Radius Based Area:** $\\pi r^2$\n* **Pythagoras:** $a^2 + b^2 = c^2$")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # --- MODULE 2: PHYSICS (නව සිද්ධාන්ත ඇතුළත් කොටස) ---
+    elif mod == "Module 2":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("📕 MODULE 02: PHYSICS (EASA PART 66)")
+        
+        theory_col1, theory_col2 = st.columns(2)
+        
+        with theory_col1:
+            st.subheader("🚀 Statics & Kinetics")
             st.write("""
-            * **Pythagoras Theorem:** $a^2 + b^2 = c^2$. Essential for finding lengths in airframe structures.
-            * **Radius Properties:** The radius is used to calculate Piston Area, Cylinder Volume, and Hydraulic force.
-            * **Trigonometry:** SOH-CAH-TOA rules apply to lift and drag vector analysis.
+            * **Newton's 1st Law:** Inertia - A body remains at rest or uniform motion unless acted upon by a force.
+            * **Newton's 2nd Law:** Force equals mass times acceleration ($F = m \\times a$).
+            * **Newton's 3rd Law:** For every action, there is an equal and opposite reaction.
+            * **Moment (Torque):** Force $\\times$ Perpendicular distance ($M = F \\times d$).
+            """)
+            
+            st.subheader("🌡️ Thermodynamics")
+            st.write("""
+            * **Boyle's Law:** $P_1V_1 = P_2V_2$ (Constant Temperature).
+            * **Charles's Law:** $V_1/T_1 = V_2/T_2$ (Constant Pressure).
+            * **Heat Transfer:** Conduction, Convection, and Radiation.
+            """)
+
+        with theory_col2:
+            st.subheader("💧 Fluid Dynamics & Aero")
+            st.write("""
+            * **Bernoulli's Principle:** As the speed of a moving fluid increases, the pressure within the fluid decreases. (Crucial for **LIFT**).
+            * **Venturi Effect:** Reduction in fluid pressure that results when a fluid flows through a constricted section of a pipe.
+            * **Atmospheric Pressure:** Standard Day = 1013.25 hPa (29.92 "Hg) at 15°C.
+            """)
+            
+            st.subheader("⚙️ Matter & Energy")
+            st.write("""
+            * **Potential Energy:** $m \\times g \\times h$.
+            * **Kinetic Energy:** $\\frac{1}{2} m \\times v^2$.
+            * **Power:** Work done per unit time ($P = W / t$).
             """)
 
         st.write("---")
-        
-        # --- CALCULATIONS SECTION ---
-        st.subheader("⚙️ Essential Aerospace Calculations")
-        
-        # Row 1: Compression Ratio and Unit Conversion
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown("#### 🏎️ Engine Compression Ratio")
-            vs = st.number_input("Swept Volume ($V_s$ in cc):", value=500.0)
-            vc = st.number_input("Clearance Volume ($V_c$ in cc):", value=50.0)
-            st.info(f"Compression Ratio: **{(vs + vc) / vc if vc > 0 else 0:.1f} : 1**")
-        with c2:
-            st.markdown("#### 📏 Imperial to Metric Converter")
-            val = st.number_input("Value:", value=1.0)
-            unit = st.selectbox("Convert:", ["Inches to mm", "Gallons to Liters", "Feet to Meters"])
-            if "Inches" in unit: res = val * 25.4
-            elif "Gallons" in unit: res = val * 3.785
-            else: res = val * 0.3048
-            st.success(f"Converted Value: **{res:.2f}**")
-
-        # Row 2: Radius-based Geometry and Pythagoras
-        st.write("---")
-        c3, c4 = st.columns(2)
-        with c3:
-            st.markdown("#### ⭕ Circle Properties (Radius Based)")
-            rad = st.number_input("Input Radius ($r$ in cm):", value=5.0)
-            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**  \nCircumference: **{2 * 3.14159 * rad:.2f} cm**")
-        with c4:
-            st.markdown("#### 📐 Pythagoras (Triangle Analysis)")
-            side_a = st.number_input("Base length (a):", value=3.0)
-            side_b = st.number_input("Height length (b):", value=4.0)
-            st.warning(f"Hypotenuse (c): **{np.sqrt(side_a**2 + side_b**2):.2f}**")
-
+        st.subheader("🛠️ Quick Physics Reference")
+        st.info("Module 2 provides the foundation for Module 8 (Aerodynamics) and Module 11/13 (Systems). Understanding Bernoulli and Newton is key to mastering flight physics.")
         st.markdown('</div>', unsafe_allow_html=True)
         
     else:
