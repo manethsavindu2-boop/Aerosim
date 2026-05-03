@@ -65,7 +65,7 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD (WITH MULTI-LANGUAGE DESCRIPTIONS) ---
+# --- STEP 2: DASHBOARD (MULTI-LANGUAGE ADDED) ---
 elif st.session_state.page == 'dashboard':
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
@@ -81,21 +81,25 @@ elif st.session_state.page == 'dashboard':
     
     st.header("📘 EASA PART 66 & OBJECTIVES")
     
-    # English
+    # [ENGLISH]
     st.subheader("[ENGLISH]")
     st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.")
     
-    # German
+    # [DEUTSCH - GERMAN]
     st.subheader("[DEUTSCH - GERMAN]")
     st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.")
     
-    # French
+    # [FRANÇAIS - FRENCH]
     st.subheader("[FRANÇAIS - FRENCH]")
     st.write("L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.")
-    
-    # Japanese
+
+    # [日本語 - JAPANESE]
     st.subheader("[日本語 - JAPANESE]")
-    st.write("EASA Part 66は、航空機整備士のための共通ની欧州規格です。私たちの目的は、理論と実技の卓越した技術の架け橋となる、高度な技術シミュレーションを提供することです。")
+    st.write("EASA Part 66は、航空整備士のための共通の欧州標準です。私たちの目的は、理論と実践的なエンジニアリングの卓越性の間のギャップを埋めるために、高レベルの技術シミュレーションを提供することです。")
+
+    # [中文 - CHINESE]
+    st.subheader("[中文 - CHINESE]")
+    st.write("EASA Part 66 是飞机维修人员的通用欧洲标准。我们的目标是提供高水平的技术模拟，以弥合理论与实际工程卓越之间的差距。")
     
     st.write("---")
     st.subheader("🎯 CORE MISSIONS")
@@ -115,13 +119,13 @@ elif st.session_state.page == 'dashboard':
 
 # --- STEP 3: MODULES PAGE ---
 elif st.session_state.page == 'modules':
-    # Module 2 wallpaper as requested
+    # Module 2 හි පින්තූරයම භාවිතා කර ඇත
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
-    st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+    st.markdown(f'<div class="info-panel">', unsafe_allow_html=True)
     st.write(f"### Loading {mod} Data...")
     st.line_chart(np.random.randn(20, 1))
     st.markdown('</div>', unsafe_allow_html=True)
