@@ -18,7 +18,6 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
             background-position: center;
             background-attachment: fixed;
         }}
-        /* සියලුම අකුරු සුදු පැහැයෙන් */
         * {{ 
             font-family: 'Segoe UI', Arial, sans-serif !important; 
             color: white !important; 
@@ -46,6 +45,12 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 25px;
         }}
+        /* විස්තරය විශාල කර පෙන්වීමට අලුත් class එකක් */
+        .large-desc {{
+            font-size: 20px !important;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }}
         </style>
     """, unsafe_allow_html=True)
 
@@ -53,19 +58,12 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
 if st.session_state.page == 'master':
     apply_avionix_design("https://images.unsplash.com/photo-1451187580459-43490279c0fa", overlay_opacity=0.2)
     st.title("🛰️ AVIONIX MASTER CORE")
-    
-    st.markdown("""
-    <div class="info-panel">
-        <h1 style="font-size: 45px;">WELCOME TO AVIONIX SYSTEMS</h1>
-        <p style="font-size: 20px;">The next generation of aerospace maintenance and technical simulation.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
+    st.markdown('<div class="info-panel"><h1 style="font-size: 45px;">WELCOME TO AVIONIX SYSTEMS</h1><p style="font-size: 20px;">The next generation of aerospace maintenance and technical simulation.</p></div>', unsafe_allow_html=True)
     if st.button("ENTER MISSION CONTROL"):
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD (MULTI-LANGUAGE ADDED) ---
+# --- STEP 2: DASHBOARD (විස්තරය භාෂා 6 කින් සහ විශාලව) ---
 elif st.session_state.page == 'dashboard':
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
@@ -76,60 +74,49 @@ elif st.session_state.page == 'dashboard':
         st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
 
     st.write("---")
-
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+    st.header("📘 EASA PART 66 & GLOBAL OBJECTIVES")
     
-    st.header("📘 EASA PART 66 & OBJECTIVES")
-    
-    # [ENGLISH]
-    st.subheader("[ENGLISH]")
-    st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.")
-    
-    # [DEUTSCH - GERMAN]
-    st.subheader("[DEUTSCH - GERMAN]")
-    st.write("EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.")
-    
-    # [FRANÇAIS - FRENCH]
-    st.subheader("[FRANÇAIS - FRENCH]")
-    st.write("L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence de l'ingénierie pratique.")
-
-    # [日本語 - JAPANESE]
-    st.subheader("[日本語 - JAPANESE]")
-    st.write("EASA Part 66は、航空整備士のための共通の欧州標準です。私たちの目的は、理論と実践的なエンジニアリングの卓越性の間のギャップを埋めるために、高レベルの技術シミュレーションを提供することです。")
-
-    # [中文 - CHINESE]
-    st.subheader("[中文 - CHINESE]")
-    st.write("EASA Part 66 是飞机维修人员的通用欧洲标准。我们的目标是提供高水平的技术模拟，以弥合理论与实际工程卓越之间的差距。")
+    # භාෂා 6 කින් විස්තරය (විශාල අකුරින්)
+    st.markdown("""
+    <div class="large-desc">
+        <b>[ENGLISH]</b><br>
+        EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.<br><br>
+        <b>[DEUTSCH - GERMAN]</b><br>
+        EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.<br><br>
+        <b>[FRANÇAIS - FRENCH]</b><br>
+        L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence en ingénierie pratique.<br><br>
+        <b>[РУССКИЙ - RUSSIAN]</b><br>
+        EASA Part 66 — это единый европейский стандарт для персонала по техническому обслуживанию воздушных судов. Наша цель — обеспечить высокоуровневое техническое моделирование, чтобы восполнить пробел между теорией и практическим инженерным мастерством.<br><br>
+        <b>[日本語 - JAPANESE]</b><br>
+        EASA Part 66は、航空機整備士のための共通の欧州標準規格です。当社の目標は、高度な技術シミュレーションを提供し、理論と実技の卓越したエンジニアリングの間のギャップを埋めることです。<br><br>
+        <b>[中文 - CHINESE]</b><br>
+        EASA Part 66 是飞机维修人员的通用欧洲标准。我们的目标是提供高水平的技术仿真，以弥补理论与实际工程卓越表现之间的差距。
+    </div>
+    """, unsafe_allow_html=True)
     
     st.write("---")
     st.subheader("🎯 CORE MISSIONS")
     st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
     st.write("* **Precision:** Accurate data visualization for flight safety.")
     st.write("* **Global Standards:** Aligning with international aviation regulations.")
-    
     st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("PROCEED TO MODULES"):
         st.session_state.page = 'modules'
         st.rerun()
-    
     if st.button("BACK TO MASTER"):
         st.session_state.page = 'master'
         st.rerun()
 
 # --- STEP 3: MODULES PAGE ---
 elif st.session_state.page == 'modules':
-    # Module 2 හි පින්තූරයම භාවිතා කර ඇත
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
-    
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
-    
-    st.markdown(f'<div class="info-panel">', unsafe_allow_html=True)
-    st.write(f"### Loading {mod} Data...")
+    st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
     st.line_chart(np.random.randn(20, 1))
     st.markdown('</div>', unsafe_allow_html=True)
-    
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
