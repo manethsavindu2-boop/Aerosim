@@ -45,6 +45,12 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 25px;
         }}
+        /* විස්තරය විශාල කර පෙන්වීමට අලුත් class එකක් */
+        .large-desc {{
+            font-size: 20px !important;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }}
         </style>
     """, unsafe_allow_html=True)
 
@@ -57,87 +63,60 @@ if st.session_state.page == 'master':
         st.session_state.page = 'dashboard'
         st.rerun()
 
-# --- STEP 2: DASHBOARD ---
+# --- STEP 2: DASHBOARD (විස්තරය භාෂා 6 කින් සහ විශාලව) ---
 elif st.session_state.page == 'dashboard':
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
+    
     col_t1, col_t2 = st.columns([3, 1])
-    with col_t1: st.title("🎛️ MISSION CONTROL DASHBOARD")
-    with col_t2: st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
+    with col_t1:
+        st.title("🎛️ MISSION CONTROL DASHBOARD")
+    with col_t2:
+        st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
+
     st.write("---")
-    st.markdown('<div class="info-panel"><h2>📘 EASA PART 66 GLOBAL STANDARDS</h2><p>Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+    st.header("📘 EASA PART 66 & GLOBAL OBJECTIVES")
+    
+    # භාෂා 6 කින් විස්තරය (විශාල අකුරින්)
+    st.markdown("""
+    <div class="large-desc">
+        <b>[ENGLISH]</b><br>
+        EASA Part 66 is the common European standard for aircraft maintenance personnel. Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.<br><br>
+        <b>[DEUTSCH - GERMAN]</b><br>
+        EASA Part 66 ist der gemeinsame europäische Standard für Personal in der Luftfahrzeuginstandhaltung. Unser Ziel ist es, hochwertige technische Simulationen anzubieten, um die Lücke zwischen Theorie und praktischer technischer Exzellenz zu schließen.<br><br>
+        <b>[FRANÇAIS - FRENCH]</b><br>
+        L'EASA Part 66 est la norme européenne commune pour le personnel de maintenance des aéronefs. Notre objectif est de fournir une simulation technique de haut niveau pour combler le fossé entre la théorie et l'excellence en ingénierie pratique.<br><br>
+        <b>[РУССКИЙ - RUSSIAN]</b><br>
+        EASA Part 66 — это единый европейский стандарт для персонала по техническому обслуживанию воздушных судов. Наша цель — обеспечить высокоуровневое техническое моделирование, чтобы восполнить пробел между теорией и практическим инженерным мастерством.<br><br>
+        <b>[日本語 - JAPANESE]</b><br>
+        EASA Part 66は、航空機整備士のための共通の欧州標準規格です。当社の目標は、高度な技術シミュレーションを提供し、理論と実技の卓越したエンジニアリングの間のギャップを埋めることです。<br><br>
+        <b>[中文 - CHINESE]</b><br>
+        EASA Part 66 是飞机维修人员的通用欧洲标准。我们的目标是提供高水平的技术仿真，以弥补理论与实际工程卓越表现之间的差距。
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.write("---")
+    st.subheader("🎯 CORE MISSIONS")
+    st.write("* **Innovation:** Pioneering new ways to learn aerospace modules.")
+    st.write("* **Precision:** Accurate data visualization for flight safety.")
+    st.write("* **Global Standards:** Aligning with international aviation regulations.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
     if st.button("PROCEED TO MODULES"):
         st.session_state.page = 'modules'
         st.rerun()
+    if st.button("BACK TO MASTER"):
+        st.session_state.page = 'master'
+        st.rerun()
 
-# --- STEP 3: MODULES PAGE (ALL CALCULATIONS & THEORY) ---
+# --- STEP 3: MODULES PAGE ---
 elif st.session_state.page == 'modules':
-    # Module 2 wallpaper used as fixed background for modules
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
-    
-    if mod == "Module 1":
-        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("📘 MODULE 01: MATHEMATICS")
-        
-        # --- THEORY SECTION ---
-        st.subheader("📚 Important Theory Facts")
-        t_col1, t_col2 = st.columns(2)
-        with t_col1:
-            st.markdown("#### ⚙️ Arithmetic & Algebra")
-            st.write("""
-            * **BODMAS:** The sequence for solving expressions (Brackets, Orders, Division, Multiplication, Addition, Subtraction).
-            * **Indices & Powers:** Rules for $a^m \\times a^n = a^{m+n}$ and $(a^m)^n = a^{mn}$.
-            * **Compression Ratio:** Fundamental for thermal efficiency; higher ratios require better fuels to prevent 'knocking'.
-            """)
-        
-        with t_col2:
-            st.markdown("#### 📐 Geometry & Trigonometry")
-            st.write("""
-            * **Pythagoras Theorem:** $a^2 + b^2 = c^2$. Essential for finding lengths in airframe structures.
-            * **Radius Properties:** The radius is used to calculate Piston Area, Cylinder Volume, and Hydraulic force.
-            * **Trigonometry:** SOH-CAH-TOA rules apply to lift and drag vector analysis.
-            """)
-
-        st.write("---")
-        
-        # --- CALCULATIONS SECTION ---
-        st.subheader("⚙️ Essential Aerospace Calculations")
-        
-        # Row 1: Compression Ratio and Unit Conversion
-        c1, c2 = st.columns(2)
-        with c1:
-            st.markdown("#### 🏎️ Engine Compression Ratio")
-            vs = st.number_input("Swept Volume ($V_s$ in cc):", value=500.0)
-            vc = st.number_input("Clearance Volume ($V_c$ in cc):", value=50.0)
-            st.info(f"Compression Ratio: **{(vs + vc) / vc if vc > 0 else 0:.1f} : 1**")
-        with c2:
-            st.markdown("#### 📏 Imperial to Metric Converter")
-            val = st.number_input("Value:", value=1.0)
-            unit = st.selectbox("Convert:", ["Inches to mm", "Gallons to Liters", "Feet to Meters"])
-            if "Inches" in unit: res = val * 25.4
-            elif "Gallons" in unit: res = val * 3.785
-            else: res = val * 0.3048
-            st.success(f"Converted Value: **{res:.2f}**")
-
-        # Row 2: Radius-based Geometry and Pythagoras
-        st.write("---")
-        c3, c4 = st.columns(2)
-        with c3:
-            st.markdown("#### ⭕ Circle Properties (Radius Based)")
-            rad = st.number_input("Input Radius ($r$ in cm):", value=5.0)
-            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**  \nCircumference: **{2 * 3.14159 * rad:.2f} cm**")
-        with c4:
-            st.markdown("#### 📐 Pythagoras (Triangle Analysis)")
-            side_a = st.number_input("Base length (a):", value=3.0)
-            side_b = st.number_input("Height length (b):", value=4.0)
-            st.warning(f"Hypotenuse (c): **{np.sqrt(side_a**2 + side_b**2):.2f}**")
-
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-    else:
-        st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3></div>', unsafe_allow_html=True)
-    
+    st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
+    st.line_chart(np.random.randn(20, 1))
+    st.markdown('</div>', unsafe_allow_html=True)
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
