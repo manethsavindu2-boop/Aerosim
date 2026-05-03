@@ -171,3 +171,54 @@ elif st.session_state.page == 'modules':
     if st.button("RETURN TO DASHBOARD"):
         st.session_state.page = 'dashboard'
         st.rerun()
+# --- MODULE 4 (ELECTRONIC FUNDAMENTALS) ---
+    elif mod == "Module 4":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("🔌 MODULE 04: ELECTRONIC FUNDAMENTALS")
+        
+        # Electronic Theory
+        st.subheader("📚 Key Electronic Theory")
+        elt_col1, elt_col2 = st.columns(2)
+        with elt_col1:
+            st.markdown("#### 🧪 Semiconductors & Diodes")
+            st.write("""
+            * **Semiconductors:** P-type and N-type materials created by doping.
+            * **PN Junction:** The boundary between P and N materials forming a Diode.
+            * **Diodes:** Allows current flow in one direction (Forward Bias).
+            * **Rectification:** Converting AC to DC using Half-wave or Full-wave rectifiers.
+            """)
+        with elt_col2:
+            st.markdown("#### 📟 Transistors & Logic Gates")
+            st.write("""
+            * **Transistors:** NPN and PNP types used as switches or amplifiers.
+            * **Gain (β):** The ratio of collector current to base current ($I_c / I_b$).
+            * **Logic Gates:** AND, OR, NOT, NAND, NOR gates used in aircraft digital systems.
+            * **Integrated Circuits (IC):** Complex circuits on a single silicon chip.
+            """)
+
+        st.write("---")
+        st.subheader("⚙️ Essential Electronic Calculations")
+        elc1, elc2 = st.columns(2)
+        
+        with elc1:
+            st.markdown("#### 📈 Transistor Gain (Beta)")
+            i_base = st.number_input("Base Current ($I_b$ in μA):", value=100.0)
+            i_coll = st.number_input("Collector Current ($I_c$ in mA):", value=10.0)
+            # Convert microamps to milliamps for calculation
+            beta = (i_coll) / (i_base / 1000) if i_base > 0 else 0
+            st.success(f"Current Gain (β): **{beta:.2f}**")
+
+        with elc2:
+            st.markdown("#### 🔢 Logic Gate Simulator")
+            gate_type = st.selectbox("Select Logic Gate:", ["AND", "OR", "NAND", "NOR"])
+            in_a = st.toggle("Input A")
+            in_b = st.toggle("Input B")
+            
+            if gate_type == "AND": out = in_a and in_b
+            elif gate_type == "OR": out = in_a or in_b
+            elif gate_type == "NAND": out = not (in_a and in_b)
+            else: out = not (in_a or in_b)
+            
+            st.info(f"Gate Output: **{'HIGH (1)' if out else 'LOW (0)'}**")
+
+        st.markdown('</div>', unsafe_allow_html=True)
