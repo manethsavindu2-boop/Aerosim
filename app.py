@@ -227,7 +227,80 @@ elif st.session_state.page == 'modules':
                 st.info(f"Density (ρ): **{density:.2f} kg/m³**")
             
         st.markdown('</div>', unsafe_allow_html=True)
-    # --- MODULE 2 (PHYSICS) END ---
+    # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) START ---
+    elif mod == "Module 3":
+        st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+        st.header("⚡ MODULE 03: ELECTRICAL FUNDAMENTALS")
+        
+        # Electrical Theory Section
+        st.subheader("📚 Key Electrical Theory")
+        e_col1, e_col2 = st.columns(2)
+        
+        with e_col1:
+            st.markdown("#### ⚡ Electron Theory & Static Electricity")
+            st.write("""
+            * **Structure of Matter:** Atoms consist of protons (+), neutrons, and electrons (-).
+            * **Static Electricity:** Accumulation of charge on a surface; critical for aircraft bonding and earthing.
+            * **Coulomb’s Law:** Force between two charges is proportional to their product and inversely to the square of the distance.
+            """)
+            
+            st.markdown("#### 🔋 DC Sources & Ohm's Law")
+            st.write("""
+            * **Ohm's Law:** $V = I \\times R$ (Voltage = Current $\\times$ Resistance).
+            * **Power:** $P = V \\times I$ or $P = I^2 \\times R$.
+            * **Kirchhoff's Voltage Law (KVL):** The sum of voltages around any closed loop is zero.
+            * **Kirchhoff's Current Law (KCL):** Total current entering a junction equals total current leaving.
+            """)
+            
+        with e_col2:
+            st.markdown("#### 🔌 Resistance & Capacitance")
+            st.write("""
+            * **Resistance Factors:** Length, cross-sectional area, material (resistivity), and temperature.
+            * **Resistors in Series:** $R_{total} = R_1 + R_2 + ...$
+            * **Resistors in Parallel:** $1/R_{total} = 1/R_1 + 1/R_2 + ...$
+            * **Capacitance:** Storage of electric charge ($Q = C \\times V$).
+            * **Magnetism:** Electromagnets and the motor/generator principles used in aircraft starters and alternators.
+            """)
+
+        st.write("---")
+        
+        # Electrical Calculation Section
+        st.subheader("⚙️ Essential Electrical Calculations")
+        ec_col1, ec_col2 = st.columns(2)
+        
+        with ec_col1:
+            st.markdown("#### 🛠️ Ohm's Law & Power Tool")
+            e_volt = st.number_input("Voltage (V):", value=28.0, step=1.0) # Aircraft DC standard
+            e_res = st.number_input("Resistance (Ω):", value=4.0, step=0.1)
+            
+            if e_res > 0:
+                e_curr = e_volt / e_res
+                e_pwr = e_volt * e_curr
+                st.success(f"Current (I): **{e_curr:.2f} Amperes (A)**")
+                st.info(f"Power (P): **{e_pwr:.2f} Watts (W)**")
+            else:
+                st.error("Resistance must be greater than 0")
+
+        with ec_col2:
+            st.markdown("#### 🔌 Series vs Parallel Resistance")
+            r1 = st.number_input("Resistor 1 (Ω):", value=10.0, step=1.0)
+            r2 = st.number_input("Resistor 2 (Ω):", value=10.0, step=1.0)
+            
+            r_series = r1 + r2
+            st.warning(f"Total Series Resistance: **{r_series:.2f} Ω**")
+            
+            if (r1 + r2) > 0:
+                r_parallel = (r1 * r2) / (r1 + r2)
+                st.success(f"Total Parallel Resistance: **{r_parallel:.2f} Ω**")
+            
+            st.markdown("#### 🔋 Capacitance Calculation")
+            cap_c = st.number_input("Capacitance (Farads):", value=0.001, format="%.4f")
+            cap_v = st.number_input("Voltage across Capacitor (V):", value=12.0)
+            charge_q = cap_c * cap_v
+            st.info(f"Stored Charge (Q): **{charge_q:.4f} Coulombs**")
+            
+        st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) END ---
     else:
         st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
         st.line_chart(np.random.randn(20, 1))
