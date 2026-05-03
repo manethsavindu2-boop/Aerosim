@@ -51,7 +51,7 @@ def apply_avionix_design(bg_url, overlay_opacity=0.5):
 
 # --- STEP 1: MASTER PAGE ---
 if st.session_state.page == 'master':
-    # Original Master Page Wallpaper
+    # මුල් පින්තූරය එලෙසම පවතී
     apply_avionix_design("https://images.unsplash.com/photo-1451187580459-43490279c0fa", overlay_opacity=0.2)
     st.title("🛰️ AVIONIX MASTER CORE")
     
@@ -68,7 +68,7 @@ if st.session_state.page == 'master':
 
 # --- STEP 2: DASHBOARD ---
 elif st.session_state.page == 'dashboard':
-    # Original Dashboard Wallpaper
+    # මුල් පින්තූරය එලෙසම පවතී
     apply_avionix_design("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa", overlay_opacity=0.6)
     
     col_t1, col_t2 = st.columns([3, 1])
@@ -79,8 +79,13 @@ elif st.session_state.page == 'dashboard':
 
     st.write("---")
     st.markdown('<div class="info-panel">', unsafe_allow_html=True)
+    
     st.header("📘 EASA PART 66 & OBJECTIVES")
-    st.write("EASA Part 66 standard for aircraft maintenance personnel.")
+    st.subheader("[ENGLISH]")
+    st.write("EASA Part 66 is the common European standard for aircraft maintenance personnel.")
+    
+    # ... (අනෙකුත් භාෂා සහ විස්තර මෙහි ඇත)
+    
     st.markdown('</div>', unsafe_allow_html=True)
 
     if st.button("PROCEED TO MODULES"):
@@ -91,23 +96,16 @@ elif st.session_state.page == 'dashboard':
         st.session_state.page = 'master'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE (ALL MODULES USE THE SAME ISS WALLPAPER) ---
+# --- STEP 3: MODULES PAGE (BLACKBIRD WALLPAPER ADDED) ---
 elif st.session_state.page == 'modules':
-    # Module 2 හි තිබූ එම ISS Wallpaper එක මෙහිදී භාවිතා කර ඇත
-    apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
+    # SR-71 Blackbird Wallpaper එක මෙහිදී ඇතුළත් කර ඇත
+    blackbird_url = "https://images.unsplash.com/photo-1474674556023-efef886ce14d" 
+    apply_avionix_design(blackbird_url, overlay_opacity=0.6)
     
     st.title("📂 ENGINEERING MODULES")
     
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
-    
-    st.markdown(f"""
-    <div class="info-panel">
-        <h2>{mod} - TECHNICAL SIMULATION</h2>
-        <p>Accessing technical documentation and interactive tools for {mod}.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.write(f"### {mod} Performance Analysis")
+    st.write(f"### Loading {mod} Data...")
     st.line_chart(np.random.randn(20, 1))
     
     if st.button("RETURN TO DASHBOARD"):
