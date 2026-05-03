@@ -64,61 +64,74 @@ elif st.session_state.page == 'dashboard':
     with col_t1: st.title("🎛️ MISSION CONTROL DASHBOARD")
     with col_t2: st.markdown("""<div class="status-box"><span style='color: #00FF00;'>● SERVER STATUS: ONLINE</span><br><small>LATENCY: 24ms</small></div>""", unsafe_allow_html=True)
     st.write("---")
-    st.markdown('<div class="info-panel"><h2>📘 EASA PART 66 GLOBAL STANDARDS</h2><p>Providing high-level technical simulation to bridge the gap between theory and practical engineering excellence.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-panel"><h2>📘 EASA PART 66 GLOBAL STANDARDS</h2><p>Our objective is to provide high-level technical simulation to bridge the gap between theory and practical engineering excellence.</p></div>', unsafe_allow_html=True)
     if st.button("PROCEED TO MODULES"):
         st.session_state.page = 'modules'
         st.rerun()
 
-# --- STEP 3: MODULES PAGE ---
+# --- STEP 3: MODULES PAGE (ALL CALCULATIONS & THEORY) ---
 elif st.session_state.page == 'modules':
+    # Module 2 wallpaper used as fixed background for modules
     apply_avionix_design("https://images-assets.nasa.gov/image/iss064e007861/iss064e007861~orig.jpg", overlay_opacity=0.7)
     st.title("📂 ENGINEERING MODULES")
     mod = st.selectbox("SELECT MODULE", [f"Module {i}" for i in range(1, 15)])
     
     if mod == "Module 1":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
-        st.header("📘 MODULE 01: MATHEMATICS (EASA PART 66)")
+        st.header("📘 MODULE 01: MATHEMATICS")
         
         # --- THEORY SECTION ---
-        st.subheader("📝 Key Theory Facts")
+        st.subheader("📚 Important Theory Facts")
         t_col1, t_col2 = st.columns(2)
         with t_col1:
-            st.markdown("#### ⚙️ Engine Compression Ratio Theory")
+            st.markdown("#### ⚙️ Arithmetic & Algebra")
             st.write("""
-            * **Definition:** The ratio of the maximum volume of the combustion chamber to its minimum volume.
-            * **Formula:** $CR = \\frac{V_s + V_c}{V_c}$
-            * *Where:* $V_s$ = Swept Volume, $V_c$ = Clearance Volume.
-            * Higher ratios typically improve thermal efficiency but require high-octane fuel.
+            * **BODMAS:** The sequence for solving expressions (Brackets, Orders, Division, Multiplication, Addition, Subtraction).
+            * **Indices & Powers:** Rules for $a^m \\times a^n = a^{m+n}$ and $(a^m)^n = a^{mn}$.
+            * **Compression Ratio:** Fundamental for thermal efficiency; higher ratios require better fuels to prevent 'knocking'.
             """)
         
         with t_col2:
-            st.markdown("#### 📐 Circle & Radius Theory")
+            st.markdown("#### 📐 Geometry & Trigonometry")
             st.write("""
-            * **Radius ($r$):** The distance from the center to any point on the circle.
-            * **Diameter ($d$):** $2 \\times r$.
-            * **Area:** $\\pi r^2$ (Used for piston area and hydraulic pressure calculations).
-            * **Circumference:** $2\\pi r$.
+            * **Pythagoras Theorem:** $a^2 + b^2 = c^2$. Essential for finding lengths in airframe structures.
+            * **Radius Properties:** The radius is used to calculate Piston Area, Cylinder Volume, and Hydraulic force.
+            * **Trigonometry:** SOH-CAH-TOA rules apply to lift and drag vector analysis.
             """)
 
         st.write("---")
         
         # --- CALCULATIONS SECTION ---
-        st.subheader("⚙️ Essential Engineering Calculations")
-        calc_col1, calc_col2 = st.columns(2)
+        st.subheader("⚙️ Essential Aerospace Calculations")
         
-        with calc_col1:
-            st.markdown("#### 🏎️ Engine Compression Ratio Calc")
-            v_swept = st.number_input("Swept Volume ($V_s$ in cc):", value=500.0)
-            v_clear = st.number_input("Clearance Volume ($V_c$ in cc):", value=50.0)
-            cr_result = (v_swept + v_clear) / v_clear if v_clear > 0 else 0
-            st.success(f"Compression Ratio: **{cr_result:.1f} : 1**")
+        # Row 1: Compression Ratio and Unit Conversion
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("#### 🏎️ Engine Compression Ratio")
+            vs = st.number_input("Swept Volume ($V_s$ in cc):", value=500.0)
+            vc = st.number_input("Clearance Volume ($V_c$ in cc):", value=50.0)
+            st.info(f"Compression Ratio: **{(vs + vc) / vc if vc > 0 else 0:.1f} : 1**")
+        with c2:
+            st.markdown("#### 📏 Imperial to Metric Converter")
+            val = st.number_input("Value:", value=1.0)
+            unit = st.selectbox("Convert:", ["Inches to mm", "Gallons to Liters", "Feet to Meters"])
+            if "Inches" in unit: res = val * 25.4
+            elif "Gallons" in unit: res = val * 3.785
+            else: res = val * 0.3048
+            st.success(f"Converted Value: **{res:.2f}**")
 
-        with calc_col2:
-            st.markdown("#### ⭕ Circle Properties (Based on Radius)")
-            radius_in = st.number_input("Input Radius ($r$ in cm):", value=5.0)
-            c_area = 3.14159 * (radius_in**2)
-            c_circum = 2 * 3.14159 * radius_in
-            st.info(f"Area: **{c_area:.2f} cm²**  \nCircumference: **{c_circum:.2f} cm**")
+        # Row 2: Radius-based Geometry and Pythagoras
+        st.write("---")
+        c3, c4 = st.columns(2)
+        with c3:
+            st.markdown("#### ⭕ Circle Properties (Radius Based)")
+            rad = st.number_input("Input Radius ($r$ in cm):", value=5.0)
+            st.info(f"Area: **{3.14159 * rad**2:.2f} cm²**  \nCircumference: **{2 * 3.14159 * rad:.2f} cm**")
+        with c4:
+            st.markdown("#### 📐 Pythagoras (Triangle Analysis)")
+            side_a = st.number_input("Base length (a):", value=3.0)
+            side_b = st.number_input("Height length (b):", value=4.0)
+            st.warning(f"Hypotenuse (c): **{np.sqrt(side_a**2 + side_b**2):.2f}**")
 
         st.markdown('</div>', unsafe_allow_html=True)
         
