@@ -141,9 +141,81 @@ elif st.session_state.page == 'modules':
             * **Pythagoras Theorem:** $a^2 + b^2 = c^2$.
             * **Circle Geometry:** Area = $\\pi r^2$, Circumference = $2\\pi r$.
             """)
-
+        # --- MODULE 1: 20 MCQS SECTION ---
         st.write("---")
-        
+        st.header("📝 MODULE 01: PRACTICE EXAM (20 QUESTIONS)")
+        st.info("EASA Part 66 Style - Select the best answer for each question.")
+
+        # Questions Database
+        m1_questions = [
+            {"q": "1. What is the value of 1011 in decimal?", "o": ["11", "13", "9", "15"], "a": "11", "ex": "Binary 1011 = (1*8) + (0*4) + (1*2) + (1*1) = 11."},
+            {"q": "2. Solve: 2 + 3 x 4", "o": ["20", "14", "18", "12"], "a": "14", "ex": "Using BODMAS: Multiply first (3x4=12), then add (12+2=14)."},
+            {"q": "3. The square root of 144 is?", "o": ["12", "14", "16", "10"], "a": "12", "ex": "12 x 12 = 144."},
+            {"q": "4. Convert 1/8 to a percentage.", "o": ["10%", "12.5%", "15%", "8%"], "a": "12.5%", "ex": "(1 / 8) * 100 = 12.5%."},
+            {"q": "5. What is the sum of angles in a triangle?", "o": ["90°", "180°", "360°", "270°"], "a": "180", "ex": "Internal angles of any triangle always sum to 180 degrees."},
+            {"q": "6. Log 100 to the base 10 is?", "o": ["1", "2", "3", "10"], "a": "2", "ex": "10 to the power of 2 is 100."},
+            {"q": "7. A ratio of 3:4 is equivalent to?", "o": ["75%", "60%", "80%", "40%"], "a": "75%", "ex": "3/4 = 0.75 or 75%."},
+            {"q": "8. What is the area of a circle with radius 'r'?", "o": ["2πr", "πr²", "πd", "2πr²"], "a": "πr²", "ex": "Area = π * radius squared."},
+            {"q": "9. Simplify: (a²)³", "o": ["a⁵", "a⁶", "a²", "a⁸"], "a": "a⁶", "ex": "Power of a power rule: multiply exponents (2x3=6)."},
+            {"q": "10. In the equation y = mx + c, what does 'm' represent?", "o": ["Intercept", "Gradient", "X-value", "Constant"], "a": "Gradient", "ex": "'m' is the slope or gradient of the line."},
+            {"q": "11. 1 Radian is approximately equal to?", "o": ["45°", "57.3°", "60°", "90°"], "a": "57.3°", "ex": "180 / π ≈ 57.295°."},
+            {"q": "12. Which of these is a prime number?", "o": ["9", "15", "17", "21"], "a": "17", "ex": "17 is only divisible by 1 and itself."},
+            {"q": "13. Sin 30° is equal to?", "o": ["0.5", "0.866", "1", "0.707"], "a": "0.5", "ex": "Standard trigonometric value for Sin 30 is 1/2."},
+            {"q": "14. A line touching a circle at only one point is a?", "o": ["Chord", "Tangent", "Secant", "Diameter"], "a": "Tangent", "ex": "A tangent intersects a circle at exactly one point."},
+            {"q": "15. Hexadecimal 'A' represents decimal?", "o": ["10", "11", "12", "9"], "a": "10", "ex": "In Hex: 9, A(10), B(11), C(12)..."},
+            {"q": "16. 2⁴ is equal to?", "o": ["8", "16", "32", "6"], "a": "16", "ex": "2 * 2 * 2 * 2 = 16."},
+            {"q": "17. The value of π (Pi) is approximately?", "o": ["3.12", "3.14", "3.16", "3.18"], "a": "3.14", "ex": "π is approximately 22/7 or 3.14159."},
+            {"q": "18. What is 0.005 in scientific notation?", "o": ["5 x 10³", "5 x 10⁻³", "0.5 x 10⁻²", "50 x 10⁻⁴"], "a": "5 x 10⁻³", "ex": "Move decimal 3 places to the right."},
+            {"q": "19. The result of any number raised to power 0 is?", "o": ["0", "The number itself", "1", "Infinity"], "a": "1", "ex": "Identity rule: x⁰ = 1."},
+            {"q": "20. Solve for x: 2x + 4 = 10", "o": ["2", "3", "4", "5"], "a": "3", "ex": "2x = 6 -> x = 3."}
+        ]
+
+        # Score Tracking
+        if 'm1_score' not in st.session_state:
+            st.session_state.m1_score = 0
+            st.session_state.m1_submitted = False
+
+        # Display Questions
+        user_answers = []
+        for i, item in enumerate(m1_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m1_q{i}", index=None)
+            user_answers.append(ans)
+
+        # Submit Button
+        if st.button("🚀 SUBMIT MODULE 1 EXAM"):
+            st.session_state.m1_submitted = True
+            score = 0
+            for i, item in enumerate(m1_questions):
+                if user_answers[i] == item['a']:
+                    score += 1
+            st.session_state.m1_score = score
+            st.rerun()
+
+        # Result Display
+        if st.session_state.m1_submitted:
+            st.write("---")
+            final_score = st.session_state.m1_score
+            percentage = (final_score / 20) * 100
+            
+            if percentage >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {final_score}/20 ({percentage}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {final_score}/20 ({percentage}%). Passing is 75%.")
+
+            # Review Answers
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m1_questions):
+                    if user_answers[i] == item['a']:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        st.write(f"Q{i+1}: Incorrect ❌. Correct: **{item['a']}**")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE QUIZ"):
+                st.session_state.m1_submitted = False
+                st.rerun() 
         # Calculation Section
         st.subheader("⚙️ Technical Calculations")
         c_col1, c_col2 = st.columns(2)
