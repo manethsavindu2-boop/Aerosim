@@ -533,7 +533,64 @@ elif st.session_state.page == 'modules':
             st.info(f"Output: **{'1 (High)' if out else '0 (Low)'}**")
         st.markdown('</div>', unsafe_allow_html=True)
     
-        
+        st.write("---")
+        st.header("📝 MODULE 04: ELECTRONICS PRACTICE EXAM")
+        m4_q = [
+            {"q": "1. A diode allows current to flow in?", "o": ["Both directions", "One direction only", "Neither direction", "Alternating directions"], "a": "One direction only", "ex": "A diode acts as a one-way valve for electricity."},
+            {"q": "2. In a P-type semiconductor, the majority carriers are?", "o": ["Electrons", "Holes", "Neutrons", "Protons"], "a": "Holes", "ex": "P-type material is 'Positive' due to an abundance of holes."},
+            {"q": "3. Which component is used for voltage regulation?", "o": ["Zener Diode", "LED", "Varactor Diode", "Rectifier"], "a": "Zener Diode", "ex": "Zener diodes are designed to operate in the reverse breakdown region to maintain a constant voltage."},
+            {"q": "4. A transistor has how many terminals?", "o": ["2", "3", "4", "5"], "a": "3", "ex": "Emitter, Base, and Collector."},
+            {"q": "5. What is the main function of an amplifier?", "o": ["To reduce signal", "To increase signal strength", "To convert AC to DC", "To store charge"], "a": "To increase signal strength", "ex": "Amplifiers increase the amplitude of an input signal."},
+            {"q": "6. An NPN transistor is 'ON' when the base is?", "o": ["Positive relative to emitter", "Negative relative to emitter", "Grounded", "Disconnected"], "a": "Positive relative to emitter", "ex": "NPN requires a positive base-emitter voltage to conduct."},
+            {"q": "7. What does 'LED' stand for?", "o": ["Light Emitting Diode", "Low Energy Diode", "Liquid Emitting Device", "Laser Energy Diode"], "a": "Light Emitting Diode", "ex": "LEDs convert electrical energy directly into light."},
+            {"q": "8. A device that converts AC to DC is called a?", "o": ["Inverter", "Rectifier", "Transformer", "Oscillator"], "a": "Rectifier", "ex": "Diodes are commonly used in rectifier circuits."},
+            {"q": "9. In common emitter configuration, the phase shift is?", "o": ["0°", "90°", "180°", "270°"], "a": "180°", "ex": "The output is 180 degrees out of phase with the input."},
+            {"q": "10. What is the unit of Inductance?", "o": ["Farad", "Ohm", "Henry", "Tesla"], "a": "Henry", "ex": "Inductance is measured in Henrys (H)."},
+            {"q": "11. A thyristor (SCR) is used for?", "o": ["Switching", "Amplification", "Filtering", "Resistance"], "a": "Switching", "ex": "SCRs are used as high-speed electronic switches."},
+            {"q": "12. What is 'Gain' in an amplifier?", "o": ["Input/Output", "Output/Input", "Power Loss", "Noise Level"], "a": "Output/Input", "ex": "Gain = Output signal / Input signal."},
+            {"q": "13. A photo-diode's resistance decreases when?", "o": ["Voltage increases", "Light intensity increases", "Heat increases", "Current decreases"], "a": "Light intensity increases", "ex": "Photo-diodes are light-sensitive devices."},
+            {"q": "14. Filter circuits are used to?", "o": ["Increase noise", "Remove unwanted frequencies", "Change DC to AC", "Block all current"], "a": "Remove unwanted frequencies", "ex": "Filters allow specific frequencies to pass while blocking others."},
+            {"q": "15. The 'Forward Bias' voltage for a Silicon diode is approx?", "o": ["0.3V", "0.7V", "1.1V", "5V"], "a": "0.7V", "ex": "Silicon diodes require 0.7V to start conducting."},
+            {"q": "16. An integrated circuit (IC) is made of?", "o": ["Only resistors", "Only capacitors", "Many components on one chip", "Vacuum tubes"], "a": "Many components on one chip", "ex": "ICs contain thousands of transistors, resistors, etc."},
+            {"q": "17. Capacitive reactance (Xc) decreases as?", "o": ["Frequency increases", "Frequency decreases", "Voltage decreases", "Current increases"], "a": "Frequency increases", "ex": "Xc = 1 / (2πfC)."},
+            {"q": "18. What is the purpose of a heat sink?", "o": ["To store heat", "To dissipate heat from components", "To insulate", "To increase temperature"], "a": "To dissipate heat from components", "ex": "Heat sinks prevent thermal damage to transistors/ICs."},
+            {"q": "19. A 'Bridge Rectifier' uses how many diodes?", "o": ["1", "2", "4", "6"], "a": "4", "ex": "A full-wave bridge rectifier uses 4 diodes."},
+            {"q": "20. The Greek letter 'Beta' (β) in transistors refers to?", "o": ["Voltage Gain", "Current Gain", "Resistance", "Power"], "a": "Current Gain", "ex": "Beta is the ratio of Collector current to Base current."}
+        ]
+        # --- EXAM LOGIC FOR MODULE 4 ---
+        if 'm4_score' not in st.session_state:
+            st.session_state.m4_score = 0
+            st.session_state.m4_submitted = False
+
+        user_answers_m4 = []
+        for i, item in enumerate(m4_q):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m4_q{i}", index=None)
+            user_answers_m4.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 4 EXAM"):
+            st.session_state.m4_submitted = True
+            score = sum(1 for i, item in enumerate(m4_q) if user_answers_m4[i] == item['a'])
+            st.session_state.m4_score = score
+            st.rerun()
+
+        if st.session_state.m4_submitted:
+            st.write("---")
+            perc = (st.session_state.m4_score / 20) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m4_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m4_score}/20 ({perc}%). Passing is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m4_q):
+                    st.write(f"Q{i+1}: {'Correct ✅' if user_answers_m4[i] == item['a'] else f'Incorrect ❌ (Correct: {item[a]})'}")
+                    if user_answers_m4[i] != item['a']: st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 4 QUIZ"):
+                st.session_state.m4_submitted = False
+                st.rerun()   
     # --- MODULE 5 (DIGITAL TECHNIQUES) START ---
     elif mod == "Module 5":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -567,6 +624,65 @@ elif st.session_state.page == 'modules':
             st.write("Fiber optics use light pulses for data transmission, offering high speed and total immunity to EMI.")
             st.info("Calculation: Data Rate = Frequency $\\times$ Bit Depth")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("📝 MODULE 05: DIGITAL TECHNIQUES EXAM")
+        m5_q = [
+            {"q": "1. Which logic gate gives a high output only if all inputs are high?", "o": ["OR", "AND", "NOT", "NAND"], "a": "AND", "ex": "The AND gate requires all inputs to be 1."},
+            {"q": "2. In binary, 1 + 1 equals?", "o": ["2", "10", "11", "0"], "a": "10", "ex": "In binary, 1+1 = 0 carry 1 (which is 10)."},
+            {"q": "3. How many bits are in a Byte?", "o": ["4", "8", "16", "32"], "a": "8", "ex": "1 Byte = 8 Bits."},
+            {"q": "4. An inverter is another name for which gate?", "o": ["AND", "OR", "NOT", "XOR"], "a": "NOT", "ex": "A NOT gate inverts the input (0 to 1, 1 to 0)."},
+            {"q": "5. What does 'BITE' stand for in aircraft systems?", "o": ["Basic Internal Test Equipment", "Built-In Test Equipment", "Binary Input Test Engine", "Basic Integrated Tech Engine"], "a": "Built-In Test Equipment", "ex": "BITE is used for self-diagnostics in avionics."},
+            {"q": "6. A Hexadecimal system has a base of?", "o": ["2", "8", "10", "16"], "a": "16", "ex": "Hex uses 0-9 and A-F."},
+            {"q": "7. Which gate is known as the 'Universal Gate'?", "o": ["AND", "OR", "NAND", "XOR"], "a": "NAND", "ex": "NAND and NOR can be used to create any other logic gate."},
+            {"q": "8. 'EEPROM' stands for?", "o": ["Electrical Erasable Programmable ROM", "Easy Erasable Programmable ROM", "Engine Electronic ROM", "External Erasable ROM"], "a": "Electrical Erasable Programmable ROM", "ex": "It can be erased and rewritten electrically."},
+            {"q": "9. A flip-flop is a device that can store?", "o": ["1 Byte", "1 Bit", "1 Word", "10 Bits"], "a": "1 Bit", "ex": "Flip-flops are the basic building blocks of digital memory."},
+            {"q": "10. ESD protection is used to prevent damage from?", "o": ["High Voltage", "Static Electricity", "Heat", "Magnetic Fields"], "a": "Static Electricity", "ex": "Electrostatic Discharge can destroy sensitive digital ICs."},
+            {"q": "11. Fiber optic cables transmit data using?", "o": ["Electricity", "Sound", "Light", "Radio Waves"], "a": "Light", "ex": "Fiber optics use light pulses for high-speed data transfer."},
+            {"q": "12. What is the decimal equivalent of binary 0101?", "o": ["3", "5", "7", "10"], "a": "5", "ex": "0101 = (1*4) + (0*2) + (1*1) = 5."},
+            {"q": "13. In a logic circuit, 0V usually represents?", "o": ["Logic 1", "Logic 0", "High Impedance", "Error"], "a": "Logic 0", "ex": "0V is 'Low' or Logic 0."},
+            {"q": "14. A multiplexer (MUX) has?", "o": ["Many inputs, one output", "One input, many outputs", "One input, one output", "No inputs"], "a": "Many inputs, one output", "ex": "MUX acts as a data selector switch."},
+            {"q": "15. 'ARINC 429' is a standard for?", "o": ["Engine parts", "Data bus communication", "Cabin seats", "Fuel types"], "a": "Data bus communication", "ex": "It is the most common data bus standard in commercial aircraft."},
+            {"q": "16. A 'Bus' in digital terms is a?", "o": ["Transport vehicle", "Set of parallel wires for data", "Power supply", "Memory chip"], "a": "Set of parallel wires for data", "ex": "Data buses carry information between CPU and memory."},
+            {"q": "17. What is the result of 1 XOR 1?", "o": ["1", "0", "11", "2"], "a": "0", "ex": "XOR output is 0 if inputs are the same."},
+            {"q": "18. 'LCD' stands for?", "o": ["Liquid Crystal Display", "Light Crystal Device", "Low Current Display", "Liquid Core Diode"], "a": "Liquid Crystal Display", "ex": "Commonly used in flight deck instruments."},
+            {"q": "19. Which memory is 'Volatile'?", "o": ["ROM", "RAM", "Flash", "EPROM"], "a": "RAM", "ex": "RAM loses its data when power is turned off."},
+            {"q": "20. The process of converting Analog to Digital is called?", "o": ["Modulation", "Encoding", "ADC", "DAC"], "a": "ADC", "ex": "Analog-to-Digital Conversion."}
+        ]
+    # --- EXAM LOGIC FOR MODULE 5 ---
+        if 'm5_score' not in st.session_state:
+            st.session_state.m5_score = 0
+            st.session_state.m5_submitted = False
+
+        user_answers_m5 = []
+        for i, item in enumerate(m5_q):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m5_q{i}", index=None)
+            user_answers_m5.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 5 EXAM"):
+            st.session_state.m5_submitted = True
+            score = sum(1 for i, item in enumerate(m5_q) if user_answers_m5[i] == item['a'])
+            st.session_state.m5_score = score
+            st.rerun()
+
+        if st.session_state.m5_submitted:
+            st.write("---")
+            perc = (st.session_state.m5_score / 20) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m5_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m5_score}/20 ({perc}%). Passing is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m5_q):
+                    st.write(f"Q{i+1}: {'Correct ✅' if user_answers_m5[i] == item['a'] else f'Incorrect ❌ (Correct: {item[a]})'}")
+                    if user_answers_m5[i] != item['a']: st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 5 QUIZ"):
+                st.session_state.m5_submitted = False
+                st.rerun()
     # --- MODULE 6 (MATERIALS & HARDWARE) START ---
     elif mod == "Module 6":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
