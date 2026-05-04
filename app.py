@@ -141,7 +141,30 @@ elif st.session_state.page == 'modules':
             * **Pythagoras Theorem:** $a^2 + b^2 = c^2$.
             * **Circle Geometry:** Area = $\\pi r^2$, Circumference = $2\\pi r$.
             """)
-        # --- MODULE 1: 20 MCQS SECTION ---
+        
+        
+        # Calculation Section
+        st.subheader("⚙️ Technical Calculations")
+        c_col1, c_col2 = st.columns(2)
+        
+        with c_col1:
+            st.markdown("#### 🏎️ Engine Compression Ratio")
+            vs = st.number_input("Swept Volume ($V_s$):", value=500.0, step=10.0)
+            vc = st.number_input("Clearance Volume ($V_c$):", value=50.0, step=5.0)
+            if vc > 0:
+                cr = (vs + vc) / vc
+                st.success(f"Compression Ratio: **{cr:.2f} : 1**")
+            else:
+                st.error("Clearance Volume must be > 0")
+
+        with c_col2:
+            st.markdown("#### 📏 Area & Circumference")
+            radius = st.number_input("Enter Radius (cm):", value=10.0, step=1.0)
+            area = np.pi * (radius ** 2)
+            st.info(f"Area: **{area:.2f} cm²**")
+            
+        st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 1: 20 MCQS SECTION ---
         st.write("---")
         st.header("📝 MODULE 01: PRACTICE EXAM (20 QUESTIONS)")
         st.info("EASA Part 66 Style - Select the best answer for each question.")
@@ -215,28 +238,7 @@ elif st.session_state.page == 'modules':
 
             if st.button("🔄 RETAKE QUIZ"):
                 st.session_state.m1_submitted = False
-                st.rerun() 
-        # Calculation Section
-        st.subheader("⚙️ Technical Calculations")
-        c_col1, c_col2 = st.columns(2)
-        
-        with c_col1:
-            st.markdown("#### 🏎️ Engine Compression Ratio")
-            vs = st.number_input("Swept Volume ($V_s$):", value=500.0, step=10.0)
-            vc = st.number_input("Clearance Volume ($V_c$):", value=50.0, step=5.0)
-            if vc > 0:
-                cr = (vs + vc) / vc
-                st.success(f"Compression Ratio: **{cr:.2f} : 1**")
-            else:
-                st.error("Clearance Volume must be > 0")
-
-        with c_col2:
-            st.markdown("#### 📏 Area & Circumference")
-            radius = st.number_input("Enter Radius (cm):", value=10.0, step=1.0)
-            area = np.pi * (radius ** 2)
-            st.info(f"Area: **{area:.2f} cm²**")
-            
-        st.markdown('</div>', unsafe_allow_html=True)
+                st.rerun()
 
     # --- MODULE 2 (PHYSICS) START ---
     elif mod == "Module 2":
@@ -266,6 +268,68 @@ elif st.session_state.page == 'modules':
             """)
 
         st.write("---")
+    # --- MODULE 2: PHYSICS 20 MCQS SECTION
+    
+        
+        st.write("---")
+        st.header("📝 MODULE 02: PHYSICS PRACTICE EXAM")
+        st.info("EASA Part 66 Syllabus - Physics (Statics, Dynamics, Thermodynamics, and Optics)")
+
+        m2_questions = [
+            {"q": "1. What is the unit of Force?", "o": ["Joule", "Newton", "Watt", "Pascal"], "a": "Newton", "ex": "Force is measured in Newtons (N), where 1N = 1kg⋅m/s²."},
+            {"q": "2. Kinetic energy is the energy possessed by a body due to its?", "o": ["Position", "Motion", "Chemical composition", "Temperature"], "a": "Motion", "ex": "Kinetic Energy = ½mv², which depends on velocity (motion)."},
+            {"q": "3. Which law states that 'For every action, there is an equal and opposite reaction'?", "o": ["Newton's 1st Law", "Newton's 2nd Law", "Newton's 3rd Law", "Pascal's Law"], "a": "Newton's 3rd Law", "ex": "This is the fundamental principle behind jet propulsion."},
+            {"q": "4. The ratio of stress to strain within the elastic limit is called?", "o": ["Poisson's Ratio", "Young's Modulus", "Bulk Modulus", "Modulus of Rigidity"], "a": "Young's Modulus", "ex": "Young's Modulus measures the stiffness of a solid material."},
+            {"q": "5. What happens to the pressure of a gas if its volume is decreased at a constant temperature?", "o": ["Decreases", "Increases", "Stays the same", "Becomes zero"], "a": "Increases", "ex": "According to Boyle's Law (P ∝ 1/V), pressure increases as volume decreases."},
+            {"q": "6. Specific gravity is the ratio of the density of a substance to the density of?", "o": ["Mercury", "Air", "Pure Water", "Oil"], "a": "Pure Water", "ex": "Water is the standard reference for liquids and solids (at 4°C)."},
+            {"q": "7. The transfer of heat through a solid material is called?", "o": ["Convection", "Radiation", "Conduction", "Insulation"], "a": "Conduction", "ex": "Conduction occurs via molecular vibration in solids."},
+            {"q": "8. Acceleration is defined as the rate of change of?", "o": ["Distance", "Displacement", "Velocity", "Speed"], "a": "Velocity", "ex": "Acceleration (a) = Δv / Δt."},
+            {"q": "9. A body at rest tends to remain at rest due to?", "o": ["Friction", "Inertia", "Gravity", "Momentum"], "a": "Inertia", "ex": "Inertia is the resistance of any physical object to any change in its velocity."},
+            {"q": "10. The speed of sound in air at standard sea level is approximately?", "o": ["340 m/s", "300,000 km/s", "1100 m/s", "150 m/s"], "a": "340 m/s", "ex": "Sound travels at roughly 340-343 m/s depending on temperature."},
+            {"q": "11. Vector quantities have both magnitude and?", "o": ["Time", "Speed", "Direction", "Mass"], "a": "Direction", "ex": "Unlike scalars, vectors (like velocity) require a direction."},
+            {"q": "12. In a vacuum, all objects fall with?", "o": ["Different accelerations", "The same acceleration", "Zero acceleration", "Constant velocity"], "a": "The same acceleration", "ex": "Gravity acts equally on all masses in a vacuum (g = 9.81 m/s²)."},
+            {"q": "13. Potential energy is calculated using which formula?", "o": ["½mv²", "mgh", "Force x Distance", "Mass / Volume"], "a": "mgh", "ex": "Potential Energy = Mass x Gravity x Height."},
+            {"q": "14. What is the First Law of Thermodynamics concerned with?", "o": ["Entropy", "Conservation of Energy", "Absolute Zero", "Heat Engines"], "a": "Conservation of Energy", "ex": "Energy cannot be created or destroyed, only transformed."},
+            {"q": "15. The boiling point of water on the Kelvin scale is?", "o": ["100 K", "212 K", "373 K", "273 K"], "a": "373 K", "ex": "100°C + 273.15 = 373.15 K."},
+            {"q": "16. Centripetal force acts towards the?", "o": ["Outside of the circle", "Tangent of the path", "Center of the circle", "Direction of motion"], "a": "Center of the circle", "ex": "Centripetal means 'center-seeking' force."},
+            {"q": "17. A lens that curves outward and converges light is a?", "o": ["Concave lens", "Convex lens", "Planar lens", "Bifocal lens"], "a": "Convex lens", "ex": "Convex lenses are used to converge light rays to a focal point."},
+            {"q": "18. What is the mechanical advantage of a machine?", "o": ["Output / Input", "Input / Output", "Work / Time", "Force x Time"], "a": "Output / Input", "ex": "MA = Load / Effort."},
+            {"q": "19. Frequency is measured in?", "o": ["Seconds", "Hertz", "Watts", "Joules"], "a": "Hertz", "ex": "Hertz (Hz) represents cycles per second."},
+            {"q": "20. Atmospheric pressure at sea level is approximately?", "o": ["14.7 PSI", "10 PSI", "20 PSI", "5 PSI"], "a": "14.7 PSI", "ex": "Standard atmospheric pressure is 14.7 PSI or 1013.25 hPa."}
+        ]
+
+        # Exam Logic
+        if 'm2_score' not in st.session_state:
+            st.session_state.m2_score = 0
+            st.session_state.m2_submitted = False
+
+        user_answers_m2 = []
+        for i, item in enumerate(m2_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m2_q{i}", index=None)
+            user_answers_m2.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 2 EXAM"):
+            st.session_state.m2_submitted = True
+            score = sum(1 for i, item in enumerate(m2_questions) if user_answers_m2[i] == item['a'])
+            st.session_state.m2_score = score
+            st.rerun()
+
+        if st.session_state.m2_submitted:
+            st.write("---")
+            perc = (st.session_state.m2_score / 20) * 100
+            if perc >= 75:
+                st.success(f"🎊 PASS! Score: {st.session_state.m2_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m2_score}/20 ({perc}%). Passing is 75%.")
+            
+            with st.expander("🔍 View Corrections"):
+                for i, item in enumerate(m2_questions):
+                    st.write(f"Q{i+1}: {'Correct ✅' if user_answers_m2[i] == item['a'] else f'Incorrect ❌ (Correct: {item[a]})'}")
+                    if user_answers_m2[i] != item['a']: st.caption(f"Reason: {item['ex']}")
+    
+        
+       
         
         # Physics Calculation Section
         st.subheader("⚙️ Essential Physics Calculations")
@@ -299,6 +363,9 @@ elif st.session_state.page == 'modules':
                 st.info(f"Density (ρ): **{density:.2f} kg/m³**")
             
         st.markdown('</div>', unsafe_allow_html=True)
+    
+
+        
     # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) START ---
     elif mod == "Module 3":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -335,6 +402,58 @@ elif st.session_state.page == 'modules':
             """)
 
         st.write("---")
+    # --- MODULE 3: ELECTRICAL FUNDAMENTALS 20 MCQS ---
+    
+        st.write("---")
+        st.header("📝 MODULE 03: ELECTRICAL PRACTICE EXAM")
+        st.info("EASA Part 66 Syllabus - Electron Theory, Static Electricity, and DC Circuits")
+
+        m3_questions = [
+            {"q": "1. What is the unit of Electrical Resistance?", "o": ["Volt", "Ampere", "Ohm", "Farad"], "a": "Ohm", "ex": "Resistance is measured in Ohms (Ω)."},
+            {"q": "2. According to Ohm's Law, Voltage (V) is equal to?", "o": ["I / R", "I x R", "R / I", "P x I"], "a": "I x R", "ex": "V = Current (I) x Resistance (R)."},
+            {"q": "3. Which material is the best conductor of electricity?", "o": ["Glass", "Silver", "Plastic", "Wood"], "a": "Silver", "ex": "Silver has the lowest resistivity, making it the best conductor."},
+            {"q": "4. What is the unit of Capacitance?", "o": ["Henry", "Farad", "Coulomb", "Watt"], "a": "Farad", "ex": "Capacitance is the ability to store charge, measured in Farads (F)."},
+            {"q": "5. In a series circuit, the total resistance is?", "o": ["Less than the smallest resistor", "The sum of all resistors", "The average of all resistors", "Reciprocal of the sum"], "a": "The sum of all resistors", "ex": "Rt = R1 + R2 + R3..."},
+            {"q": "6. Conventional current flow is defined as moving from?", "o": ["Negative to Positive", "Positive to Negative", "Neutral to Earth", "North to South"], "a": "Positive to Negative", "ex": "Conventional flow is + to -, while electron flow is - to +."},
+            {"q": "7. What device is used to measure current?", "o": ["Voltmeter", "Ohmmeter", "Ammeter", "Wattmeter"], "a": "Ammeter", "ex": "An Ammeter is always connected in series to measure current."},
+            {"q": "8. Power in an electrical circuit is measured in?", "o": ["Joules", "Watts", "Amps", "Volts"], "a": "Watts", "ex": "Power (P) = V x I, measured in Watts (W)."},
+            {"q": "9. A semi-conductor material has how many valence electrons?", "o": ["1", "4", "8", "2"], "a": "4", "ex": "Silicon and Germanium have 4 valence electrons."},
+            {"q": "10. What is the purpose of a fuse in a circuit?", "o": ["To increase voltage", "To protect against over-current", "To store charge", "To change AC to DC"], "a": "To protect against over-current", "ex": "A fuse melts to break the circuit when current exceeds a safe limit."},
+            {"q": "11. If two 12V batteries are connected in parallel, the total voltage is?", "o": ["24V", "12V", "6V", "0V"], "a": "12V", "ex": "In parallel, voltage remains the same but capacity (Ah) increases."},
+            {"q": "12. The property of a coil to oppose changes in current is?", "o": ["Resistance", "Capacitance", "Inductance", "Reluctance"], "a": "Inductance", "ex": "Inductance is measured in Henrys (H)."},
+            {"q": "13. What is the formula for Electrical Power?", "o": ["P = V/I", "P = V x I", "P = R x I", "P = V² x I"], "a": "P = V x I", "ex": "Power equals Voltage times Current."},
+            {"q": "14. A capacitor blocks which type of current?", "o": ["AC", "DC", "Both", "Neither"], "a": "DC", "ex": "A capacitor acts as an open circuit to steady-state DC."},
+            {"q": "15. The unit of Electrical Charge is?", "o": ["Ampere", "Coulomb", "Volt", "Ohm"], "a": "Coulomb", "ex": "Charge (Q) is measured in Coulombs (C)."},
+            {"q": "16. Resistance of a conductor increases if its length is?", "o": ["Decreased", "Increased", "Stays the same", "Doubled in thickness"], "a": "Increased", "ex": "Resistance (R) is directly proportional to length (L)."},
+            {"q": "17. What color is the ground wire in standard DC aircraft wiring?", "o": ["Red", "Black", "Green", "White"], "a": "Black", "ex": "Typically, black or green/yellow is used for grounding/earth."},
+            {"q": "18. Kirchhoff's Voltage Law (KVL) states the sum of voltages in a loop is?", "o": ["Infinity", "Zero", "The source voltage", "Maximum"], "a": "Zero", "ex": "The algebraic sum of all voltages in a closed loop is zero."},
+            {"q": "19. A secondary cell is one that can be?", "o": ["Used only once", "Recharged", "Used for high voltage only", "Discarded after use"], "a": "Recharged", "моex": "Secondary cells (like Lead-Acid) are rechargeable."},
+            {"q": "20. What is the frequency of a DC supply?", "o": ["50 Hz", "60 Hz", "0 Hz", "400 Hz"], "a": "0 Hz", "ex": "Direct Current does not cycle, so its frequency is zero."}
+        ]
+
+        # Exam Logic
+        if 'm3_score' not in st.session_state:
+            st.session_state.m3_score = 0
+            st.session_state.m3_submitted = False
+
+        user_answers_m3 = []
+        for i, item in enumerate(m3_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_answers_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
+            st.session_state.m3_submitted = True
+            score = sum(1 for i, item in enumerate(m3_questions) if user_answers_m3[i] == item['a'])
+            st.session_state.m3_score = score
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            perc = (st.session_state.m3_score / 20) * 100
+            if perc >= 75:
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Passing is 75%.")
         
         # Electrical Calculation Section
         st.subheader("⚙️ Essential Electrical Calculations")
@@ -413,6 +532,8 @@ elif st.session_state.page == 'modules':
             else: out = not (a or b)
             st.info(f"Output: **{'1 (High)' if out else '0 (Low)'}**")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        
     # --- MODULE 5 (DIGITAL TECHNIQUES) START ---
     elif mod == "Module 5":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
