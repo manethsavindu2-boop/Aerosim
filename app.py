@@ -645,70 +645,85 @@ elif st.session_state.page == 'modules':
             curr_a = st.number_input("Total Current Load (A):", value=15.0)
             st.info(f"System Load: **{volt_a * curr_a:.2f} Watts**")
         st.markdown('</div>', unsafe_allow_html=True)
+    
     # --- MODULE 14 (PROPULSION) START ---
     elif mod == "Module 14":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
         st.header("🔥 MODULE 14: PROPULSION (HELICOPTER GAS TURBINE)")
-    
         
         m14_col1, m14_col2 = st.columns(2)
         with m14_col1:
             st.markdown("#### ⚙️ Turbine Engine Theory")
             st.write("""
-            * **Brayton Cycle:** The thermodynamic cycle of a gas turbine (Intake, Compression, Combustion, Exhaust).
-            * **Free Turbine:** Many helicopters use a free power turbine to drive the rotor system.
-            * **Engine Controls:** FADEC (Full Authority Digital Engine Control) systems.
+            * **Brayton Cycle:** Intake, Compression, Combustion, Exhaust.
+            * **Free Turbine:** Used to drive the rotor system independently.
             """)
         with m14_col2:
             st.markdown("#### 🚀 Performance Factors")
             st.write("""
-            * **SFC:** Specific Fuel Consumption - measure of engine efficiency.
-            * **Thermal Efficiency:** Ratio of work produced to fuel energy input.
-            * **Surge & Stall:** Airflow instability within the compressor stages.
+            * **SFC:** Specific Fuel Consumption.
+            * **Surge & Stall:** Airflow instability within the compressor.
             """)
 
         st.write("---")
-        st.subheader("📊 Engine Performance Graph (Brayton Cycle)")
-        
-        # Brayton Cycle Graph Data
-        # Pressure-Volume (P-V) relationship simulation
+        st.subheader("📊 Engine Performance Graph")
         v = np.linspace(1, 10, 100)
-        p = 10 / v  # Simple isothermal representation for visualization
-        
-        chart_data = pd.DataFrame({
-            'Volume (V)': v,
-            'Pressure (P)': p
-        })
-        st.area_chart(chart_data.set_index('Volume (V)'))
-        st.caption("Simplified Pressure-Volume relationship in a Turbine Cycle.")
+        p = 10 / v 
+        chart_data_m14 = pd.DataFrame({'Volume (V)': v, 'Pressure (P)': p})
+        st.area_chart(chart_data_m14.set_index('Volume (V)'))
 
+        # Calculations
         st.write("---")
         st.subheader("⚙️ Propulsion Calculations")
         m14c1, m14c2 = st.columns(2)
         with m14c1:
-            st.markdown("#### ⛽ Specific Fuel Consumption (SFC)")
             fuel_flow = st.number_input("Fuel Flow (kg/hr):", value=150.0)
             power_out = st.number_input("Shaft Horsepower (SHP):", value=500.0)
             sfc = fuel_flow / power_out if power_out > 0 else 0
             st.success(f"SFC: **{sfc:.3f} kg/hr/SHP**")
         with m14c2:
-            st.markdown("#### 🌡️ Temperature Conversion (EGT/TGT)")
             c_temp = st.number_input("Exhaust Gas Temp (°C):", value=600.0)
-            f_temp = (c_temp * 9/5) + 32
-            st.info(f"Temperature in Fahrenheit: **{f_temp:.1f} °F**")
-            
-        st.markdown('</div>', unsafe_allow_html=True)
-    st.write("---")
-if st.button("🚀 FINISH MISSION & VIEW DIAGNOSTICS", use_container_width=True):
-            st.session_state.page = 'ending'
-            st.rerun()
-
-else:
-        st.markdown(f'<div class="info-panel"><h3>Loading {mod} Data...</h3>', unsafe_allow_html=True)
-        st.line_chart(np.random.randn(20, 1))
+            st.info(f"Fahrenheit: **{(c_temp * 9/5) + 32:.1f} °F**")
         st.markdown('</div>', unsafe_allow_html=True)
 
-if st.button("RETURN TO DASHBOARD"):
-        st.session_state.page = 'dashboard'
-        st.rerun()
+        # --- ADDING ENDING FACTS HERE ---
+        st.write("---")
+        st.header("🏁 SYSTEM DIAGNOSTICS SUMMARY")
         
+        # Engine Wallpaper & Bar Chart
+        st.image("https://images.unsplash.com/photo-1544724569-5f546fa662b5", caption="Engine Health Analysis", use_container_width=True)
+        
+        diag_data = pd.DataFrame({
+            'Symptoms': ['Vibration', 'Overheat', 'Fuel Leak', 'Pressure Drop'],
+            'Severity': [20, 85, 10, 45]
+        })
+        st.bar_chart(diag_data.set_index('Symptoms'))
+
+        # Symptoms and Actions Table
+        st.markdown("""
+        | Symptom | Severity | Recommended Action |
+        | :--- | :--- | :--- |
+        | **High EGT** | 85% | Reduce Throttle & Check Cooling |
+        | **Low Oil Pressure** | 45% | Check Pump & Filter |
+        | **Vibration** | 20% | Inspect Compressor Blades |
+        """)
+
+        # Multi-Language Thank You Message
+        st.markdown('<div class="info-panel" style="text-align: center; border: 2px solid #00FF00;">', unsafe_allow_html=True)
+        st.markdown("""
+        <div style="font-size: 28px; color: #00FF00; font-weight: bold;">🙏 THANK YOU FOR USING AVIONIX MASTER CORE</div>
+        <div style="font-size: 16px; margin-top: 15px;">
+            <b>[ENGLISH]</b> Thank you for your excellence. | <b>[DEUTSCH]</b> Vielen Dank. <br>
+            <b>[FRANÇAIS]</b> Merci beaucoup. | <b>[РУССКИЙ]</b> Благодарим вас. <br>
+            <b>[日本語]</b> ありがとうございました。 | <b>[中文]</b> 感谢您。
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Creator Credit
+        st.markdown("<hr><h3 style='text-align: center; color: #FFD700;'>CREATOR: SAVINDU MANETH</h3>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Return Button
+        if st.button("⬅️ BACK TO DASHBOARD"):
+            st.session_state.page = 'dashboard'
+            st.rerun()
