@@ -711,7 +711,7 @@ elif st.session_state.page == 'modules':
         # Multi-Language Thank You Message
         st.markdown('<div class="info-panel" style="text-align: center; border: 2px solid #00FF00;">', unsafe_allow_html=True)
         st.markdown("""
-        <div style="font-size: 28px; color: #00FF00; font-weight: bold;">🙏 THANK YOU FOR USING AVIONIX MASTER CORE</div>
+        <div style="font-size: 28px; color: #00FF00; font-weight: bold;"> THANK YOU FOR USING AVIONIX MASTER CORE</div>
         <div style="font-size: 16px; margin-top: 15px;">
             <b>[ENGLISH]</b> Thank you for your excellence. | <b>[DEUTSCH]</b> Vielen Dank. <br>
             <b>[FRANÇAIS]</b> Merci beaucoup. | <b>[РУССКИЙ]</b> Благодарим вас. <br>
