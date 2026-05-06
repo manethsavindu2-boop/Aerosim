@@ -677,7 +677,7 @@ elif st.session_state.page == 'modules':
             ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
             user_ans_m3.append(ans)
 
-        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
+        if st.button("🚀 SUBMIT MODULE 5 EXAM"):
             st.session_state.m3_submitted = True
             st.session_state.m3_score = sum(1 for i, item in enumerate(m5_questions) if user_ans_m3[i] == item['a'])
             st.rerun()
@@ -701,7 +701,7 @@ elif st.session_state.page == 'modules':
                         st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
                         st.caption(f"Reason: {item['ex']}")
 
-            if st.button("🔄 RETAKE MODULE 3"):
+            if st.button("🔄 RETAKE MODULE 5"):
                 st.session_state.m3_submitted = False
                 st.rerun()# (Add same Submit/Review Logic as Module 4)
     
