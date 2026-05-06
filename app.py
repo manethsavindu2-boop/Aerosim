@@ -239,7 +239,8 @@ elif st.session_state.page == 'modules':
             if st.button("🔄 RETAKE QUIZ"):
                 st.session_state.m1_submitted = False
                 st.rerun()
-
+    
+           
     # --- MODULE 2 (PHYSICS) START ---
     elif mod == "Module 2":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -268,69 +269,6 @@ elif st.session_state.page == 'modules':
             """)
 
         st.write("---")
-    # --- MODULE 2: PHYSICS 20 MCQS SECTION
-    
-        
-        st.write("---")
-        st.header("📝 MODULE 02: PHYSICS PRACTICE EXAM")
-        st.info("EASA Part 66 Syllabus - Physics (Statics, Dynamics, Thermodynamics, and Optics)")
-
-        m2_questions = [
-            {"q": "1. What is the unit of Force?", "o": ["Joule", "Newton", "Watt", "Pascal"], "a": "Newton", "ex": "Force is measured in Newtons (N), where 1N = 1kg⋅m/s²."},
-            {"q": "2. Kinetic energy is the energy possessed by a body due to its?", "o": ["Position", "Motion", "Chemical composition", "Temperature"], "a": "Motion", "ex": "Kinetic Energy = ½mv², which depends on velocity (motion)."},
-            {"q": "3. Which law states that 'For every action, there is an equal and opposite reaction'?", "o": ["Newton's 1st Law", "Newton's 2nd Law", "Newton's 3rd Law", "Pascal's Law"], "a": "Newton's 3rd Law", "ex": "This is the fundamental principle behind jet propulsion."},
-            {"q": "4. The ratio of stress to strain within the elastic limit is called?", "o": ["Poisson's Ratio", "Young's Modulus", "Bulk Modulus", "Modulus of Rigidity"], "a": "Young's Modulus", "ex": "Young's Modulus measures the stiffness of a solid material."},
-            {"q": "5. What happens to the pressure of a gas if its volume is decreased at a constant temperature?", "o": ["Decreases", "Increases", "Stays the same", "Becomes zero"], "a": "Increases", "ex": "According to Boyle's Law (P ∝ 1/V), pressure increases as volume decreases."},
-            {"q": "6. Specific gravity is the ratio of the density of a substance to the density of?", "o": ["Mercury", "Air", "Pure Water", "Oil"], "a": "Pure Water", "ex": "Water is the standard reference for liquids and solids (at 4°C)."},
-            {"q": "7. The transfer of heat through a solid material is called?", "o": ["Convection", "Radiation", "Conduction", "Insulation"], "a": "Conduction", "ex": "Conduction occurs via molecular vibration in solids."},
-            {"q": "8. Acceleration is defined as the rate of change of?", "o": ["Distance", "Displacement", "Velocity", "Speed"], "a": "Velocity", "ex": "Acceleration (a) = Δv / Δt."},
-            {"q": "9. A body at rest tends to remain at rest due to?", "o": ["Friction", "Inertia", "Gravity", "Momentum"], "a": "Inertia", "ex": "Inertia is the resistance of any physical object to any change in its velocity."},
-            {"q": "10. The speed of sound in air at standard sea level is approximately?", "o": ["340 m/s", "300,000 km/s", "1100 m/s", "150 m/s"], "a": "340 m/s", "ex": "Sound travels at roughly 340-343 m/s depending on temperature."},
-            {"q": "11. Vector quantities have both magnitude and?", "o": ["Time", "Speed", "Direction", "Mass"], "a": "Direction", "ex": "Unlike scalars, vectors (like velocity) require a direction."},
-            {"q": "12. In a vacuum, all objects fall with?", "o": ["Different accelerations", "The same acceleration", "Zero acceleration", "Constant velocity"], "a": "The same acceleration", "ex": "Gravity acts equally on all masses in a vacuum (g = 9.81 m/s²)."},
-            {"q": "13. Potential energy is calculated using which formula?", "o": ["½mv²", "mgh", "Force x Distance", "Mass / Volume"], "a": "mgh", "ex": "Potential Energy = Mass x Gravity x Height."},
-            {"q": "14. What is the First Law of Thermodynamics concerned with?", "o": ["Entropy", "Conservation of Energy", "Absolute Zero", "Heat Engines"], "a": "Conservation of Energy", "ex": "Energy cannot be created or destroyed, only transformed."},
-            {"q": "15. The boiling point of water on the Kelvin scale is?", "o": ["100 K", "212 K", "373 K", "273 K"], "a": "373 K", "ex": "100°C + 273.15 = 373.15 K."},
-            {"q": "16. Centripetal force acts towards the?", "o": ["Outside of the circle", "Tangent of the path", "Center of the circle", "Direction of motion"], "a": "Center of the circle", "ex": "Centripetal means 'center-seeking' force."},
-            {"q": "17. A lens that curves outward and converges light is a?", "o": ["Concave lens", "Convex lens", "Planar lens", "Bifocal lens"], "a": "Convex lens", "ex": "Convex lenses are used to converge light rays to a focal point."},
-            {"q": "18. What is the mechanical advantage of a machine?", "o": ["Output / Input", "Input / Output", "Work / Time", "Force x Time"], "a": "Output / Input", "ex": "MA = Load / Effort."},
-            {"q": "19. Frequency is measured in?", "o": ["Seconds", "Hertz", "Watts", "Joules"], "a": "Hertz", "ex": "Hertz (Hz) represents cycles per second."},
-            {"q": "20. Atmospheric pressure at sea level is approximately?", "o": ["14.7 PSI", "10 PSI", "20 PSI", "5 PSI"], "a": "14.7 PSI", "ex": "Standard atmospheric pressure is 14.7 PSI or 1013.25 hPa."}
-        ]
-
-        # Exam Logic
-        if 'm2_score' not in st.session_state:
-            st.session_state.m2_score = 0
-            st.session_state.m2_submitted = False
-
-        user_answers_m2 = []
-        for i, item in enumerate(m2_questions):
-            st.markdown(f"**Q{i+1}: {item['q']}**")
-            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m2_q{i}", index=None)
-            user_answers_m2.append(ans)
-
-        if st.button("🚀 SUBMIT MODULE 2 EXAM"):
-            st.session_state.m2_submitted = True
-            score = sum(1 for i, item in enumerate(m2_questions) if user_answers_m2[i] == item['a'])
-            st.session_state.m2_score = score
-            st.rerun()
-
-        if st.session_state.m2_submitted:
-            st.write("---")
-            perc = (st.session_state.m2_score / 20) * 100
-            if perc >= 75:
-                st.success(f"🎊 PASS! Score: {st.session_state.m2_score}/20 ({perc}%)")
-            else:
-                st.error(f"❌ FAIL. Score: {st.session_state.m2_score}/20 ({perc}%). Passing is 75%.")
-            
-            with st.expander("🔍 View Corrections"):
-                for i, item in enumerate(m2_questions):
-                    st.write(f"Q{i+1}: {'Correct ✅' if user_answers_m2[i] == item['a'] else f'Incorrect ❌ (Correct: {item[a]})'}")
-                    if user_answers_m2[i] != item['a']: st.caption(f"Reason: {item['ex']}")
-    
-        
-       
-        
         # Physics Calculation Section
         st.subheader("⚙️ Essential Physics Calculations")
         pc_col1, pc_col2 = st.columns(2)
@@ -361,10 +299,73 @@ elif st.session_state.page == 'modules':
             if d_vol > 0:
                 density = d_mass / d_vol
                 st.info(f"Density (ρ): **{density:.2f} kg/m³**")
-            
+             
         st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 2: PHYSICS SECTION ---
     
+        st.write("---")
+        st.header("📝 MODULE 02: PHYSICS PRACTICE EXAM")
+        st.info("EASA Part 66 Syllabus - Matter, Statics, Kinetics, and Dynamics")
 
+        m2_questions = [
+            {"q": "1. What is the standard unit of force?", "o": ["Joule", "Watt", "Newton", "Pascal"], "a": "Newton", "ex": "Force is measured in Newtons (N)."},
+            {"q": "2. Boyle's Law relates to which two properties?", "o": ["Pressure/Volume", "Temp/Volume", "Mass/Weight", "Density/Pressure"], "a": "Pressure/Volume", "ex": "Boyle's Law: P1V1 = P2V2 at constant temperature."},
+            {"q": "3. The rate of change of displacement is?", "o": ["Acceleration", "Velocity", "Speed", "Inertia"], "a": "Velocity", "ex": "Velocity is displacement divided by time."},
+            {"q": "4. What is the density of pure water?", "o": ["100 kg/m³", "500 kg/m³", "1000 kg/m³", "1200 kg/m³"], "a": "1000 kg/m³", "ex": "Pure water has a density of 1000 kg/m³."},
+            {"q": "5. Newton's Second Law is expressed as?", "o": ["F = m/a", "F = ma", "F = v/t", "W = mg"], "a": "F = ma", "ex": "Force equals Mass times Acceleration."},
+            {"q": "6. Kinetic energy depends on?", "o": ["Height and Mass", "Mass and Velocity", "Pressure and Area", "Time and Force"], "a": "Mass and Velocity", "ex": "KE = 1/2 mv²."},
+            {"q": "7. The pressure at the bottom of a liquid column depends on?", "o": ["Width", "Height", "Shape", "Volume"], "a": "Height", "ex": "P = ρgh, where h is the height/depth."},
+            {"q": "8. What is the freezing point of water in Kelvin?", "o": ["0 K", "100 K", "273 K", "373 K"], "a": "273 K", "ex": "0°C corresponds to approximately 273 Kelvin."},
+            {"q": "9. A vector quantity has both?", "o": ["Mass and Volume", "Size and Direction", "Speed and Time", "Force and Mass"], "a": "Size and Direction", "ex": "Vectors have magnitude and direction."},
+            {"q": "10. Work done is calculated by?", "o": ["Force / Distance", "Force x Distance", "Mass x Velocity", "Power x Time"], "a": "Force x Distance", "ex": "Work = Force x Displacement."},
+            {"q": "11. Atmospheric pressure at sea level is approx?", "o": ["10 PSI", "14.7 PSI", "20 PSI", "101 PSI"], "a": "14.7 PSI", "ex": "Standard atmospheric pressure is 14.7 PSI."},
+            {"q": "12. Acceleration due to gravity (g) is approx?", "o": ["8.9 m/s²", "9.81 m/s²", "10.5 m/s²", "1.6 m/s²"], "a": "9.81 m/s²", "ex": "On Earth, g is standard at 9.81 m/s²."},
+            {"q": "13. What is the unit of Power?", "o": ["Joule", "Newton", "Watt", "Volt"], "a": "Watt", "ex": "Power is measured in Watts (W)."},
+            {"q": "14. Centripetal force acts towards the?", "o": ["Outside", "Center", "Tangent", "Bottom"], "a": "Center", "ex": "Centripetal force is directed toward the center of rotation."},
+            {"q": "15. Matter exists in which three main states?", "o": ["Solid, Liquid, Gas", "Hard, Soft, Wet", "Ice, Water, Steam", "Atom, Molecule, Ion"], "a": "Solid, Liquid, Gas", "ex": "These are the three fundamental states of matter."},
+            {"q": "16. Specific Gravity has which unit?", "o": ["kg/m³", "N/m²", "No unit", "Joules"], "a": "No unit", "ex": "Specific gravity is a ratio, so it has no units."},
+            {"q": "17. Efficiency of a machine is always?", "o": ["100%", "> 100%", "< 100%", "0%"], "a": "< 100%", "ex": "Output is always less than input due to friction."},
+            {"q": "18. Mechanical Advantage (MA) is?", "o": ["Effort / Load", "Load / Effort", "Distance / Time", "Mass / Volume"], "a": "Load / Effort", "ex": "MA = Load / Effort."},
+            {"q": "19. The law of conservation of energy states energy cannot be?", "o": ["Stored", "Changed", "Created or Destroyed", "Measured"], "a": "Created or Destroyed", "ex": "Energy only transforms from one form to another."},
+            {"q": "20. Stress is defined as?", "o": ["Force x Area", "Force / Area", "Mass / Area", "Length / Area"], "a": "Force / Area", "ex": "Stress = Force per unit area."}
+        ]
+
+        if 'm2_submitted' not in st.session_state:
+            st.session_state.m2_submitted = False
+            st.session_state.m2_score = 0
+
+        user_ans_m2 = []
+        for i, item in enumerate(m2_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m2_q{i}", index=None)
+            user_ans_m2.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 2 EXAM"):
+            st.session_state.m2_submitted = True
+            st.session_state.m2_score = sum(1 for i, item in enumerate(m2_questions) if user_ans_m2[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m2_submitted:
+            st.write("---")
+            perc = (st.session_state.m2_score / len(m2_questions)) * 100
+            if perc >= 75:
+                st.success(f"PASS! Score: {st.session_state.m2_score}/20 ({perc}%)")
+            else:
+                st.error(f"FAIL. Score: {st.session_state.m2_score}/20 ({perc}%)")
+
+            with st.expander("🔍 View Corrections"):
+                for i, item in enumerate(m2_questions):
+                    is_correct = (user_ans_m2[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 2"):
+                st.session_state.m2_submitted = False
+                st.rerun()
         
     # --- MODULE 3 (ELECTRICAL FUNDAMENTALS) START ---
     elif mod == "Module 3":
@@ -401,59 +402,6 @@ elif st.session_state.page == 'modules':
             * **Magnetism:** Electromagnets and the motor/generator principles used in aircraft starters and alternators.
             """)
 
-        st.write("---")
-    # --- MODULE 3: ELECTRICAL FUNDAMENTALS 20 MCQS ---
-    
-        st.write("---")
-        st.header("📝 MODULE 03: ELECTRICAL PRACTICE EXAM")
-        st.info("EASA Part 66 Syllabus - Electron Theory, Static Electricity, and DC Circuits")
-
-        m3_questions = [
-            {"q": "1. What is the unit of Electrical Resistance?", "o": ["Volt", "Ampere", "Ohm", "Farad"], "a": "Ohm", "ex": "Resistance is measured in Ohms (Ω)."},
-            {"q": "2. According to Ohm's Law, Voltage (V) is equal to?", "o": ["I / R", "I x R", "R / I", "P x I"], "a": "I x R", "ex": "V = Current (I) x Resistance (R)."},
-            {"q": "3. Which material is the best conductor of electricity?", "o": ["Glass", "Silver", "Plastic", "Wood"], "a": "Silver", "ex": "Silver has the lowest resistivity, making it the best conductor."},
-            {"q": "4. What is the unit of Capacitance?", "o": ["Henry", "Farad", "Coulomb", "Watt"], "a": "Farad", "ex": "Capacitance is the ability to store charge, measured in Farads (F)."},
-            {"q": "5. In a series circuit, the total resistance is?", "o": ["Less than the smallest resistor", "The sum of all resistors", "The average of all resistors", "Reciprocal of the sum"], "a": "The sum of all resistors", "ex": "Rt = R1 + R2 + R3..."},
-            {"q": "6. Conventional current flow is defined as moving from?", "o": ["Negative to Positive", "Positive to Negative", "Neutral to Earth", "North to South"], "a": "Positive to Negative", "ex": "Conventional flow is + to -, while electron flow is - to +."},
-            {"q": "7. What device is used to measure current?", "o": ["Voltmeter", "Ohmmeter", "Ammeter", "Wattmeter"], "a": "Ammeter", "ex": "An Ammeter is always connected in series to measure current."},
-            {"q": "8. Power in an electrical circuit is measured in?", "o": ["Joules", "Watts", "Amps", "Volts"], "a": "Watts", "ex": "Power (P) = V x I, measured in Watts (W)."},
-            {"q": "9. A semi-conductor material has how many valence electrons?", "o": ["1", "4", "8", "2"], "a": "4", "ex": "Silicon and Germanium have 4 valence electrons."},
-            {"q": "10. What is the purpose of a fuse in a circuit?", "o": ["To increase voltage", "To protect against over-current", "To store charge", "To change AC to DC"], "a": "To protect against over-current", "ex": "A fuse melts to break the circuit when current exceeds a safe limit."},
-            {"q": "11. If two 12V batteries are connected in parallel, the total voltage is?", "o": ["24V", "12V", "6V", "0V"], "a": "12V", "ex": "In parallel, voltage remains the same but capacity (Ah) increases."},
-            {"q": "12. The property of a coil to oppose changes in current is?", "o": ["Resistance", "Capacitance", "Inductance", "Reluctance"], "a": "Inductance", "ex": "Inductance is measured in Henrys (H)."},
-            {"q": "13. What is the formula for Electrical Power?", "o": ["P = V/I", "P = V x I", "P = R x I", "P = V² x I"], "a": "P = V x I", "ex": "Power equals Voltage times Current."},
-            {"q": "14. A capacitor blocks which type of current?", "o": ["AC", "DC", "Both", "Neither"], "a": "DC", "ex": "A capacitor acts as an open circuit to steady-state DC."},
-            {"q": "15. The unit of Electrical Charge is?", "o": ["Ampere", "Coulomb", "Volt", "Ohm"], "a": "Coulomb", "ex": "Charge (Q) is measured in Coulombs (C)."},
-            {"q": "16. Resistance of a conductor increases if its length is?", "o": ["Decreased", "Increased", "Stays the same", "Doubled in thickness"], "a": "Increased", "ex": "Resistance (R) is directly proportional to length (L)."},
-            {"q": "17. What color is the ground wire in standard DC aircraft wiring?", "o": ["Red", "Black", "Green", "White"], "a": "Black", "ex": "Typically, black or green/yellow is used for grounding/earth."},
-            {"q": "18. Kirchhoff's Voltage Law (KVL) states the sum of voltages in a loop is?", "o": ["Infinity", "Zero", "The source voltage", "Maximum"], "a": "Zero", "ex": "The algebraic sum of all voltages in a closed loop is zero."},
-            {"q": "19. A secondary cell is one that can be?", "o": ["Used only once", "Recharged", "Used for high voltage only", "Discarded after use"], "a": "Recharged", "моex": "Secondary cells (like Lead-Acid) are rechargeable."},
-            {"q": "20. What is the frequency of a DC supply?", "o": ["50 Hz", "60 Hz", "0 Hz", "400 Hz"], "a": "0 Hz", "ex": "Direct Current does not cycle, so its frequency is zero."}
-        ]
-
-        # Exam Logic
-        if 'm3_score' not in st.session_state:
-            st.session_state.m3_score = 0
-            st.session_state.m3_submitted = False
-
-        user_answers_m3 = []
-        for i, item in enumerate(m3_questions):
-            st.markdown(f"**Q{i+1}: {item['q']}**")
-            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
-            user_answers_m3.append(ans)
-
-        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
-            st.session_state.m3_submitted = True
-            score = sum(1 for i, item in enumerate(m3_questions) if user_answers_m3[i] == item['a'])
-            st.session_state.m3_score = score
-            st.rerun()
-
-        if st.session_state.m3_submitted:
-            perc = (st.session_state.m3_score / 20) * 100
-            if perc >= 75:
-                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
-            else:
-                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Passing is 75%.")
         
         # Electrical Calculation Section
         st.subheader("⚙️ Essential Electrical Calculations")
@@ -491,6 +439,71 @@ elif st.session_state.page == 'modules':
             st.info(f"Stored Charge (Q): **{charge_q:.4f} Coulombs**")
             
         st.markdown('</div>', unsafe_allow_html=True)
+    # --- MODULE 3: ELECTRICAL FUNDAMENTALS (FULL 20 QUESTIONS) ---
+        st.write("---")
+        st.header("⚡ MODULE 03: ELECTRICAL FUNDAMENTALS EXAM")
+        st.info("EASA Part 66 Syllabus - Electron Theory, Static Electricity, and DC Circuits")
+
+        m3_questions = [
+            {"q": "1. What is the unit of electric current?", "o": ["Volt", "Ohm", "Ampere", "Watt"], "a": "Ampere", "ex": "Electric current is measured in Amperes (A)."},
+            {"q": "2. According to Ohm's Law, Voltage (V) equals?", "o": ["I / R", "I * R", "R / I", "I + R"], "a": "I * R", "ex": "V = IR (Voltage = Current x Resistance)."},
+            {"q": "3. What is the unit of Electrical Resistance?", "o": ["Ampere", "Coulomb", "Ohm", "Farad"], "a": "Ohm", "ex": "Resistance is measured in Ohms (Ω)."},
+            {"q": "4. A material that allows electrons to flow easily is called a?", "o": ["Insulator", "Conductor", "Semiconductor", "Resistor"], "a": "Conductor", "ex": "Conductors like copper allow easy electron flow."},
+            {"q": "5. The unit of Electrical Power is?", "o": ["Joule", "Volt", "Watt", "Ampere"], "a": "Watt", "ex": "Power (P) = V * I, measured in Watts (W)."},
+            {"q": "6. In a series circuit, what remains constant across all components?", "o": ["Voltage", "Current", "Resistance", "Power"], "a": "Current", "ex": "In a series circuit, the same current flows through all parts."},
+            {"q": "7. In a parallel circuit, what remains the same across all branches?", "o": ["Current", "Voltage", "Resistance", "Power"], "a": "Voltage", "ex": "The voltage across each branch in parallel is identical."},
+            {"q": "8. What device is used to measure electric current?", "o": ["Voltmeter", "Ammeter", "Ohmmeter", "Wattmeter"], "a": "Ammeter", "ex": "An ammeter measures current in Amperes."},
+            {"q": "9. A capacitor stores energy in what form?", "o": ["Magnetic field", "Chemical form", "Electrostatic field", "Heat"], "a": "Electrostatic field", "ex": "Capacitors store energy in an electrostatic field between plates."},
+            {"q": "10. What is the unit of Capacitance?", "o": ["Henry", "Farad", "Ohm", "Volt"], "a": "Farad", "ex": "Capacitance is measured in Farads (F)."},
+            {"q": "11. An inductor stores energy in what form?", "o": ["Electrostatic field", "Magnetic field", "Heat", "Chemical"], "a": "Magnetic field", "ex": "Inductors store energy in a magnetic field."},
+            {"q": "12. What is the unit of Inductance?", "o": ["Farad", "Henry", "Ohm", "Watt"], "a": "Henry", "ex": "Inductance is measured in Henrys (H)."},
+            {"q": "13. What color code represents the number '0' in a resistor?", "o": ["Black", "Brown", "Red", "Gold"], "a": "Black", "ex": "In the resistor color code, Black represents 0."},
+            {"q": "14. A fuse is always connected in ________ with the circuit?", "o": ["Parallel", "Series", "Either", "None"], "a": "Series", "ex": "Fuses must be in series to break the circuit during a fault."},
+            {"q": "15. What is the primary source of DC in an aircraft while flying?", "o": ["Battery", "Generator/Alternator", "Static wick", "Inverter"], "a": "Generator/Alternator", "ex": "Alternators provide the main DC power (via rectifiers)."},
+            {"q": "16. Which law states that the sum of currents entering a junction equals the sum leaving it?", "o": ["Ohm's Law", "Kirchhoff's Current Law", "Coulomb's Law", "Faraday's Law"], "a": "Kirchhoff's Current Law", "ex": "Kirchhoff's Current Law (KCL) deals with current conservation."},
+            {"q": "17. What is the unit of Electrical Charge?", "o": ["Ampere", "Coulomb", "Volt", "Watt"], "a": "Coulomb", "ex": "Electric charge (Q) is measured in Coulombs (C)."},
+            {"q": "18. Conventional current is assumed to flow from?", "o": ["Negative to Positive", "Positive to Negative", "Center to Outside", "Randomly"], "a": "Positive to Negative", "ex": "Conventional current flows from positive (+) to negative (-)."},
+            {"q": "19. A 12V battery connected to a 4 Ohm resistor will draw how much current?", "o": ["3A", "48A", "0.33A", "8A"], "a": "3A", "ex": "I = V / R -> 12 / 4 = 3 Amperes."},
+            {"q": "20. What is the purpose of a diode?", "o": ["Store charge", "Limit current", "Allow current in one direction", "Increase voltage"], "a": "Allow current in one direction", "ex": "Diodes act as one-way valves for electric current."}
+        ]
+
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m3_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m3_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m3_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m3_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 3"):
+                st.session_state.m3_submitted = False
+                st.rerun()
     # --- MODULE 4 (ELECTRONIC FUNDAMENTALS) START ---
     elif mod == "Module 4":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -534,63 +547,69 @@ elif st.session_state.page == 'modules':
         st.markdown('</div>', unsafe_allow_html=True)
     
         st.write("---")
-        st.header("📝 MODULE 04: ELECTRONICS PRACTICE EXAM")
-        m4_q = [
-            {"q": "1. A diode allows current to flow in?", "o": ["Both directions", "One direction only", "Neither direction", "Alternating directions"], "a": "One direction only", "ex": "A diode acts as a one-way valve for electricity."},
-            {"q": "2. In a P-type semiconductor, the majority carriers are?", "o": ["Electrons", "Holes", "Neutrons", "Protons"], "a": "Holes", "ex": "P-type material is 'Positive' due to an abundance of holes."},
-            {"q": "3. Which component is used for voltage regulation?", "o": ["Zener Diode", "LED", "Varactor Diode", "Rectifier"], "a": "Zener Diode", "ex": "Zener diodes are designed to operate in the reverse breakdown region to maintain a constant voltage."},
-            {"q": "4. A transistor has how many terminals?", "o": ["2", "3", "4", "5"], "a": "3", "ex": "Emitter, Base, and Collector."},
-            {"q": "5. What is the main function of an amplifier?", "o": ["To reduce signal", "To increase signal strength", "To convert AC to DC", "To store charge"], "a": "To increase signal strength", "ex": "Amplifiers increase the amplitude of an input signal."},
-            {"q": "6. An NPN transistor is 'ON' when the base is?", "o": ["Positive relative to emitter", "Negative relative to emitter", "Grounded", "Disconnected"], "a": "Positive relative to emitter", "ex": "NPN requires a positive base-emitter voltage to conduct."},
-            {"q": "7. What does 'LED' stand for?", "o": ["Light Emitting Diode", "Low Energy Diode", "Liquid Emitting Device", "Laser Energy Diode"], "a": "Light Emitting Diode", "ex": "LEDs convert electrical energy directly into light."},
-            {"q": "8. A device that converts AC to DC is called a?", "o": ["Inverter", "Rectifier", "Transformer", "Oscillator"], "a": "Rectifier", "ex": "Diodes are commonly used in rectifier circuits."},
-            {"q": "9. In common emitter configuration, the phase shift is?", "o": ["0°", "90°", "180°", "270°"], "a": "180°", "ex": "The output is 180 degrees out of phase with the input."},
-            {"q": "10. What is the unit of Inductance?", "o": ["Farad", "Ohm", "Henry", "Tesla"], "a": "Henry", "ex": "Inductance is measured in Henrys (H)."},
-            {"q": "11. A thyristor (SCR) is used for?", "o": ["Switching", "Amplification", "Filtering", "Resistance"], "a": "Switching", "ex": "SCRs are used as high-speed electronic switches."},
-            {"q": "12. What is 'Gain' in an amplifier?", "o": ["Input/Output", "Output/Input", "Power Loss", "Noise Level"], "a": "Output/Input", "ex": "Gain = Output signal / Input signal."},
-            {"q": "13. A photo-diode's resistance decreases when?", "o": ["Voltage increases", "Light intensity increases", "Heat increases", "Current decreases"], "a": "Light intensity increases", "ex": "Photo-diodes are light-sensitive devices."},
-            {"q": "14. Filter circuits are used to?", "o": ["Increase noise", "Remove unwanted frequencies", "Change DC to AC", "Block all current"], "a": "Remove unwanted frequencies", "ex": "Filters allow specific frequencies to pass while blocking others."},
-            {"q": "15. The 'Forward Bias' voltage for a Silicon diode is approx?", "o": ["0.3V", "0.7V", "1.1V", "5V"], "a": "0.7V", "ex": "Silicon diodes require 0.7V to start conducting."},
-            {"q": "16. An integrated circuit (IC) is made of?", "o": ["Only resistors", "Only capacitors", "Many components on one chip", "Vacuum tubes"], "a": "Many components on one chip", "ex": "ICs contain thousands of transistors, resistors, etc."},
-            {"q": "17. Capacitive reactance (Xc) decreases as?", "o": ["Frequency increases", "Frequency decreases", "Voltage decreases", "Current increases"], "a": "Frequency increases", "ex": "Xc = 1 / (2πfC)."},
-            {"q": "18. What is the purpose of a heat sink?", "o": ["To store heat", "To dissipate heat from components", "To insulate", "To increase temperature"], "a": "To dissipate heat from components", "ex": "Heat sinks prevent thermal damage to transistors/ICs."},
-            {"q": "19. A 'Bridge Rectifier' uses how many diodes?", "o": ["1", "2", "4", "6"], "a": "4", "ex": "A full-wave bridge rectifier uses 4 diodes."},
-            {"q": "20. The Greek letter 'Beta' (β) in transistors refers to?", "o": ["Voltage Gain", "Current Gain", "Resistance", "Power"], "a": "Current Gain", "ex": "Beta is the ratio of Collector current to Base current."}
+        st.header("🔌 MODULE 04: ELECTRONIC FUNDAMENTALS")
+        m4_questions = [
+            {"q": "1. What is the main characteristic of a Semiconductor?", "o": ["High Conductivity", "High Resistance", "Variable Conductivity", "Insulator"], "a": "Variable Conductivity", "ex": "Semiconductors have properties between conductors and insulators."},
+            {"q": "2. An N-type semiconductor has an excess of?", "o": ["Holes", "Electrons", "Protons", "Neutrons"], "a": "Electrons", "ex": "N-type (Negative) has extra electrons."},
+            {"q": "3. A P-type semiconductor has an excess of?", "o": ["Electrons", "Holes", "Neutrons", "Positrons"], "a": "Holes", "ex": "P-type (Positive) has 'holes' or electron deficiencies."},
+            {"q": "4. What is the junction voltage of a Silicon diode?", "o": ["0.3V", "0.7V", "1.1V", "1.5V"], "a": "0.7V", "ex": "Silicon diodes typically require 0.7V to conduct."},
+            {"q": "5. What are the three terminals of a Bipolar Junction Transistor (BJT)?", "o": ["Gate, Drain, Source", "Anode, Cathode, Gate", "Emitter, Base, Collector", "Input, Output, Ground"], "a": "Emitter, Base, Collector", "ex": "BJT terminals are Emitter (E), Base (B), and Collector (C)."},
+            {"q": "6. In a series circuit, what remains constant across all components?", "o": ["Voltage", "Current", "Resistance", "Power"], "a": "Current", "ex": "In a series circuit, the same current flows through all parts."},
+            {"q": "7. In a parallel circuit, what remains the same across all branches?", "o": ["Current", "Voltage", "Resistance", "Power"], "a": "Voltage", "ex": "The voltage across each branch in parallel is identical."},
+            {"q": "8. What device is used to measure electric current?", "o": ["Voltmeter", "Ammeter", "Ohmmeter", "Wattmeter"], "a": "Ammeter", "ex": "An ammeter measures current in Amperes."},
+            {"q": "9. A capacitor stores energy in what form?", "o": ["Magnetic field", "Chemical form", "Electrostatic field", "Heat"], "a": "Electrostatic field", "ex": "Capacitors store energy in an electrostatic field between plates."},
+            {"q": "10. What is the unit of Capacitance?", "o": ["Henry", "Farad", "Ohm", "Volt"], "a": "Farad", "ex": "Capacitance is measured in Farads (F)."},
+            {"q": "11. An inductor stores energy in what form?", "o": ["Electrostatic field", "Magnetic field", "Heat", "Chemical"], "a": "Magnetic field", "ex": "Inductors store energy in a magnetic field."},
+            {"q": "12. What is the unit of Inductance?", "o": ["Farad", "Henry", "Ohm", "Watt"], "a": "Henry", "ex": "Inductance is measured in Henrys (H)."},
+            {"q": "13. What color code represents the number '0' in a resistor?", "o": ["Black", "Brown", "Red", "Gold"], "a": "Black", "ex": "In the resistor color code, Black represents 0."},
+            {"q": "14. A fuse is always connected in ________ with the circuit?", "o": ["Parallel", "Series", "Either", "None"], "a": "Series", "ex": "Fuses must be in series to break the circuit during a fault."},
+            {"q": "15. What is the primary source of DC in an aircraft while flying?", "o": ["Battery", "Generator/Alternator", "Static wick", "Inverter"], "a": "Generator/Alternator", "ex": "Alternators provide the main DC power (via rectifiers)."},
+            {"q": "16. Which law states that the sum of currents entering a junction equals the sum leaving it?", "o": ["Ohm's Law", "Kirchhoff's Current Law", "Coulomb's Law", "Faraday's Law"], "a": "Kirchhoff's Current Law", "ex": "Kirchhoff's Current Law (KCL) deals with current conservation."},
+            {"q": "17. What is the unit of Electrical Charge?", "o": ["Ampere", "Coulomb", "Volt", "Watt"], "a": "Coulomb", "ex": "Electric charge (Q) is measured in Coulombs (C)."},
+            {"q": "18. Conventional current is assumed to flow from?", "o": ["Negative to Positive", "Positive to Negative", "Center to Outside", "Randomly"], "a": "Positive to Negative", "ex": "Conventional current flows from positive (+) to negative (-)."},
+            {"q": "19. A 12V battery connected to a 4 Ohm resistor will draw how much current?", "o": ["3A", "48A", "0.33A", "8A"], "a": "3A", "ex": "I = V / R -> 12 / 4 = 3 Amperes."},
+            {"q": "20. What is the purpose of a diode?", "o": ["Store charge", "Limit current", "Allow current in one direction", "Increase voltage"], "a": "Allow current in one direction", "ex": "Diodes act as one-way valves for electric current."}
         ]
-        # --- EXAM LOGIC FOR MODULE 4 ---
-        if 'm4_score' not in st.session_state:
-            st.session_state.m4_score = 0
-            st.session_state.m4_submitted = False
+        
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
 
-        user_answers_m4 = []
-        for i, item in enumerate(m4_q):
+        user_ans_m3 = []
+        for i, item in enumerate(m4_questions):
             st.markdown(f"**Q{i+1}: {item['q']}**")
-            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m4_q{i}", index=None)
-            user_answers_m4.append(ans)
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
 
-        if st.button("🚀 SUBMIT MODULE 4 EXAM"):
-            st.session_state.m4_submitted = True
-            score = sum(1 for i, item in enumerate(m4_q) if user_answers_m4[i] == item['a'])
-            st.session_state.m4_score = score
+        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m4_questions) if user_ans_m3[i] == item['a'])
             st.rerun()
 
-        if st.session_state.m4_submitted:
+        if st.session_state.m3_submitted:
             st.write("---")
-            perc = (st.session_state.m4_score / 20) * 100
+            perc = (st.session_state.m3_score / len(m4_questions)) * 100
             if perc >= 75:
                 st.balloons()
-                st.success(f"🎊 PASS! Score: {st.session_state.m4_score}/20 ({perc}%)")
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
             else:
-                st.error(f"❌ FAIL. Score: {st.session_state.m4_score}/20 ({perc}%). Passing is 75%.")
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
 
             with st.expander("🔍 Review Corrections"):
-                for i, item in enumerate(m4_q):
-                    st.write(f"Q{i+1}: {'Correct ✅' if user_answers_m4[i] == item['a'] else f'Incorrect ❌ (Correct: {item[a]})'}")
-                    if user_answers_m4[i] != item['a']: st.caption(f"Reason: {item['ex']}")
+                for i, item in enumerate(m4_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
 
-            if st.button("🔄 RETAKE MODULE 4 QUIZ"):
-                st.session_state.m4_submitted = False
-                st.rerun()   
+            if st.button("🔄 RETAKE MODULE 3"):
+                st.session_state.m3_submitted = False
+                st.rerun()
+    
+        
     # --- MODULE 5 (DIGITAL TECHNIQUES) START ---
     elif mod == "Module 5":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -624,65 +643,69 @@ elif st.session_state.page == 'modules':
             st.write("Fiber optics use light pulses for data transmission, offering high speed and total immunity to EMI.")
             st.info("Calculation: Data Rate = Frequency $\\times$ Bit Depth")
         st.markdown('</div>', unsafe_allow_html=True)
-    
         st.write("---")
-        st.header("📝 MODULE 05: DIGITAL TECHNIQUES EXAM")
-        m5_q = [
-            {"q": "1. Which logic gate gives a high output only if all inputs are high?", "o": ["OR", "AND", "NOT", "NAND"], "a": "AND", "ex": "The AND gate requires all inputs to be 1."},
-            {"q": "2. In binary, 1 + 1 equals?", "o": ["2", "10", "11", "0"], "a": "10", "ex": "In binary, 1+1 = 0 carry 1 (which is 10)."},
-            {"q": "3. How many bits are in a Byte?", "o": ["4", "8", "16", "32"], "a": "8", "ex": "1 Byte = 8 Bits."},
-            {"q": "4. An inverter is another name for which gate?", "o": ["AND", "OR", "NOT", "XOR"], "a": "NOT", "ex": "A NOT gate inverts the input (0 to 1, 1 to 0)."},
-            {"q": "5. What does 'BITE' stand for in aircraft systems?", "o": ["Basic Internal Test Equipment", "Built-In Test Equipment", "Binary Input Test Engine", "Basic Integrated Tech Engine"], "a": "Built-In Test Equipment", "ex": "BITE is used for self-diagnostics in avionics."},
-            {"q": "6. A Hexadecimal system has a base of?", "o": ["2", "8", "10", "16"], "a": "16", "ex": "Hex uses 0-9 and A-F."},
-            {"q": "7. Which gate is known as the 'Universal Gate'?", "o": ["AND", "OR", "NAND", "XOR"], "a": "NAND", "ex": "NAND and NOR can be used to create any other logic gate."},
-            {"q": "8. 'EEPROM' stands for?", "o": ["Electrical Erasable Programmable ROM", "Easy Erasable Programmable ROM", "Engine Electronic ROM", "External Erasable ROM"], "a": "Electrical Erasable Programmable ROM", "ex": "It can be erased and rewritten electrically."},
-            {"q": "9. A flip-flop is a device that can store?", "o": ["1 Byte", "1 Bit", "1 Word", "10 Bits"], "a": "1 Bit", "ex": "Flip-flops are the basic building blocks of digital memory."},
-            {"q": "10. ESD protection is used to prevent damage from?", "o": ["High Voltage", "Static Electricity", "Heat", "Magnetic Fields"], "a": "Static Electricity", "ex": "Electrostatic Discharge can destroy sensitive digital ICs."},
-            {"q": "11. Fiber optic cables transmit data using?", "o": ["Electricity", "Sound", "Light", "Radio Waves"], "a": "Light", "ex": "Fiber optics use light pulses for high-speed data transfer."},
-            {"q": "12. What is the decimal equivalent of binary 0101?", "o": ["3", "5", "7", "10"], "a": "5", "ex": "0101 = (1*4) + (0*2) + (1*1) = 5."},
-            {"q": "13. In a logic circuit, 0V usually represents?", "o": ["Logic 1", "Logic 0", "High Impedance", "Error"], "a": "Logic 0", "ex": "0V is 'Low' or Logic 0."},
-            {"q": "14. A multiplexer (MUX) has?", "o": ["Many inputs, one output", "One input, many outputs", "One input, one output", "No inputs"], "a": "Many inputs, one output", "ex": "MUX acts as a data selector switch."},
-            {"q": "15. 'ARINC 429' is a standard for?", "o": ["Engine parts", "Data bus communication", "Cabin seats", "Fuel types"], "a": "Data bus communication", "ex": "It is the most common data bus standard in commercial aircraft."},
-            {"q": "16. A 'Bus' in digital terms is a?", "o": ["Transport vehicle", "Set of parallel wires for data", "Power supply", "Memory chip"], "a": "Set of parallel wires for data", "ex": "Data buses carry information between CPU and memory."},
-            {"q": "17. What is the result of 1 XOR 1?", "o": ["1", "0", "11", "2"], "a": "0", "ex": "XOR output is 0 if inputs are the same."},
-            {"q": "18. 'LCD' stands for?", "o": ["Liquid Crystal Display", "Light Crystal Device", "Low Current Display", "Liquid Core Diode"], "a": "Liquid Crystal Display", "ex": "Commonly used in flight deck instruments."},
-            {"q": "19. Which memory is 'Volatile'?", "o": ["ROM", "RAM", "Flash", "EPROM"], "a": "RAM", "ex": "RAM loses its data when power is turned off."},
-            {"q": "20. The process of converting Analog to Digital is called?", "o": ["Modulation", "Encoding", "ADC", "DAC"], "a": "ADC", "ex": "Analog-to-Digital Conversion."}
+        st.header("💻 MODULE 05: DIGITAL TECHNIQUES")
+        m5_questions = [
+            {"q": "1. Which logic gate is a 'Universal Gate'?", "o": ["AND", "OR", "NAND", "XOR"], "a": "NAND", "ex": "NAND and NOR can build any other gate."},
+            {"q": "2. Binary 1101 is equal to decimal?", "o": ["11", "12", "13", "14"], "a": "13", "ex": "8 + 4 + 0 + 1 = 13."},
+            {"q": "3. What is the output of an OR gate if inputs are 1 and 0?", "o": ["0", "1", "High-Z", "None"], "a": "1", "ex": "OR gate needs only one input to be 1."},
+            {"q": "4. A Flip-Flop is a bit of?", "o": ["Processing", "Memory", "Input", "Output"], "a": "Memory", "ex": "Flip-flops store 1 bit of data."},
+            {"q": "5. What does LCD stand for?", "o": ["Light Crystal Display", "Liquid Crystal Display", "Liquid Carbon Diode", "Low Current Display"], "a": "Liquid Crystal Display", "ex": "LCD is common in cockpit displays."},
+            {"q": "6. A group of 4 bits is called a?", "o": ["Byte", "Nibble", "Word", "Bit"], "a": "Nibble", "ex": "4 bits = 1 nibble."},
+            {"q": "7. ARINC 429 is a standard for?", "o": ["Fuel", "Digital Data Bus", "Engines", "Tires"], "a": "Digital Data Bus", "ex": "Main data bus used in commercial aircraft."},
+            {"q": "8. Which gate inverts the input?", "o": ["AND", "OR", "NOT", "NAND"], "a": "NOT", "ex": "NOT gate (Inverter) flips 0 to 1 and 1 to 0."},
+            {"q": "9. Hexadecimal F is equal to decimal?", "o": ["10", "14", "15", "16"], "a": "15", "ex": "A=10...F=15."},
+            {"q": "10. Fiber optics use _____ to transmit data.", "o": ["Electrons", "Light", "Sound", "Radio"], "a": "Light", "ex": "Fiber optics use total internal reflection of light."},
+            {"q": "11. Static electricity can damage?", "o": ["Wires", "CMOS components", "Tires", "Glass"], "a": "CMOS components", "ex": "Digital chips are very sensitive to ESD."},
+            {"q": "12. RAM stands for?", "o": ["Read All Memory", "Random Access Memory", "Read Analog Mod", "Rapid Access Main"], "a": "Random Access Memory", "ex": "Volatile temporary storage."},
+            {"q": "13. A 'Bit' stands for?", "o": ["Binary Digit", "Binary Tool", "Basic Input", "Bitrate"], "a": "Binary Digit", "ex": "Smallest unit of data."},
+            {"q": "14. CRT stands for?", "o": ["Cathode Ray Tube", "Carbon Ray Tech", "Common Radio Tool", "Circuit Relay Test"], "a": "Cathode Ray Tube", "ex": "Older cockpit display technology."},
+            {"q": "15. A Multiplexer (MUX) has?", "o": ["1 Input, Many Outputs", "Many Inputs, 1 Output", "1 Input, 1 Output", "No Inputs"], "a": "Many Inputs, 1 Output", "ex": "MUX selects one of many inputs."},
+            {"q": "16. EPROM can be erased by?", "o": ["Water", "Electricity", "UV Light", "Heat"], "a": "UV Light", "ex": "Erasable Programmable ROM uses UV light."},
+            {"q": "17. What is the LSB in binary?", "o": ["Last Small Bit", "Least Significant Bit", "Low System Bit", "Logic Start Bit"], "a": "Least Significant Bit", "ex": "Rightmost bit in a number."},
+            {"q": "18. BCD stands for?", "o": ["Binary Coded Decimal", "Basic Coding Data", "Bit Counting Device", "Binary Control Digit"], "a": "Binary Coded Decimal", "ex": "Representing decimals with binary nibbles."},
+            {"q": "19. Which bus is bidirectional?", "o": ["Address Bus", "Data Bus", "Control Bus", "None"], "a": "Data Bus", "ex": "Data travels both ways to/from CPU."},
+            {"q": "20. Software instructions stored in ROM are called?", "o": ["Hardware", "Malware", "Firmware", "Shareware"], "a": "Firmware", "ex": "Firmware is permanent software."}
         ]
-    # --- EXAM LOGIC FOR MODULE 5 ---
-        if 'm5_score' not in st.session_state:
-            st.session_state.m5_score = 0
-            st.session_state.m5_submitted = False
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
 
-        user_answers_m5 = []
-        for i, item in enumerate(m5_q):
+        user_ans_m3 = []
+        for i, item in enumerate(m5_questions):
             st.markdown(f"**Q{i+1}: {item['q']}**")
-            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m5_q{i}", index=None)
-            user_answers_m5.append(ans)
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
 
-        if st.button("🚀 SUBMIT MODULE 5 EXAM"):
-            st.session_state.m5_submitted = True
-            score = sum(1 for i, item in enumerate(m5_q) if user_answers_m5[i] == item['a'])
-            st.session_state.m5_score = score
+        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m5_questions) if user_ans_m3[i] == item['a'])
             st.rerun()
 
-        if st.session_state.m5_submitted:
+        if st.session_state.m3_submitted:
             st.write("---")
-            perc = (st.session_state.m5_score / 20) * 100
+            perc = (st.session_state.m3_score / len(m5_questions)) * 100
             if perc >= 75:
                 st.balloons()
-                st.success(f"🎊 PASS! Score: {st.session_state.m5_score}/20 ({perc}%)")
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
             else:
-                st.error(f"❌ FAIL. Score: {st.session_state.m5_score}/20 ({perc}%). Passing is 75%.")
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
 
             with st.expander("🔍 Review Corrections"):
-                for i, item in enumerate(m5_q):
-                    st.write(f"Q{i+1}: {'Correct ✅' if user_answers_m5[i] == item['a'] else f'Incorrect ❌ (Correct: {item[a]})'}")
-                    if user_answers_m5[i] != item['a']: st.caption(f"Reason: {item['ex']}")
+                for i, item in enumerate(m5_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
 
-            if st.button("🔄 RETAKE MODULE 5 QUIZ"):
-                st.session_state.m5_submitted = False
-                st.rerun()
+            if st.button("🔄 RETAKE MODULE 3"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add same Submit/Review Logic as Module 4)
+    
+        
     # --- MODULE 6 (MATERIALS & HARDWARE) START ---
     elif mod == "Module 6":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -721,6 +744,73 @@ elif st.session_state.page == 'modules':
             exp = orig_len * 23e-6 * temp_diff
             st.info(f"Expansion (Aluminum): **{exp*1000:.3f} mm**")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+    
+        st.write("---")
+        st.header("🔩 MODULE 06: MATERIALS AND HARDWARE")
+        m6_questions = [
+            {"q": "1. What is the most common aircraft rivet material?", "o": ["Steel", "Copper", "2117 Aluminum", "Zinc"], "a": "2117 Aluminum", "ex": "AD rivets (2117-T4) are standard."},
+            {"q": "2. Ferrous metals contain?", "o": ["Copper", "Aluminum", "Iron", "Magnesium"], "a": "Iron", "ex": "Ferrous = Iron-based."},
+            {"q": "3. What is the purpose of Alclad?", "o": ["Decoration", "Corrosion protection", "Strength", "Heat resistance"], "a": "Corrosion protection", "ex": "Pure aluminum coating on alloy core."},
+            {"q": "4. A 'Castle Nut' is secured with?", "o": ["Lock washer", "Cotter pin", "Glue", "Safety wire"], "a": "Cotter pin", "ex": "Cotter pins go through slots in castle nuts."},
+            {"q": "5. Which material is used for engine firewalls?", "o": ["Aluminum", "Titanium/Stainless Steel", "Plastic", "Copper"], "a": "Titanium/Stainless Steel", "ex": "High melting point materials are needed."},
+            {"q": "6. A non-destructive test using sound is?", "o": ["X-ray", "Dye Penetrant", "Ultrasonic", "Magnetic Particle"], "a": "Ultrasonic", "ex": "Uses high-frequency sound waves."},
+            {"q": "7. What defines a 'Blind' rivet?", "o": ["It has no head", "Used when only one side is accessible", "It is invisible", "It is made of glass"], "a": "Used when only one side is accessible", "ex": "Mandrel pulls to expand the tail."},
+            {"q": "8. Composite materials consist of?", "o": ["One metal", "Matrix and Reinforcement", "Liquid only", "Gas and Solid"], "a": "Matrix and Reinforcement", "ex": "E.g., Resin (matrix) and Carbon Fiber (reinforcement)."},
+            {"q": "9. 'Galvanizing' involves coating steel with?", "o": ["Tin", "Zinc", "Gold", "Chromium"], "a": "Zinc", "ex": "Zinc prevents rust on steel."},
+            {"q": "10. What tool measures the diameter of a wire?", "o": ["Ruler", "Micrometer", "Hammer", "Wrench"], "a": "Micrometer", "ex": "Micrometers provide precise measurements."},
+            {"q": "11. A 'Cleco' is used to?", "o": ["Cut metal", "Hold sheets together for riveting", "Paint wings", "Tighten bolts"], "a": "Hold sheets together for riveting", "ex": "Temporary fasteners used during assembly."},
+            {"q": "12. Brittleness in metal means it?", "o": ["Bends easily", "Breaks without deforming", "Stretches", "Melts fast"], "a": "Breaks without deforming", "ex": "Opposite of ductility."},
+            {"q": "13. What is the most common wood for aircraft?", "o": ["Oak", "Pine", "Sitka Spruce", "Mahogany"], "a": "Sitka Spruce", "ex": "Spruce has high strength/weight ratio."},
+            {"q": "14. A bolt with a hole in the shank is for?", "o": ["Weight saving", "Safety wire", "Cooling", "Oil flow"], "a": "Safety wire", "ex": "Allows wire to lock the fastener."},
+            {"q": "15. 'Stress' is?", "o": ["Force per unit area", "Change in length", "Speed", "Weight"], "a": "Force per unit area", "ex": "Internal resistance to load."},
+            {"q": "16. Which NDT is used for subsurface cracks in steel?", "o": ["Dye Pen", "Magnetic Particle", "Visual", "Tap test"], "a": "Magnetic Particle", "ex": "Detects discontinuities in ferrous metals."},
+            {"q": "17. Anodizing is used on?", "o": ["Steel", "Aluminum", "Titanium", "Wood"], "a": "Aluminum", "ex": "Electrochemical surface treatment for Al."},
+            {"q": "18. What is 'Fatigue' in metal?", "o": ["Rust", "Failure under repeated loading", "Melting", "Expansion"], "a": "Failure under repeated loading", "ex": "Repeated stress causes crack growth."},
+            {"q": "19. A 'Self-locking' nut is not used where?", "o": ["Wings", "Subject to rotation", "Tail", "Fuselage"], "a": "Subject to rotation", "ex": "Lock nuts shouldn't be used on moving parts."},
+            {"q": "20. Hardness is the ability of a metal to resist?", "o": ["Bending", "Penetration/Scratching", "Breaking", "Heat"], "a": "Penetration/Scratching", "ex": "Measured by Rockwell or Brinell tests."}
+        ]
+        
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m6_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 3 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m6_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m6_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m6_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 3"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add same Submit/Review Logic as Module 4)
+    
+    
+        
     # --- MODULE 7 (MAINTENANCE PRACTICES) START ---
     elif mod == "Module 7":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -756,6 +846,69 @@ elif st.session_state.page == 'modules':
             st.write("Precision measurement is vital for ensuring component tolerances in engine and airframe maintenance.")
             st.info("Reading = Sleeve + Thimble + (Vernier Scale if available)")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("🔧 MODULE 07: MAINTENANCE PRACTICES")
+        m7_questions = [
+            {"q": "1. What is the purpose of a 'Daily Inspection'?", "o": ["Major overhaul", "Ensure airworthiness for the day", "Check fuel only", "Clean the cabin"], "a": "Ensure airworthiness for the day", "ex": "Daily inspections check for general condition and leaks before flight."},
+            {"q": "2. Torque wrenches are used to?", "o": ["Measure length", "Apply specific rotational force", "Check tire pressure", "Cut safety wire"], "a": "Apply specific rotational force", "ex": "Torque ensures fasteners are tightened to the correct specification."},
+            {"q": "3. Which tool is used to check for internal cylinder leaks?", "o": ["Micrometer", "Differential Compression Tester", "Multimeter", "Flashlight"], "a": "Differential Compression Tester", "ex": "It measures the ability of cylinder to hold pressure."},
+            {"q": "4. What is the standard safety wire size for most aircraft bolts?", "o": ["0.020 inch", "0.032 inch", "0.050 inch", "0.100 inch"], "a": "0.032 inch", "ex": "0.032 inch stainless steel wire is the aviation standard."},
+            {"q": "5. A 'Go/No-Go' gauge is used for?", "o": ["Measuring weight", "Checking dimensional limits", "Testing batteries", "Painting"], "a": "Checking dimensional limits", "ex": "It quickly checks if a part is within acceptable tolerance."},
+            {"q": "6. When jacking an aircraft, it should be done?", "o": ["Outside in wind", "On level ground inside a hangar", "On a slope", "Using one jack only"], "a": "On level ground inside a hangar", "ex": "Stability is critical during jacking operations."},
+            {"q": "7. What is the purpose of a 'T-Clip'?", "o": ["Fueling", "Securing wire bundles", "Painting", "Locking doors"], "a": "Securing wire bundles", "ex": "T-Clips help manage electrical harness routing."},
+            {"q": "8. Foreign Object Debris (FOD) is?", "o": ["A type of fuel", "Objects that can damage aircraft", "Navigation data", "Engine oil"], "a": "Objects that can damage aircraft", "ex": "FOD prevention is a critical maintenance practice."},
+            {"q": "9. A 'Hard Landing' inspection is required after?", "o": ["Every flight", "Exceeding vertical load limits", "A long flight", "Flying in rain"], "a": "Exceeding vertical load limits", "ex": "Structural checks are needed after severe impacts."},
+            {"q": "10. What color is standard 100LL Avgas?", "o": ["Red", "Green", "Blue", "Clear"], "a": "Blue", "ex": "100LL (Low Lead) aviation gasoline is dyed blue."},
+            {"q": "11. 'Safetying' a turnbuckle prevents?", "o": ["Corrosion", "Rotation and loosening", "Heat", "Weight gain"], "a": "Rotation and loosening", "ex": "Safety wire or clips prevent turnbuckles from turning."},
+            {"q": "12. What does a 'Static Wick' do?", "o": ["Lights up", "Dissipates static electricity", "Measures speed", "Holds the wing"], "a": "Dissipates static electricity", "ex": "Wicks allow static charge to bleed off into the air."},
+            {"q": "13. Oxygen systems must be checked for?", "o": ["Fuel leaks", "Moisture and cleanliness", "Oil level", "Tire pressure"], "a": "Moisture and cleanliness", "ex": "Moisture can freeze and block oxygen flow at high altitudes."},
+            {"q": "14. A 'Red Tag' on a part usually means?", "o": ["Ready for use", "Unserviceable/Scrap", "New part", "Needs cleaning"], "a": "Unserviceable/Scrap", "ex": "Red tags identify parts that cannot be used."},
+            {"q": "15. Tire 'Flat Spots' are usually caused by?", "o": ["Over-inflation", "Heavy braking/skidding", "Soft rubber", "Cold weather"], "a": "Heavy braking/skidding", "ex": "Skidding during landing wears down one area of the tire."},
+            {"q": "16. Which NDT method uses a developer powder?", "o": ["Dye Penetrant", "X-ray", "Eddy Current", "Visual"], "a": "Dye Penetrant", "ex": "Developer draws the dye out of cracks to make them visible."},
+            {"q": "17. What is 'Bleeding' a hydraulic system?", "o": ["Removing oil", "Removing air", "Adding water", "Cleaning pipes"], "a": "Removing air", "ex": "Air in hydraulic lines makes the system 'spongy' and unresponsive."},
+            {"q": "18. A 'Feeler Gauge' measures?", "o": ["Weight", "Gap/Clearance", "Voltage", "Sound"], "a": "Gap/Clearance", "ex": "Used to check spark plug gaps or valve clearances."},
+            {"q": "19. Calibration of tools should be done?", "o": ["Once in a lifetime", "At regular certified intervals", "Only when broken", "Every day"], "a": "At regular certified intervals", "ex": "Precision tools must be certified for accuracy periodically."},
+            {"q": "20. What is the first step in fire safety?", "o": ["Run away", "Prevention", "Buying a mask", "Opening windows"], "a": "Prevention", "ex": "Keeping hangars clean and oil-free prevents fires."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m7_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 7 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m7_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m7_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m7_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 7"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add same Submit/Review Logic as Module 4)
+    
     # --- MODULE 8 (BASIC AERODYNAMICS) START ---
     elif mod == "Module 8":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -795,6 +948,68 @@ elif st.session_state.page == 'modules':
             ar = span / chord
             st.info(f"Aspect Ratio: **{ar:.2f}**")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("✈️ MODULE 08: BASIC AERODYNAMICS")
+        m8_questions = [
+            {"q": "1. What are the four forces of flight?", "o": ["Lift, Weight, Thrust, Drag", "Up, Down, Left, Right", "Air, Wind, Speed, Mass", "Force, Area, Speed, Drag"], "a": "Lift, Weight, Thrust, Drag", "ex": "These four forces act on an aircraft in flight."},
+            {"q": "2. Bernoulli's Principle states that as air velocity increases, pressure?", "o": ["Increases", "Decreases", "Stays same", "Doubles"], "a": "Decreases", "ex": "Faster air creates lower pressure (Lift)."},
+            {"q": "3. The angle between the chord line and relative wind is?", "o": ["Angle of Incidence", "Angle of Attack", "Dihedral", "Washout"], "a": "Angle of Attack", "ex": "Known as AOA."},
+            {"q": "4. A wing stall occurs when the wing exceeds the?", "o": ["Speed limit", "Critical AOA", "Maximum weight", "Fuel limit"], "a": "Critical AOA", "ex": "Air can no longer flow smoothly over the wing."},
+            {"q": "5. What is the purpose of a winglet?", "o": ["To look good", "Reduce induced drag", "Increase weight", "Stop fuel leaks"], "a": "Reduce induced drag", "ex": "Winglets reduce wingtip vortices."},
+            {"q": "6. Mach 1 refers to?", "o": ["Speed of sound", "Speed of light", "Top speed", "Takeoff speed"], "a": "Speed of sound", "ex": "Mach is the ratio of aircraft speed to local speed of sound."},
+            {"q": "7. The primary control for 'Roll' is?", "o": ["Rudder", "Elevator", "Ailerons", "Flaps"], "a": "Ailerons", "ex": "Ailerons control the longitudinal axis (Roll)."},
+            {"q": "8. The 'Rudder' controls movement around which axis?", "o": ["Longitudinal", "Lateral", "Vertical", "Diagonal"], "a": "Vertical", "ex": "Rudder movement is called 'Yaw'."},
+            {"q": "9. An 'Elevator' controls?", "o": ["Roll", "Yaw", "Pitch", "Speed"], "a": "Pitch", "ex": "Pitch is movement around the lateral axis."},
+            {"q": "10. What is the 'Chord Line'?", "o": ["Wing thickness", "Distance from tip to tip", "Straight line from leading to trailing edge", "Wing area"], "a": "Straight line from leading to trailing edge", "ex": "Reference line for aerodynamic calculations."},
+            {"q": "11. 'Aspect Ratio' is the ratio of?", "o": ["Weight to Lift", "Span to Chord", "Width to Height", "Speed to Drag"], "a": "Span to Chord", "ex": "Long, thin wings have high aspect ratios."},
+            {"q": "12. In supersonic flight, air is considered?", "o": ["Incompressible", "Compressible", "Liquid", "Static"], "a": "Compressible", "ex": "Air density changes significantly at high speeds."},
+            {"q": "13. What is 'Dihedral'?", "o": ["Wing twist", "Upward angle of wings from fuselage", "Wing length", "Tail height"], "a": "Upward angle of wings from fuselage", "ex": "Provides lateral stability."},
+            {"q": "14. A 'Spoiler' is used to?", "o": ["Increase lift", "Decrease lift and increase drag", "Cool the engine", "Help the pilot see"], "a": "Decrease lift and increase drag", "ex": "Spoilers 'spoil' the airflow over the wing."},
+            {"q": "15. The 'Stagnation Point' is where velocity is?", "o": ["Maximum", "Zero", "Speed of sound", "Infinite"], "a": "Zero", "ex": "Point on leading edge where flow stops."},
+            {"q": "16. What creates 'Thrust' in a propeller aircraft?", "o": ["The wings", "The tail", "The propeller", "The wheels"], "a": "The propeller", "ex": "Propellers act like rotating wings to create thrust."},
+            {"q": "17. 'Laminar Flow' is?", "o": ["Turbulent air", "Smooth, layered airflow", "Cold air", "Fast wind"], "a": "Smooth, layered airflow", "ex": "Desirable for reducing skin friction drag."},
+            {"q": "18. Boundary layer separation causes?", "o": ["More lift", "Pressure drag", "Higher speed", "Lower weight"], "a": "Pressure drag", "ex": "Separation leads to turbulence and drag."},
+            {"q": "19. The 'Center of Pressure' moves _____ as AOA increases?", "o": ["Backward", "Forward", "Nowhere", "Down"], "a": "Forward", "ex": "CP moves toward the leading edge as AOA goes up."},
+            {"q": "20. Standard Sea Level Pressure is?", "o": ["10 PSI", "14.7 PSI", "29.92 inHg", "Both 14.7 PSI and 29.92 inHg"], "a": "Both 14.7 PSI and 29.92 inHg", "ex": "Standard atmospheric pressure values."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m8_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 8 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m8_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m8_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m8_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 8"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add same Submit/Review Logic as Module 4)
     # --- MODULE 9 (HUMAN FACTORS) START ---
     elif mod == "Module 9":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -821,6 +1036,69 @@ elif st.session_state.page == 'modules':
         st.write("Human factors do not typically use equations, but focus on the **Error Management** cycle.")
         st.info("Current Mission: Minimize errors through 'Double Check' and 'Effective Communication'.")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("🧠 MODULE 09: HUMAN FACTORS")
+        m9_questions = [
+            {"q": "1. What is the 'SHEL' model?", "o": ["Software, Hardware, Environment, Liveware", "Speed, Heat, Energy, Lift", "System, Human, Entry, Logic", "None"], "a": "Software, Hardware, Environment, Liveware", "ex": "Standard HF model in aviation."},
+            {"q": "2. What is 'Circadian Rhythm'?", "o": ["Heart rate", "Body's 24-hour cycle", "Breathing speed", "Flight path"], "a": "Body's 24-hour cycle", "ex": "Relates to sleep and alertness."},
+            {"q": "3. The 'Dirty Dozen' refers to?", "o": ["12 bad tools", "12 human error causes", "12 broken parts", "12 old aircraft"], "a": "12 human error causes", "ex": "Factors like fatigue, lack of knowledge, etc."},
+            {"q": "4. Lack of communication is a part of?", "o": ["The SHEL model", "The Dirty Dozen", "Ohm's Law", "Bernoulli's Principle"], "a": "The Dirty Dozen", "ex": "Poor communication is a major error source."},
+            {"q": "5. What is 'Peripheral Vision'?", "o": ["Center vision", "Side vision", "Night vision", "Blind spot"], "a": "Side vision", "ex": "Ability to see things outside direct line of sight."},
+            {"q": "6. 'Hypoxia' is a lack of?", "o": ["Food", "Water", "Oxygen", "Sleep"], "a": "Oxygen", "ex": "Common issue at high altitudes."},
+            {"q": "7. Visual illusions can be caused by?", "o": ["Rain", "Darkness", "Sloping runways", "All of the above"], "a": "All of the above", "ex": "Many factors can trick the eyes."},
+            {"q": "8. What is 'Complacency'?", "o": ["Being too careful", "Self-satisfaction / overconfidence", "Being angry", "Working too fast"], "a": "Self-satisfaction / overconfidence", "ex": "A major part of the Dirty Dozen."},
+            {"q": "9. Effective communication involves?", "o": ["A sender only", "A receiver only", "A sender, message, and receiver", "Shouting"], "a": "A sender, message, and receiver", "ex": "Communication must be closed-loop."},
+            {"q": "10. 'Fatigue' can be caused by?", "o": ["Lack of sleep", "Stress", "Long work hours", "All of the above"], "a": "All of the above", "ex": "Fatigue reduces performance and safety."},
+            {"q": "11. Short-term memory can hold approx. how many items?", "o": ["1-2", "7 +/- 2", "20-30", "100"], "a": "7 +/- 2", "ex": "The average person's memory limit."},
+            {"q": "12. What is 'Situational Awareness'?", "o": ["Knowing where the tools are", "Knowing what is happening around you", "Knowing the aircraft tail number", "Being able to read"], "a": "Knowing what is happening around you", "ex": "Crucial for safety and decision making."},
+            {"q": "13. 'Motivation' is best described as?", "o": ["Being fast", "The drive to achieve a goal", "Following orders", "Ignoring rules"], "a": "The drive to achieve a goal", "ex": "Inner drive to perform tasks."},
+            {"q": "14. A 'Peer Pressure' error occurs when?", "o": ["A tool breaks", "You follow the group even if they are wrong", "You work alone", "You read the manual"], "a": "You follow the group even if they are wrong", "ex": "Social pressure to ignore safety rules."},
+            {"q": "15. 'Noise' in a hangar can lead to?", "o": ["Better hearing", "Fatigue and communication errors", "Faster work", "Happiness"], "a": "Fatigue and communication errors", "ex": "High noise levels are a stressor."},
+            {"q": "16. 'Insomnia' is?", "o": ["Fear of heights", "Inability to sleep", "Loss of memory", "Muscle pain"], "a": "Inability to sleep", "ex": "Affects alertness during maintenance."},
+            {"q": "17. Which organ is responsible for balance?", "o": ["Eyes", "Inner Ear", "Skin", "Hands"], "a": "Inner Ear", "ex": "Vestibular system in the ear manages balance."},
+            {"q": "18. Stress that is good for performance is called?", "o": ["Distress", "Eustress", "No-stress", "Chronic stress"], "a": "Eustress", "ex": "Low levels of stress can improve focus."},
+            {"q": "19. An 'Assertive' person?", "o": ["Is rude", "States facts and concerns clearly", "Does not speak", "Always agrees"], "a": "States facts and concerns clearly", "ex": "Assertiveness is positive in safety."},
+            {"q": "20. Culture in a company affects?", "o": ["Only pilots", "Safety and performance", "The color of the plane", "The price of fuel"], "a": "Safety and performance", "ex": "Safety culture starts from the organization."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m9_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 9 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m9_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m9_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m9_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 9"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add same Submit/Review Logic as Module 4)
+    # --- MODULE 9 (HUMAN FACTORS) START ---
     # --- MODULE 10 (AVIATION LEGISLATION) START ---
     elif mod == "Module 10":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -847,6 +1125,68 @@ elif st.session_state.page == 'modules':
         st.write("Compliance is measured by adherence to the **CRS** (Certificate of Release to Service) standards.")
         st.warning("Violation of these standards can lead to license suspension and safety risks.")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("⚖️ MODULE 10: AVIATION LEGISLATION")
+        m10_questions = [
+            {"q": "1. What does ICAO stand for?", "o": ["International Civil Aviation Organization", "International Control Aviation Office", "Internal Civil Aircraft Org", "None"], "a": "International Civil Aviation Organization", "ex": "ICAO is a specialized agency of the UN."},
+            {"q": "2. EASA Part 66 deals with?", "o": ["Aircraft Operations", "Certifying Staff Maintenance", "Aircraft Noise", "Pilot Licensing"], "a": "Certifying Staff Maintenance", "ex": "Part 66 defines the requirements for maintenance licenses."},
+            {"q": "3. A Certificate of Release to Service (CRS) is issued after?", "o": ["Flight", "Maintenance", "Takeoff", "Design"], "a": "Maintenance", "ex": "CRS confirms maintenance was done according to standards."},
+            {"q": "4. How long must maintenance records be kept?", "o": ["1 year", "2 years", "3 years", "Until aircraft is retired"], "a": "3 years", "ex": "EASA typically requires records to be kept for 3 years after work completion."},
+            {"q": "5. What is an AD (Airworthiness Directive)?", "o": ["A suggestion", "Mandatory instruction for safety", "A flight plan", "Part of a manual"], "a": "Mandatory instruction for safety", "ex": "ADs are issued by authorities to correct safety deficiencies."},
+            {"q": "6. An 'A' license holder can certify?", "o": ["Major engine overhauls", "Minor scheduled line maintenance", "Avionics upgrades", "Nothing"], "a": "Minor scheduled line maintenance", "ex": "Category A is for line maintenance tasks."},
+            {"q": "7. What is the role of the ICAO Annex 1?", "o": ["Environment", "Personnel Licensing", "Security", "Safe Transport of Goods"], "a": "Personnel Licensing", "ex": "Annex 1 sets global standards for licensing."},
+            {"q": "8. A Form 1 (EASA) is a?", "o": ["Pilot logbook", "Authorized Release Certificate for components", "Design drawing", "Fuel receipt"], "a": "Authorized Release Certificate for components", "ex": "Form 1 certifies a component is airworthy."},
+            {"q": "9. 'Continuing Airworthiness' is the responsibility of?", "o": ["The pilot", "The owner/operator", "The mechanic", "The airport"], "a": "The owner/operator", "ex": "The operator must ensure the aircraft stays airworthy."},
+            {"q": "10. EASA Part 145 deals with?", "o": ["Pilot training", "Maintenance Organization Approval", "Manufacturing", "Medical standards"], "a": "Maintenance Organization Approval", "ex": "Defines rules for maintenance companies."},
+            {"q": "11. An 'SB' (Service Bulletin) is issued by?", "o": ["The Government", "The Manufacturer", "The Pilot", "The Airport"], "a": "The Manufacturer", "ex": "Manufacturers issue SBs for improvements or fixes."},
+            {"q": "12. What is 'MEL'?", "o": ["Minimum Equipment List", "Maximum Energy Level", "Main Engine Logic", "Maintenance Error List"], "a": "Minimum Equipment List", "ex": "Lists items that can be inoperative for a flight."},
+            {"q": "13. Annex 6 of ICAO deals with?", "o": ["Security", "Operation of Aircraft", "Accident Investigation", "Search and Rescue"], "a": "Operation of Aircraft", "ex": "Standards for safe aircraft operations."},
+            {"q": "14. A Category B1 license covers?", "o": ["Avionics only", "Mechanical (Airframe/Engine)", "Passenger service", "Cleaning"], "a": "Mechanical (Airframe/Engine)", "ex": "B1 is for mechanical systems and simple avionics."},
+            {"q": "15. What is a Type Certificate?", "o": ["A pilot's ID", "Design approval for an aircraft type", "Fuel certificate", "Weight report"], "a": "Design approval for an aircraft type", "ex": "Issued when an aircraft design meets safety standards."},
+            {"q": "16. Part M deals with?", "o": ["Manufacturing", "Continuing Airworthiness", "Medical", "Manuals"], "a": "Continuing Airworthiness", "ex": "Standards for keeping aircraft airworthy."},
+            {"q": "17. An incident must be reported within?", "o": ["24 hours", "48 hours", "72 hours", "1 week"], "a": "72 hours", "ex": "Standard requirement for occurrence reporting."},
+            {"q": "18. Who issues a Certificate of Airworthiness (C of A)?", "o": ["The Manufacturer", "The National Aviation Authority", "The Airline", "The Pilot"], "a": "The National Aviation Authority", "ex": "NAA issues the C of A after inspection."},
+            {"q": "19. SARPs stand for?", "o": ["Security and Risk Plans", "Standards and Recommended Practices", "Search and Rescue Pilots", "System and Radio Parts"], "a": "Standards and Recommended Practices", "ex": "ICAO's regulatory framework."},
+            {"q": "20. What is the purpose of EASA Part 147?", "o": ["Fueling rules", "Maintenance Training Organizations", "Design rules", "Landing fees"], "a": "Maintenance Training Organizations", "ex": "Defines rules for training mechanics."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m10_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 10 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m10_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m10_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m10_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 10"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add sa# (Add same Submit/Review Logic as Module 4)
     # --- MODULE 11 (TURBINE AEROPLANE STRUCTURES & SYSTEMS) START ---
     elif mod == "Module 11":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -883,6 +1223,68 @@ elif st.session_state.page == 'modules':
             f_time = st.number_input("Flight Time (hours):", value=3.5)
             st.info(f"Total Fuel Required: **{f_flow * f_time:.2f} kg**")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("✈️ MODULE 11: AEROPLANE SYSTEMS")
+        m11_questions = [
+            {"q": "1. What is the primary function of a slat?", "o": ["Decrease drag", "Increase lift at high AOA", "Speed up air", "Cool wings"], "a": "Increase lift at high AOA", "ex": "Slats delay the stall at low speeds."},
+            {"q": "2. Hydraulic fluid in commercial aircraft is usually?", "o": ["Red mineral oil", "Skydrol (Purple)", "Water", "Engine oil"], "a": "Skydrol (Purple)", "ex": "Skydrol is fire-resistant but corrosive."},
+            {"q": "3. A 'Monocoque' structure carries loads in the?", "o": ["Internal frame", "External skin", "Fuel tanks", "Engines"], "a": "External skin", "ex": "In monocoque, the skin itself carries the stress."},
+            {"q": "4. What is the purpose of an Accumulator in hydraulics?", "o": ["Filter fluid", "Store pressurized fluid", "Cool fluid", "Measure pressure"], "a": "Store pressurized fluid", "ex": "Stores energy and dampens pressure surges."},
+            {"q": "5. Aircraft oxygen systems for passengers typically use?", "o": ["Liquid oxygen", "Chemical oxygen generators", "Scuba tanks", "Air pumps"], "a": "Chemical oxygen generators", "ex": "Commonly found in overhead passenger units."},
+            {"q": "6. What is 'Pressurization' maintained by?", "o": ["Bleed air", "Exhaust gas", "External fans", "Oxygen tanks"], "a": "Bleed air", "ex": "Air is bled from the engine compressor to pressurize the cabin."},
+            {"q": "7. A 'Fail-safe' structure is designed to?", "o": ["Never fail", "Carry loads after a partial failure", "Be very light", "Explode safely"], "a": "Carry loads after a partial failure", "ex": "Uses redundant load paths for safety."},
+            {"q": "8. What is the function of a 'Trim Tab'?", "o": ["Increase speed", "Reduce pilot control pressure", "Open doors", "Lock the engine"], "a": "Reduce pilot control pressure", "ex": "Helps maintain a flight attitude without pilot effort."},
+            {"q": "9. Anti-skid systems work by?", "o": ["Locking wheels", "Modulating brake pressure", "Stopping the engine", "Adding weight"], "a": "Modulating brake pressure", "ex": "Prevents wheels from locking and skidding."},
+            {"q": "10. What is a 'Spars' in a wing?", "o": ["Wing surface", "Main longitudinal member", "The tip", "Fuel pump"], "a": "Main longitudinal member", "ex": "Spars carry the main structural loads of the wing."},
+            {"q": "11. 'Bleed Air' for cabin heating comes from?", "o": ["Combustion chamber", "Engine Compressor", "Turbine", "Exhaust"], "a": "Engine Compressor", "ex": "Compressed air is hot and clean before combustion."},
+            {"q": "12. What is the purpose of a Check Valve?", "o": ["Allow flow in one direction", "Stop all flow", "Increase pressure", "Measure temperature"], "a": "Allow flow in one direction", "ex": "Prevents backflow in systems."},
+            {"q": "13. In a tricycle landing gear, the steering is usually on?", "o": ["Main wheels", "Nose wheel", "Tail wheel", "Wings"], "a": "Nose wheel", "ex": "The nose gear is used for ground steering."},
+            {"q": "14. A 'Vapour Cycle' system is used for?", "o": ["Fueling", "Air conditioning", "De-icing", "Lighting"], "a": "Air conditioning", "ex": "Uses a refrigerant to cool the air."},
+            {"q": "15. Pitot-static systems measure?", "o": ["Fuel level", "Airspeed and Altitude", "Engine RPM", "Tire pressure"], "a": "Airspeed and Altitude", "ex": "Uses air pressure to calculate flight data."},
+            {"q": "16. What is the function of a 'Fuselage'?", "o": ["Hold cargo and passengers", "Create lift", "Burn fuel", "Steer the plane"], "a": "Hold cargo and passengers", "ex": "The main body of the aircraft."},
+            {"q": "17. A 'Servo Tab' moves in the?", "o": ["Same direction as control surface", "Opposite direction to control surface", "Inward", "Outward"], "a": "Opposite direction to control surface", "ex": "Assists in moving large surfaces."},
+            {"q": "18. Ice on the wings causes?", "o": ["More lift", "Increased drag and decreased lift", "Higher speed", "Better fuel economy"], "a": "Increased drag and decreased lift", "ex": "Ice disrupts the smooth airflow over the wing."},
+            {"q": "19. The 'Shimmy Damper' prevents?", "o": ["Fuel leaks", "Nose wheel vibration", "Engine noise", "Tail movement"], "a": "Nose wheel vibration", "ex": "Stops oscillations during taxiing and takeoff."},
+            {"q": "20. What is 'Fly-by-Wire'?", "o": ["Using cables to fly", "Electronic signals control surfaces", "Using a kite", "Old technology"], "a": "Electronic signals control surfaces", "ex": "The pilot's inputs are sent via wires as electrical signals."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m11_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 11 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m11_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m11_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m11_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 11"):
+                st.session_state.m3_submitted = False
+                st.rerun()# (Add sa# (Add 
     # --- MODULE 12 (HELICOPTER AERODYNAMICS, STRUCTURES & SYSTEMS) START ---
     elif mod == "Module 12":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -919,6 +1321,68 @@ elif st.session_state.page == 'modules':
             st.write("Anti-torque must equal the reaction torque of the main rotor to maintain heading.")
             st.info("Tip: Tail rotor thrust is adjusted via the rudder pedals.")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("🚁 MODULE 12: HELICOPTER SYSTEMS")
+        m12_questions = [
+            {"q": "1. What control changes the pitch of all rotor blades equally?", "o": ["Cyclic", "Collective", "Rudder pedals", "Throttle"], "a": "Collective", "ex": "Collective control increases or decreases total lift."},
+            {"q": "2. The 'Cyclic' control is used for?", "o": ["Up/Down movement", "Directional (Forward/Back/Side) movement", "Starting the engine", "Tail rotor speed"], "a": "Directional (Forward/Back/Side) movement", "ex": "Changes the tilt of the rotor disk."},
+            {"q": "3. What is the purpose of the Tail Rotor?", "o": ["To create lift", "To counteract torque", "To cool the cabin", "To increase speed"], "a": "To counteract torque", "ex": "Prevents the helicopter body from spinning in the opposite direction of the main rotor."},
+            {"q": "4. 'Autorotation' is a state where?", "o": ["The engine is at full power", "The rotor is driven by air instead of engine", "The helicopter is upside down", "The tail rotor fails"], "a": "The rotor is driven by air instead of engine", "ex": "Allows for a safe landing during engine failure."},
+            {"q": "5. What is 'Translational Lift'?", "o": ["Lift from a crane", "Extra lift gained when moving forward", "Lift from the tail", "Static lift"], "a": "Extra lift gained when moving forward", "ex": "Increased rotor efficiency as airspeed increases."},
+            {"q": "6. A 'Fully Articulated' rotor head can?", "o": ["Only rotate", "Flap, Drag, and Feather", "Not move at all", "Only feather"], "a": "Flap, Drag, and Feather", "ex": "Allows blades to move in three axes for stability."},
+            {"q": "7. 'Ground Effect' occurs within which height?", "o": ["1000 feet", "One rotor diameter height", "10,000 feet", "5 miles"], "a": "One rotor diameter height", "ex": "Air trapped between the rotor and ground increases lift efficiency."},
+            {"q": "8. What is 'Dissymmetry of Lift'?", "o": ["Weight imbalance", "Advancing blade having more lift than retreating blade", "Broken wings", "Low fuel"], "a": "Advancing blade having more lift than retreating blade", "ex": "Caused by the forward speed of the helicopter added to rotor speed."},
+            {"q": "9. The 'Swash Plate' converts?", "o": ["Fuel to energy", "Pilot inputs to rotor blade pitch", "Electricity to heat", "Sound to vibration"], "a": "Pilot inputs to rotor blade pitch", "ex": "Consists of stationary and rotating parts to transmit control."},
+            {"q": "10. 'Retreating Blade Stall' limits a helicopter's?", "o": ["Altitude", "Maximum forward speed", "Fuel capacity", "Passenger count"], "a": "Maximum forward speed", "ex": "The retreating blade loses lift at high forward speeds."},
+            {"q": "11. What is 'Coriolis Effect' in a rotor?", "o": ["Blade temperature", "Acceleration/Deceleration as blade flaps", "Radio noise", "Wind speed"], "a": "Acceleration/Deceleration as blade flaps", "ex": "Relates to conservation of angular momentum."},
+            {"q": "12. A 'Semirigid' rotor system uses?", "o": ["One blade", "A teetering hinge", "Hydraulic motors", "Fixed blades"], "a": "A teetering hinge", "ex": "Common in two-bladed helicopters like Bell 206."},
+            {"q": "13. The main rotor transmission is used to?", "o": ["Generate electricity", "Reduce engine RPM to rotor RPM", "Pump fuel", "Heat the oil"], "a": "Reduce engine RPM to rotor RPM", "ex": "Engines spin much faster than rotors."},
+            {"q": "14. 'Feathering' a blade means?", "o": ["Cleaning it", "Changing its pitch angle", "Removing it", "Painting it"], "a": "Changing its pitch angle", "ex": "Feathering controls the lift of the blade."},
+            {"q": "15. Tail rotor pedals control?", "o": ["Vertical movement", "Yaw (Heading)", "Pitch", "Engine RPM"], "a": "Yaw (Heading)", "ex": "Pedals change tail rotor pitch to control direction."},
+            {"q": "16. What is a 'Fenestron'?", "o": ["A type of wing", "A shrouded tail rotor", "A fuel tank", "A glass window"], "a": "A shrouded tail rotor", "ex": "Enclosed tail rotor for safety and noise reduction."},
+            {"q": "17. 'Lead-lag' movement is also known as?", "o": ["Flapping", "Hunting/Dragging", "Feathering", "Hovering"], "a": "Hunting/Dragging", "ex": "Movement of the blade in the plane of rotation."},
+            {"q": "18. A 'NOTAR' system uses?", "o": ["Two main rotors", "Air jets instead of tail rotor", "Batteries", "No fuel"], "a": "Air jets instead of tail rotor", "ex": "NO TAil Rotor technology uses air for torque control."},
+            {"q": "19. Helicopter transmissions usually require?", "o": ["Water cooling", "Dedicated oil cooling system", "No lubrication", "Manual greasing"], "a": "Dedicated oil cooling system", "ex": "Transmissions generate significant heat during operation."},
+            {"q": "20. 'Settling with Power' is also called?", "o": ["Hovering", "Vortex Ring State", "Fast landing", "Normal descent"], "a": "Vortex Ring State", "ex": "A dangerous condition where the helicopter sinks into its own downwash."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m12_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 12 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m12_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m12_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m12_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 12"):
+                st.session_state.m3_submitted = False
+                st.rerun()
     # --- MODULE 13 (AIRCRAFT AERODYNAMICS, STRUCTURES & SYSTEMS) START ---
     elif mod == "Module 13":
         st.markdown('<div class="info-panel">', unsafe_allow_html=True)
@@ -954,6 +1418,68 @@ elif st.session_state.page == 'modules':
             curr_a = st.number_input("Total Current Load (A):", value=15.0)
             st.info(f"System Load: **{volt_a * curr_a:.2f} Watts**")
         st.markdown('</div>', unsafe_allow_html=True)
+    
+        st.write("---")
+        st.header("📡 MODULE 13: AIRCRAFT SYSTEMS (AVIONICS)")
+        m13_questions = [
+            {"q": "1. What does EFIS stand for?", "o": ["Electronic Flight Instrument System", "Engine Fuel Indicator System", "Emergency Flight Internal System", "None"], "a": "Electronic Flight Instrument System", "ex": "EFIS uses digital displays instead of mechanical gauges."},
+            {"q": "2. The 'Pitot Tube' measures which type of pressure?", "o": ["Static Pressure", "Total (Pitot) Pressure", "Cabin Pressure", "Fuel Pressure"], "a": "Total (Pitot) Pressure", "ex": "Pitot tubes capture the ram air pressure."},
+            {"q": "3. What is the purpose of an ILS (Instrument Landing System)?", "o": ["To measure fuel", "To provide guidance during landing", "To talk to passengers", "To start the engine"], "a": "To provide guidance during landing", "ex": "ILS provides lateral and vertical guidance to the runway."},
+            {"q": "4. A 'VHF' radio typically operates in which frequency range?", "o": ["3 - 30 kHz", "118 - 137 MHz", "1 - 2 GHz", "None"], "a": "118 - 137 MHz", "ex": "VHF is used for short-range air-to-ground communication."},
+            {"q": "5. What is the function of an FMS (Flight Management System)?", "o": ["Automate flight planning and navigation", "Cool the engine", "Control cabin lights", "Deploy landing gear"], "a": "Automate flight planning and navigation", "ex": "FMS acts as the 'brain' of modern aircraft navigation."},
+            {"q": "6. 'TCAS' is used to prevent?", "o": ["Engine failure", "Mid-air collisions", "Fuel leaks", "Rain"], "a": "Mid-air collisions", "ex": "Traffic Collision Avoidance System alerts pilots to nearby aircraft."},
+            {"q": "7. What does the 'Black Box' (FDR) record?", "o": ["Only pilot voices", "Flight data parameters", "The weather", "Passenger names"], "a": "Flight data parameters", "ex": "Flight Data Recorder stores technical info for accident investigation."},
+            {"q": "8. An 'Altimeter' works based on?", "o": ["Radio waves", "Barometric pressure", "Engine speed", "GPS only"], "a": "Barometric pressure", "ex": "It measures static pressure to determine altitude."},
+            {"q": "9. 'Weather Radar' typically uses which band?", "o": ["X-band", "L-band", "HF-band", "VLF-band"], "a": "X-band", "ex": "X-band is ideal for detecting precipitation (rain/storm)."},
+            {"q": "10. What is 'Fly-by-Wire'?", "o": ["Flying with ropes", "Electrical signals to control actuators", "Old style control", "Flying near power lines"], "a": "Electrical signals to control actuators", "ex": "Replaces mechanical cables with electrical wiring."},
+            {"q": "11. The 'Autopilot' uses which device to sense movement?", "o": ["Thermometers", "Gyroscopes", "Barometers", "Cameras"], "a": "Gyroscopes", "ex": "Gyros sense changes in pitch, roll, and yaw."},
+            {"q": "12. What is the purpose of a Static Wick?", "o": ["To light a fire", "To dissipate static electricity into the air", "To measure wind", "To hold the wing"], "a": "To dissipate static electricity into the air", "ex": "Prevents radio interference by releasing static charge."},
+            {"q": "13. 'DME' (Distance Measuring Equipment) measures?", "o": ["Ground distance", "Slant range distance", "Height", "Weight"], "a": "Slant range distance", "ex": "The direct line-of-sight distance between aircraft and station."},
+            {"q": "14. An 'ADF' (Automatic Direction Finder) points to?", "o": ["The North Pole", "An NDB station", "The Sun", "The Moon"], "a": "An NDB station", "ex": "Non-Directional Beacons are used with ADF for navigation."},
+            {"q": "15. What is 'BITE' in avionics?", "o": ["A type of tooth", "Built-In Test Equipment", "Basic Internal Tool", "None"], "a": "Built-In Test Equipment", "ex": "BITE allows systems to test themselves for faults."},
+            {"q": "16. 'VOR' is used for?", "o": ["Communication", "Short-range navigation", "Landing in fog", "Measuring oil"], "a": "Short-range navigation", "ex": "VHF Omnidirectional Range provides bearing info."},
+            {"q": "17. A 'Transponder' sends info to?", "o": ["The Pilot", "Air Traffic Control (ATC) Radar", "The Engine", "Other passengers"], "a": "Air Traffic Control (ATC) Radar", "ex": "Provides identification and altitude to controllers."},
+            {"q": "18. 'LRU' stands for?", "o": ["Long Range Unit", "Line Replaceable Unit", "Light Radio Unit", "None"], "a": "Line Replaceable Unit", "ex": "Modular components that can be quickly replaced on the flight line."},
+            {"q": "19. Fiber optic cables use _____ to transmit data?", "o": ["Electricity", "Light", "Sound", "Water"], "a": "Light", "ex": "Light signals allow for high-speed, interference-free data."},
+            {"q": "20. The primary purpose of a 'Radome' is?", "o": ["Aerodynamic protection for radar", "Holding fuel", "Passenger window", "Baggage door"], "a": "Aerodynamic protection for radar", "ex": "The nose cone made of material that allows radar waves to pass."}
+        ]
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m13_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 13 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m13_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m13_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m13_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 13"):
+                st.session_state.m3_submitted = False
+                st.rerun()
     
     # --- MODULE 14 (PROPULSION) START ---
     elif mod == "Module 14":
@@ -994,6 +1520,69 @@ elif st.session_state.page == 'modules':
             c_temp = st.number_input("Exhaust Gas Temp (°C):", value=600.0)
             st.info(f"Fahrenheit: **{(c_temp * 9/5) + 32:.1f} °F**")
         st.markdown('</div>', unsafe_allow_html=True)
+
+        st.write("---")
+        st.header("🚀 MODULE 14: PROPULSION (GAS TURBINE ENGINES)")
+        m14_questions = [
+            {"q": "1. What is the correct order of the Brayton Cycle?", "o": ["Intake, Compression, Combustion, Exhaust", "Intake, Exhaust, Compression, Combustion", "Compression, Intake, Exhaust, Combustion", "None"], "a": "Intake, Compression, Combustion, Exhaust", "ex": "Also known as Suck, Squeeze, Bang, Blow."},
+            {"q": "2. A 'Turbojet' engine produces thrust by?", "o": ["A large fan", "High-velocity exhaust gases", "Propellers", "Pushing the ground"], "a": "High-velocity exhaust gases", "ex": "All thrust comes from the exhaust jet."},
+            {"q": "3. The 'Compressor' in a jet engine increases air?", "o": ["Volume", "Velocity", "Pressure", "Humidity"], "a": "Pressure", "ex": "Compressors squeeze the air before combustion."},
+            {"q": "4. What is the purpose of the 'Turbine'?", "o": ["Create thrust", "Drive the compressor", "Cool the air", "Filter fuel"], "a": "Drive the compressor", "ex": "The turbine extracts energy from hot gases to turn the compressor shaft."},
+            {"q": "5. In a 'High Bypass' Turbofan, most thrust comes from?", "o": ["The core exhaust", "The bypass fan", "The combustion chamber", "The tailpipe"], "a": "The bypass fan", "ex": "Bypass air provides 75-80% of the thrust in modern engines."},
+            {"q": "6. 'Newton's Third Law' states that every action has?", "o": ["No reaction", "An equal and opposite reaction", "A small reaction", "Heat"], "a": "An equal and opposite reaction", "ex": "The basis of jet propulsion."},
+            {"q": "7. What is the function of the 'Stators' in a compressor?", "o": ["To spin fast", "To redirect air and increase pressure", "To burn fuel", "To stop the engine"], "a": "To redirect air and increase pressure", "ex": "Stators convert kinetic energy into pressure energy."},
+            {"q": "8. 'Secondary Air' in a combustion chamber is used for?", "o": ["Burning fuel", "Cooling the liner", "Increasing speed", "Starting the fire"], "a": "Cooling the liner", "ex": "Protects the metal parts from melting."},
+            {"q": "9. A 'Centrifugal Compressor' uses _____ to increase pressure?", "o": ["Pistons", "Centrifugal force", "Magnets", "Water"], "a": "Centrifugal force", "ex": "Air is slung outward to increase pressure."},
+            {"q": "10. What is 'Surge' in an engine?", "o": ["High power", "Complete breakdown of airflow through the compressor", "Extra fuel", "A smooth landing"], "a": "Complete breakdown of airflow through the compressor", "ex": "A dangerous reversal of airflow."},
+            {"q": "11. 'EGT' stands for?", "o": ["Engine Gas Temperature", "Exhaust Gas Temperature", "External Gear Torque", "None"], "a": "Exhaust Gas Temperature", "ex": "Critical parameter for engine health monitoring."},
+            {"q": "12. What fuel is most common for jet engines?", "o": ["Avgas 100LL", "Jet A-1 (Kerosene based)", "Diesel", "Nitrogen"], "a": "Jet A-1 (Kerosene based)", "ex": "Kerosene has high energy density and safety features."},
+            {"q": "13. An 'Afterburner' increases thrust by?", "o": ["More compression", "Injecting fuel into the exhaust", "Reducing weight", "Slowing down"], "a": "Injecting fuel into the exhaust", "ex": "Adds extra energy to the exhaust gas for supersonic flight."},
+            {"q": "14. The 'Diffuser' section does what?", "o": ["Speeds up air", "Decreases velocity and increases pressure", "Burns fuel", "Rotates the shaft"], "a": "Decreases velocity and increases pressure", "ex": "Prepares air for the combustion chamber."},
+            {"q": "15. What is 'Bypass Ratio'?", "o": ["Fuel to air ratio", "Ratio of bypass air to core air", "Speed to weight ratio", "None"], "a": "Ratio of bypass air to core air", "ex": "High bypass means more air goes around the core."},
+            {"q": "16. 'Thrust Reversers' are used for?", "o": ["Going backward in air", "Assisting braking during landing", "Starting the engine", "Increasing altitude"], "a": "Assisting braking during landing", "ex": "Redirects thrust forward to slow the aircraft down."},
+            {"q": "17. A 'Turboprop' engine drives a?", "o": ["Fan", "Propeller", "Wheels", "Pump"], "a": "Propeller", "ex": "Turbine energy is used to turn a propeller via a gearbox."},
+            {"q": "18. What is the purpose of 'Igniters'?", "o": ["To stay on forever", "To start the combustion process", "To clean the engine", "To measure heat"], "a": "To start the combustion process", "ex": "Similar to spark plugs, used during start-up or heavy rain."},
+            {"q": "19. 'N1' usually refers to?", "o": ["Core speed", "Low-pressure compressor/Fan speed", "Oil pressure", "Fuel flow"], "a": "Low-pressure compressor/Fan speed", "ex": "A primary thrust indicator on many engines."},
+            {"q": "20. Engine 'Oil' is used for?", "o": ["Combustion", "Lubrication and Cooling", "Weight", "Cleaning windows"], "a": "Lubrication and Cooling", "ex": "Protects high-speed bearings from heat and friction."}
+        ]
+        
+        if 'm3_submitted' not in st.session_state:
+            st.session_state.m3_submitted = False
+            st.session_state.m3_score = 0
+
+        user_ans_m3 = []
+        for i, item in enumerate(m14_questions):
+            st.markdown(f"**Q{i+1}: {item['q']}**")
+            ans = st.radio(f"Select answer for Q{i+1}:", item['o'], key=f"m3_q{i}", index=None)
+            user_ans_m3.append(ans)
+
+        if st.button("🚀 SUBMIT MODULE 14 EXAM"):
+            st.session_state.m3_submitted = True
+            st.session_state.m3_score = sum(1 for i, item in enumerate(m14_questions) if user_ans_m3[i] == item['a'])
+            st.rerun()
+
+        if st.session_state.m3_submitted:
+            st.write("---")
+            perc = (st.session_state.m3_score / len(m14_questions)) * 100
+            if perc >= 75:
+                st.balloons()
+                st.success(f"🎊 PASS! Score: {st.session_state.m3_score}/20 ({perc}%)")
+            else:
+                st.error(f"❌ FAIL. Score: {st.session_state.m3_score}/20 ({perc}%). Pass is 75%.")
+
+            with st.expander("🔍 Review Corrections"):
+                for i, item in enumerate(m14_questions):
+                    is_correct = (user_ans_m3[i] == item['a'])
+                    if is_correct:
+                        st.write(f"Q{i+1}: Correct ✅")
+                    else:
+                        correct_val = item['a']
+                        st.write(f"Q{i+1}: Incorrect ❌ (Correct: {correct_val})")
+                        st.caption(f"Reason: {item['ex']}")
+
+            if st.button("🔄 RETAKE MODULE 14"):
+                st.session_state.m3_submitted = False
+                st.rerun()
 
         # --- ADDING ENDING FACTS HERE ---
         st.write("---")
